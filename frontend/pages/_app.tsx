@@ -11,8 +11,15 @@ const poppins = Poppins({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
+    <>
+    {/* <style jsx global>{`
+        html {
+          font-family: ${poppins.style.fontFamily};
+        }
+      `}</style> */}
     <Container className={poppins.className}>
-      <Component {...pageProps} />
+      <Component  className={poppins.className} {...pageProps} />
     </Container>
+    </>
   );
 }
