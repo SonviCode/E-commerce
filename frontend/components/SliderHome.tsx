@@ -118,17 +118,16 @@ const SliderHome = () => {
               <span>
                 <>
                   {starInArray(ArrayAvg(el.star)).map((nb, i) => (
-                    <>
-                      <i
-                        className={`${
-                          nb == 1
-                            ? `fa-solid fa-star text-yellow-300`
-                            : nb == 5
-                            ? `fa-solid fa-star-half-stroke text-yellow-300`
-                            : `fa-solid fa-star text-gray-200`
-                        }`}
-                      ></i>
-                    </>
+                    <i
+                      key={i}
+                      className={`${
+                        nb == 1
+                          ? `fa-solid fa-star text-yellow-300`
+                          : nb == 5
+                          ? `fa-solid fa-star-half-stroke text-yellow-300`
+                          : `fa-solid fa-star text-gray-200`
+                      }`}
+                    ></i>
                   ))}
                 </>
               </span>

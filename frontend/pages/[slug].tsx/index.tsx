@@ -1,8 +1,5 @@
 import Head from "next/head";
-import BgHome from "../components/BgHome";
-import ImageHome from "../components/ImageHome";
-import SliderHome from "../components/SliderHome";
-import { COMPANY_NAME } from "../constants/Constants";
+import { COMPANY_NAME } from "../../constants/Constants"
 
 export default function Home() {
   return (
@@ -10,7 +7,7 @@ export default function Home() {
       <Head>
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>{COMPANY_NAME}</title>
+        <title>{ COMPANY_NAME } - Panier</title>
         <link rel="icon" href="logo.png" />
         <link
           rel="stylesheet"
@@ -24,10 +21,8 @@ export default function Home() {
           content="Outdoor shop : E-commerce crée par Tom Sonvico (@SonviCode) avec Next.Js - Typescript - Tailwind CSS - MongoDB - Node.Js - Express."
         />
       </Head>
-      <main className="text-3xl">
-        <BgHome />
-        <ImageHome />
-        <SliderHome />
+      <main className="text-3xl min-h-screen">
+        <h1>test</h1>
       </main>
     </>
   );

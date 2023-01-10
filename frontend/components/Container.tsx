@@ -7,7 +7,7 @@ const Container = (props: any) => {
     <>
       <Nav />
       {props.children}
-      <Footer/>
+      <Footer />
     </>
   );
 };

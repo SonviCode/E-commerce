@@ -1,0 +1,11 @@
+/* THIS CSS IS SO THAT THE FOOTER DISPLAY IS ALWAYS AT THE BOTTOM */
+#__next {
+  display: flex;
+  flex-direction: column;
+}
+
+html,
+body,
+#__next {
+  height: 100%;
+}
