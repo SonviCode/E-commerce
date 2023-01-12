@@ -6,7 +6,7 @@ import { COMPANY_NAME } from "../constants/Constants";
 
 const Footer = () => {
   return (
-    <footer className="w-full bg-gray-200 p-5 flex flex-col gap-10">
+    <footer className="w-full bg-gray-100 p-5 flex flex-col gap-10">
       <div className="flex pl-10 md:justify-around  gap-y-10 gap-x-20 flex-wrap max-w-7xl xl:mx-auto">
         <div>
           <Link href="/">
@@ -59,7 +59,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="flex justify-center gap-5 text-3xl">
+      {/* <div className="flex justify-center gap-5 text-3xl">
         <a href="https://www.linkedin.com/in/tom-sonvico/" target="blank">
           <i className="fa-brands fa-linkedin"></i>
         </a>
@@ -69,7 +69,7 @@ const Footer = () => {
         <a href="https://twitter.com/SonviCode" target="blank">
           <i className="fa-brands fa-twitter"></i>
         </a>
-      </div>
+      </div> */}
       <p className="text-xs text-center">
         Copyright © {new Date().getFullYear()} SonviCode. All rights reserved.
         Any unauthorized reproduction, modification, distribution or use of this

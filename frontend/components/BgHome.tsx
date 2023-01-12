@@ -3,6 +3,7 @@ import React from "react";
 import bg from "../public/bg.jpg";
 import logo from "../public/logo.png";
 import { COMPANY_NAME } from "../constants/Constants";
+import Link from "next/link";
 
 const BgHome = () => {
   return (
@@ -21,8 +22,8 @@ const BgHome = () => {
         </div>
 
         <div className="flex w-max gap-20 absolute bottom-10 -translate-x-1/2 left-1/2">
-          <button className="bg-white rounded-md px-2 py-1">Homme</button>
-          <button className="bg-white rounded-md px-2 py-1">Femme</button>
+          <Link href="/achat/homme" className="bg-white rounded-md px-2 py-1">Homme</Link>
+          <Link href="/achat/femme" className="bg-white rounded-md px-2 py-1">Femme</Link>
         </div>
       </div>
       <Image

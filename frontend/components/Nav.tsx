@@ -15,7 +15,7 @@ const Nav = () => {
 
   return (
     <header>
-      <nav className="px-[5%] py-5 fixed z-10 w-full bg-white top-0 z-40">
+      <nav className="px-[5%] py-5 fixed z-10 w-full bg-white top-0 z-40 shadow-md">
         <div className="max-w-7xl flex justify-between items-center mx-auto">
           <Aside toggleAside={toggleAside} setToggleAside={setToggleAside} />
           <div className="flex items-center gap-5">

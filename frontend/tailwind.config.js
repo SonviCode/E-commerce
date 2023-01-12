@@ -21,6 +21,9 @@ module.exports = {
         mdTitle: "clamp(25px, 7vw, 45px)",
         smTitle: "clamp(12px, 4vw, 30px)",
       },
+      colors: {
+        blue: "#ea580c"
+      }
     },
   },
   plugins: [],

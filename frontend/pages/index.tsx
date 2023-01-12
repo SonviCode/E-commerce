@@ -21,7 +21,7 @@ export default function Home() {
         />
         <meta
           name="description"
-          content="Outdoor shop : E-commerce crée par Tom Sonvico (@SonviCode) avec Next.Js - Typescript - Tailwind CSS - MongoDB - Node.Js - Express."
+          content="Montagne Addicte : E-commerce crée par Tom Sonvico (@SonviCode) avec Next.Js - Typescript - Tailwind CSS - MongoDB - Node.Js - Express."
         />
       </Head>
       <main className="text-3xl">
