@@ -24,7 +24,7 @@ export default function Error404() {
           content="Montagne Addicte : E-commerce crée par Tom Sonvico (@SonviCode) avec Next.Js - Typescript - Tailwind CSS - MongoDB - Node.Js - Express."
         />
       </Head>
-      <main className="text-3xl flex justify-center items-center grow min-h-[500px]">
+      <div className="text-3xl flex justify-center items-center min-h-[500px]">
         <div className="">
           <Image src={logo} width={250} height={250} alt="logo" />
           <h1>Page introuvable</h1>
@@ -35,7 +35,7 @@ export default function Error404() {
             Accueil
           </Link>
         </div>
-      </main>
+      </div>
     </>
   );
 }

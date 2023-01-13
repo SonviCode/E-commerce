@@ -25,8 +25,8 @@ const dataImg = [
 
 const ImageHome = () => {
   return (
-    <div className="px-5 max-w-7xl mx-auto">
-      <h2 className="uppercase after:block after:absolute after:w-40 after:h-1 after:bg-red-500 after:rounded-md pl-[5%] mt-20">
+    <div className=" max-w-7xl mx-auto">
+      <h2 className="uppercase after:block after:absolute after:w-40 after:h-1 after:bg-main after:rounded-md pl-[5%] mt-20 text-3xl">
         L'essentiel
       </h2>
       <div className="flex flex-wrap lg:flex-nowrap p-5 gap-5  ">

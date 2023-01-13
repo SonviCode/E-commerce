@@ -3,8 +3,8 @@ import Aside from "./Aside";
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import logo from "../public/logo.png";
-import { COMPANY_NAME } from "../constants/Constants";
+import logo from "../../public/logo.png";
+import { COMPANY_NAME } from "../../constants/Constants";
 
 const Nav = () => {
   const [toggleAside, setToggleAside] = useState(false);
@@ -56,11 +56,13 @@ const Nav = () => {
             <span className="bg-gray-300 w-11 h-7 rounded-full flex items-center after:bg-white after:w-5 after:h-5 after:rounded-full p-1 peer-checked:bg-white peer-checked:after:bg-gray-300 peer-checked:after:translate-x-4 ease-in-out duration-300 after:duration-300 "></span>
           </form> */}
             <Link href="/favoris">
-              <i className="fa-regular fa-heart cursor-pointer"></i>
+              <i className="fa-regular fa-heart"></i>
             </Link>
-            <i className="fa-regular fa-user cursor-pointer"></i>
+            <Link href="/account">
+            <i className="fa-regular fa-user"></i>
+            </Link>
             <Link href="/panier">
-              <i className="fa-solid fa-cart-shopping cursor-pointer"></i>
+              <i className="fa-solid fa-cart-shopping "></i>
             </Link>
           </div>
         </div>

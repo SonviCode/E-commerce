@@ -1,7 +1,8 @@
 import Head from "next/head";
-import Favoris from "../../components/checkout/Favoris";
-import SliderHome from "../../components/SliderHome";
-
+import ConnectModal from "../../components/account/ConnectModal";
+import Indicator from "../../components/checkout/Indicator";
+import ReviewCheckout from "../../components/checkout/ReviewCheckout";
+import Summary from "../../components/checkout/Summary";
 import { COMPANY_NAME } from "../../constants/Constants";
 
 export default function Home() {
@@ -10,7 +11,7 @@ export default function Home() {
       <Head>
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>{COMPANY_NAME} - Favoris</title>
+        <title>{COMPANY_NAME} - Compte</title>
         <link rel="icon" href="logo.png" />
         <link
           rel="stylesheet"
@@ -25,12 +26,8 @@ export default function Home() {
         />
       </Head>
 
-      <div className="py-10 flex flex-col gap-20">
-        <Favoris />
-        <div className="border-2 rounded-md px-5 py-10 overflow-hidden">
-          <h2 className="text-2xl font-bold mb-5">Historique</h2>
-          <SliderHome />
-        </div>
+      <div className="relative h-full flex justify-center items-center py-10">
+        <ConnectModal />
       </div>
     </>
   );

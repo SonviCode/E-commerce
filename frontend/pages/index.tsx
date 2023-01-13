@@ -1,6 +1,6 @@
 import Head from "next/head";
-import BgHome from "../components/BgHome";
-import ImageHome from "../components/ImageHome";
+import BgHome from "../components/home/BgHome";
+import ImageHome from "../components/home/ImageHome";
 import SliderHome from "../components/SliderHome";
 import { COMPANY_NAME } from "../constants/Constants";
 
@@ -24,11 +24,15 @@ export default function Home() {
           content="Montagne Addicte : E-commerce crée par Tom Sonvico (@SonviCode) avec Next.Js - Typescript - Tailwind CSS - MongoDB - Node.Js - Express."
         />
       </Head>
-      <main className="text-3xl">
-        <BgHome />
-        <ImageHome />
+
+      <BgHome />
+      <ImageHome />
+      <div className="px-5 mt-20 mb-20 max-w-7xl mx-auto">
+        <h2 className="uppercase after:block after:absolute after:w-40 after:h-1 after:bg-main after:rounded-md pl-[5%] text-3xl">
+          Les dernières nouveautés
+        </h2>
         <SliderHome />
-      </main>
+      </div>
     </>
   );
 }

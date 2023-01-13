@@ -1,7 +1,12 @@
 import React from "react";
 
+interface Indicator {
+  actif: boolean;
+  name: string;
+}
+
 const Indicator = () => {
-  const numberIndicator = [
+  const numberIndicator: Indicator[] = [
     {
       actif: true,
       name: "Panier",
@@ -29,7 +34,7 @@ const Indicator = () => {
             <div key={i} className="flex  flex-col items-center">
               <div
                 className={`rounded-full  w-10 h-10 flex justify-center items-center text-white ${
-                  el.actif == true ? `bg-blue` : `bg-gray-300`
+                  el.actif == true ? `bg-main` : `bg-gray-300`
                 }`}
               >
                 {i + 1}

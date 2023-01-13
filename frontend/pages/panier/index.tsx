@@ -24,17 +24,16 @@ export default function Home() {
           content="Montagne Addicte : E-commerce crée par Tom Sonvico (@SonviCode) avec Next.Js - Typescript - Tailwind CSS - MongoDB - Node.Js - Express."
         />
       </Head>
-      <main className="grow pt-24 px-5">
-        <Indicator />
-        <div className="flex pt-5 gap-10">
-          <div className="grow">
-            <ReviewCheckout />
-          </div>
-          <div className="min-w-[285px] w-1/4">
-            <Summary />
-          </div>
+
+      <Indicator />
+      <div className="flex pt-5 pb-10 gap-10 ">
+        <div className="grow flex flex-col gap-10 overflow-hidden">
+          <ReviewCheckout />
         </div>
-      </main>
+        <div className="min-w-[285px] w-1/4">
+          <Summary />
+        </div>
+      </div>
     </>
   );
 }
