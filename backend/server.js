@@ -1,14 +1,14 @@
-const express = require("express");
-const port = 5000;
+const http = require("http");
+const app = require("./app");
 
-const app = express();
+// if (process.env.NODE_ENV === "development") {
+//   dotenv.config();
+// }
 
+const port = process.env.PORT || 5000;
 
+app.set("port", port);
 
-app.use(express.json());
+const server = http.createServer(app);
 
-app.get("/post", (req, res) => {
-  res.json({ message: "voici les datas" });
-});
-
-app.listen(port, () => console.log("Server start at port" + port));
+server.listen(port, () => console.log("Server start at port" + port));

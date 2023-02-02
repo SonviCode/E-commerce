@@ -21,7 +21,7 @@ const Summary = () => {
           <hr />
           <div className="flex justify-between items-center">
             <span>Livraison</span>
-            <span className="text-xs">Calculé à l'étape suivante</span>
+            <span className="text-xs text-right">Calculé à l'étape suivante</span>
           </div>
           <hr />
           <div className="flex justify-between items-center">
