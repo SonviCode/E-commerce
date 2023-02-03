@@ -1,11 +1,11 @@
 const UserModel = require("../models/User");
 
-exports.signup = (req, res, next) => {
+exports.signup =  (req, res, next) => {
   // const newUser = JSON.parse(req.body.data);
 
-  console.log(req.body.password);
-  console.log(req.body.email);
-  console.log(req.body);
+  // console.log(req.body.password);
+  // console.log(req.body.email);
+  // console.log(req.body);
 
   // console.log(newUser);
 
@@ -20,10 +20,9 @@ exports.signup = (req, res, next) => {
   });
   newUser
     .save()
-    .then(() =>
-      res.status(201).json({ userId: newUser._id, name: newUser.name })
-    )
+    .then(() => res.status(201).json(newUser))
     .catch((error) => res.status(400).json({ error }));
+  console.log(newUser);
 };
 
 exports.login = (req, res, next) => {};
