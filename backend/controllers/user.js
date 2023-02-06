@@ -1,14 +1,6 @@
 const UserModel = require("../models/User");
 
 exports.signup =  (req, res, next) => {
-  // const newUser = JSON.parse(req.body.data);
-
-  // console.log(req.body.password);
-  // console.log(req.body.email);
-  // console.log(req.body);
-
-  // console.log(newUser);
-
   const newUser = new UserModel({
     ...req.body,
     // name: req.body.name,

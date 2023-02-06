@@ -87,7 +87,7 @@ const SliderHome = () => {
   return (
     <div className="flex py-5 gap-5  overflow-hidden">
       {dataImg.map((el, index) => (
-        <div key={index} className="min-w-[220px] cursor-pointer">
+        <div key={index} onClick={() => } className="min-w-[220px] cursor-pointer">
           <div className="relative overflow-hidden group w-fit mx-auto rounded-md bg-gray-200 ">
             <i
               onClick={() => toggleHeart(el)}

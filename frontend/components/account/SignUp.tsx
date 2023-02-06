@@ -1,5 +1,5 @@
-import React from "react";
-import axios from "axios";
+import React, { useRef } from "react";
+import axios, { GenericHTMLFormElement } from "axios";
 
 const dataFormSignUp: {
   id: string;
@@ -17,12 +17,12 @@ const dataFormSignUp: {
     type: "text",
   },
   {
-    id: "prenom",
+    id: "firstname",
     name: "prénom",
     type: "text",
   },
   {
-    id: "nom",
+    id: "name",
     name: "nom",
     type: "text",
   },
@@ -39,18 +39,37 @@ const dataFormSignUp: {
 ];
 
 const SignUp = () => {
+  const formRef = useRef<HTMLFormElement | null>(null);
+
   const onSubmit = (e: any) => {
     e.preventDefault();
     const email: String = e.target.elements.email.value;
     const password: String = e.target.elements.password.value;
-    console.log(email, password);
+    const name: String = e.target.elements.name.value;
+    const firstname: String = e.target.elements.firstname.value;
+    const birthday: Date = e.target.elements.date.value;
+    const phonenumber: number = e.target.elements.number.value;
 
-    axios.post("http://localhost:5000/api/auth/signup", 
-    );
+    axios.post("http://localhost:5000/api/auth/signup", {
+      email,
+      password,
+      name,
+      firstname,
+      birthday,
+      phonenumber,
+    });
+
+    if (formRef.current != null) {
+      formRef.current.reset();
+    }
   };
 
   return (
-    <form onSubmit={(e) => onSubmit(e)} className="flex flex-col gap-5 py-10">
+    <form
+      ref={formRef}
+      onSubmit={(e) => onSubmit(e)}
+      className="flex flex-col gap-5 py-10"
+    >
       {dataFormSignUp.map((el, index) => (
         <div key={index}>
           <label htmlFor={el.id} className="first-letter:font-bold">
