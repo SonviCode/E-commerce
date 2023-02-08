@@ -3,61 +3,10 @@ import Link from "next/link";
 import React from "react";
 import { ArrayAvg, starInArray, toggleHeart } from "../utils/productUtils";
 
-const dataImg = [
-  {
-    name: "Veste Lafuma black",
-    url: "/veste.png",
-    width: 800,
-    height: 800,
-    like: false,
-    price: 99,
-    categorie: "clothes",
-    type: "veste",
-    smallDescription: "Doudoune mi-saison",
-    star: [4],
-  },
-  {
-    name: "Polaire Millet bleu",
-    url: "/polaire.png",
-    width: 800,
-    height: 800,
-    like: false,
-    price: 150,
-    categorie: "clothes",
-    type: "veste",
-    smallDescription: "Polaire toute saison",
-    star: [5, 4, 3, 5, 4, 3, 5],
-  },
-  {
-    name: "Polaire Decat bleu",
-    url: "/polaireF.png",
-    width: 800,
-    height: 800,
-    like: false,
-    price: 20,
-    categorie: "clothes",
-    type: "polaire",
-    smallDescription: "Polaire pas cher",
-    star: [2, 3, 4, 5, 4],
-  },
-  {
-    name: "Veste rose hiver",
-    url: "/vesteF.png",
-    width: 800,
-    height: 800,
-    like: false,
-    price: 99,
-    categorie: "clothes",
-    type: "veste",
-    smallDescription: "Veste d'hiver bien chaude",
-    star: [5, 3, 4, 1, 5, 5],
-  },
-];
-
-const SliderHome = () => {
+const SliderHome = ({ products }: any) => {
   return (
     <div className="flex py-5 gap-5  overflow-hidden">
-      {dataImg.map((el, index) => (
+      {products.map((el: any, index: any) => (
         <Link
           href={`/product/${el.name}`}
           key={index}
@@ -74,8 +23,8 @@ const SliderHome = () => {
             ></i>
             <Image
               src={el.url}
-              width={el.width}
-              height={el.height}
+              width="800"
+              height="800"
               alt={el.name}
               className="group-hover:scale-75 duration-300 ease  object-center rounded-md p-10"
             />
@@ -105,7 +54,7 @@ const SliderHome = () => {
             <span>({el.star.length})</span>
           </div>
           <button className="rounded-md text-xs border-solid border-gray-600 border-2 py-1 px-2 hover:bg-main hover:border-main hover:text-white duration-300 ease-in hover:scale-90">
-            Ajouter au panier
+            En savoir plus
           </button>
         </Link>
       ))}

@@ -1,36 +1,17 @@
 /* eslint-disable react/no-unescaped-entities */
 import Image from "next/image";
 import React from "react";
+import { imgHomeData } from "../../types/home";
 
-const dataImg = [
-  {
-    name: "Chausssures",
-    url: "/shoes.jpg",
-    width: 800,
-    height: 800,
-  },
-  {
-    name: "Habits",
-    url: "/clothes.jpg",
-    width: 800,
-    height: 800,
-  },
-  {
-    name: "Accessoires",
-    url: "/items.jpg",
-    width: 800,
-    height: 800,
-  },
-];
+const ImageHome = ({imgHomeData}: any) => {
 
-const ImageHome = () => {
   return (
     <div className=" max-w-7xl mx-auto">
       <h2 className="uppercase after:block after:absolute after:w-40 after:h-1 after:bg-main after:rounded-md pl-[5%] mt-20 text-3xl">
         L'essentiel
       </h2>
       <div className="flex flex-wrap lg:flex-nowrap p-5 gap-5  ">
-        {dataImg.map((el, index) => (
+        {imgHomeData.map((el: any, index: React.Key | null | undefined) => (
           <div
             className="relative overflow-hidden group cursor-pointer w-fit mx-auto rounded-md"
             key={index}

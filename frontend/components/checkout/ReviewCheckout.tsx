@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import Link from "next/link";
 import React from "react";
-import SliderHome from "../SliderHome";
+import SliderHome from "../SliderHome2";
 import Favoris from "./Favoris";
 
 const ReviewCheckout = () => {
