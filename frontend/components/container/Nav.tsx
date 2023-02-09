@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Aside from "./Aside";
-import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import logo from "../../public/logo.png";
@@ -8,6 +7,27 @@ import { COMPANY_NAME } from "../../constants/Constants";
 
 const Nav = () => {
   const [toggleAside, setToggleAside] = useState(false);
+  const [toggleResponsive, setToggleResponsive] = useState(true);
+  useEffect(() => {
+    if (window.innerWidth >= 1024) {
+      setToggleResponsive(true);
+    } else {
+      setToggleResponsive(false);
+    }
+
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setToggleResponsive(true);
+      } else {
+        setToggleResponsive(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const openAside = () => {
     setToggleAside(true);
@@ -16,7 +36,7 @@ const Nav = () => {
   return (
     <header>
       <nav className="px-[5%] py-5 fixed z-10 w-full bg-white top-0 z-40 shadow-md">
-        <div className="max-w-7xl flex justify-between items-center mx-auto">
+        <div className="max-w-7xl flex justify-between items-center mx-auto gap-10">
           <Aside toggleAside={toggleAside} setToggleAside={setToggleAside} />
           <div className="flex items-center gap-5">
             <i
@@ -29,15 +49,20 @@ const Nav = () => {
                 <h1 className="hidden md:block">{COMPANY_NAME}</h1>
               </div>
             </Link>
-          </div>
-          <div className="flex ">
-            <form className="hidden sm:flex bg-gray-100 py-2 px-4 rounded-md ">
-              {/* <p className="bg-white py-1 px-2 flex items-center gap-2 rounded-md">
+            {toggleResponsive ? (
+              <Link
+                href="/category/"
+                className="py-1 px-2 flex items-center gap-2 rounded-md"
+              >
                 Catégories
                 <i className="fa-solid fa-chevron-down"></i>
-              </p> */}
+              </Link>
+            ) : null}
+          </div>
+          <div className="flex flex-1">
+            <form className="hidden sm:flex bg-gray-100 py-2 px-4 rounded-md w-full">
               <input
-                className="pl-5 bg-gray-100  outline-none"
+                className="w-full bg-gray-100  outline-none"
                 type="text"
                 placeholder="Rechercher"
               />
@@ -59,10 +84,12 @@ const Nav = () => {
               <i className="fa-regular fa-heart"></i>
             </Link>
             <Link href="/account">
-            <i className="fa-regular fa-user"></i>
+              <i className="fa-regular fa-user  lg:mr-2"></i>
+              {toggleResponsive ? "Compte" : null}
             </Link>
             <Link href="/panier">
-              <i className="fa-solid fa-cart-shopping "></i>
+              <i className="fa-solid fa-cart-shopping lg:mr-2"></i>
+              {toggleResponsive ? "Panier" : null}
             </Link>
           </div>
         </div>

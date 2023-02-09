@@ -1,10 +1,13 @@
 /* eslint-disable react/no-unescaped-entities */
 import Link from "next/link";
 import React from "react";
-import SliderHome from "../SliderHome2";
+import SliderHome from "../SliderHome";
 import Favoris from "./Favoris";
 
 const ReviewCheckout = () => {
+
+ 
+
   return (
     <>
       <div className="border-2 rounded-md p-5 min-h-[424.22px] relative">

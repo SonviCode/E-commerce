@@ -3,12 +3,10 @@ import Head from "next/head";
 import BgHome from "../components/home/BgHome";
 import ImageHome from "../components/home/ImageHome";
 import SliderHome from "../components/SliderHome";
-import SliderHome2 from "../components/SliderHome2";
 import { COMPANY_NAME } from "../constants/Constants";
 import { imgHomeData } from "../types/home";
 
 export default function Home({
-  products,
   imgHomeData,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
@@ -37,7 +35,6 @@ export default function Home({
         <h2 className="uppercase after:block after:absolute after:w-40 after:h-1 after:bg-main after:rounded-md pl-[5%] text-3xl">
           Les dernières nouveautés
         </h2>
-        <SliderHome2 products={products} />
         <SliderHome />
       </div>
     </>
@@ -45,18 +42,13 @@ export default function Home({
 }
 
 export const getStaticProps: GetStaticProps<{
-  products: any;
-  imgHomeData: any;
+  imgHomeData: imgHomeData;
 }> = async () => {
-  const res = await fetch("http://localhost:5000/api/product");
-  const products = await res.json();
-
   const resNext = await fetch("http://localhost:3000/api/imgHome");
   const imgHomeData = await resNext.json();
 
   return {
     props: {
-      products,
       imgHomeData,
     },
   };

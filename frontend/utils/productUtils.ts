@@ -1,3 +1,5 @@
+import { productsData, productsItem } from "../types/product";
+
 export const ArrayAvg = (myArray: number[]) => {
   let i = 0,
     summ = 0;
@@ -25,6 +27,20 @@ export const starInArray = (nb: number) => {
   return avgStar;
 };
 
-export const toggleHeart = (el: any) => {
+export const toggleHeart = (el: productsItem) => {
   el.like = !el.like;
+};
+
+export const capitalize = (s: string | string[] | undefined) =>
+  s && s[0].toUpperCase() + s.slice(1);
+
+export const handleDate = (dateFromDb: string) => {
+  const date = new Date(dateFromDb);
+  const formattedDate = date.toLocaleDateString("fr-FR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+
+  return formattedDate;
 };

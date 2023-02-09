@@ -8,19 +8,19 @@ export default function handler(
 ) {
   res.status(200).json([
     {
-      name: "Chausssures",
+      name: "chausssures",
       url: "/shoes.jpg",
       width: 800,
       height: 800,
     },
     {
-      name: "Habits",
+      name: "habits",
       url: "/clothes.jpg",
       width: 800,
       height: 800,
     },
     {
-      name: "Accessoires",
+      name: "accessoires",
       url: "/items.jpg",
       width: 800,
       height: 800,

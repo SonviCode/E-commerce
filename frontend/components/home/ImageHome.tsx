@@ -1,18 +1,19 @@
 /* eslint-disable react/no-unescaped-entities */
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
-import { imgHomeData } from "../../types/home";
+import { imgHomeData, imgHomeItem } from "../../types/home";
 
-const ImageHome = ({imgHomeData}: any) => {
-
+const ImageHome = ({ imgHomeData }: { imgHomeData: imgHomeData }) => {
   return (
     <div className=" max-w-7xl mx-auto">
       <h2 className="uppercase after:block after:absolute after:w-40 after:h-1 after:bg-main after:rounded-md pl-[5%] mt-20 text-3xl">
         L'essentiel
       </h2>
       <div className="flex flex-wrap lg:flex-nowrap p-5 gap-5  ">
-        {imgHomeData.map((el: any, index: React.Key | null | undefined) => (
-          <div
+        {imgHomeData.map((el: imgHomeItem, index: React.Key | null | undefined) => (
+          <Link
+            href={`/categorie/${el.name}`}
             className="relative overflow-hidden group cursor-pointer w-fit mx-auto rounded-md"
             key={index}
           >
@@ -27,7 +28,7 @@ const ImageHome = ({imgHomeData}: any) => {
               alt="une image random d'outdoor"
               className="group-hover:scale-125 duration-300 ease  object-center rounded-md"
             />
-          </div>
+          </Link>
         ))}
       </div>
     </div>

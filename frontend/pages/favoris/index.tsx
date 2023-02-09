@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Favoris from "../../components/checkout/Favoris";
-import SliderHome from "../../components/SliderHome2";
+import SliderHome from "../../components/SliderHome";
 
 import { COMPANY_NAME } from "../../constants/Constants";
 

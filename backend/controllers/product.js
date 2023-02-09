@@ -18,8 +18,13 @@ exports.getProduct = (req, res, next) => {
 };
 
 exports.getProductById = (req, res, next) => {
-  console.log(req.params);
   UserProduct.findOne({ name: req.params.id })
+    .then((product) => res.status(200).json(product))
+    .catch((error) => res.status(400).json({ error }));
+};
+
+exports.getProductByCategory = (req, res, next) => {
+  UserProduct.find({ category: req.params.category })
     .then((product) => res.status(200).json(product))
     .catch((error) => res.status(400).json({ error }));
 };
