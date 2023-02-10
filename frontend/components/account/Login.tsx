@@ -1,13 +1,13 @@
 import axios from "axios";
 import React from "react";
+import { URL_LOGIN } from "../../constants/Constants";
 
-const Login = () => {
+const Login = ({ setLoginStatus }: any) => {
   const onSubmit = (e: any) => {
     e.preventDefault();
     const email: string = e.target.elements.email.value;
     const password: string = e.target.elements.password.value;
 
-    console.log(email, password);
     if (
       email != null &&
       email.trim() != "" &&
@@ -15,8 +15,15 @@ const Login = () => {
       password.trim()
     ) {
       axios
-        .post("http://localhost:5000/api/auth/signup", { email, password })
-        .then((res) => console.log(res))
+        .post(URL_LOGIN, {
+          email: email,
+          password: password,
+        })
+        .then((res) => {
+          localStorage.setItem("userId", res.data.userId),
+            localStorage.setItem("token", `Bearer ${res.data.token}`),
+            setLoginStatus(true);
+        })
         .catch((error) => console.log(error));
     }
   };
@@ -24,7 +31,7 @@ const Login = () => {
   return (
     <form onSubmit={(e) => onSubmit(e)} className="flex flex-col gap-5 py-10">
       <div>
-        <label htmlFor="email" className="font-bold">
+        <label htmlFor="email" className="font-semibold">
           Email
         </label>
         <input
@@ -36,7 +43,7 @@ const Login = () => {
         />
       </div>
       <div>
-        <label htmlFor="password" className="font-bold">
+        <label htmlFor="password" className="font-semibold">
           Mot de passe
         </label>
         <input
@@ -47,7 +54,7 @@ const Login = () => {
           placeholder="Mot de passe"
         />
       </div>
-      <button className="rounded-md bg-main w-max py-1 px-2 text-white ">
+      <button className="rounded-md bg-main py-1 px-2 text-white mt-5">
         Se connecter
       </button>
     </form>

@@ -1,27 +1,13 @@
 import Head from "next/head";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { COMPANY_NAME } from "../../../constants/Constants";
+import { COMPANY_NAME } from "../../constants/Constants";
 
 export default function Home() {
-  const router = useRouter();
-
-  console.log(router);
-  console.log(router.route);
-  console.log(router.asPath);
-  console.log(router.query);
-  console.log(router.query.slug);
-
-  const capitalize = (s: string | string[] | undefined) =>
-    s && s[0].toUpperCase() + s.slice(1);
-
   return (
     <>
       <Head>
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="robots" content="noindex" />
-        <title>{COMPANY_NAME} - Achat</title>
+        <title>{COMPANY_NAME} - Panier</title>
         <link rel="icon" href="logo.png" />
         <link
           rel="stylesheet"
@@ -36,15 +22,7 @@ export default function Home() {
         />
       </Head>
 
-      <div>
-        <p className="italic ">
-          <Link href="/">{COMPANY_NAME}</Link> -
-          <span className="font-bold"> {capitalize(router.query.slug)}</span>
-        </p>
-      </div>
-      <h1 className="text-xl mt-10">
-        Vêtements, chaussures & accessoires {capitalize(router.query.slug)}
-      </h1>
+      <div>All catégorie</div>
     </>
   );
 }

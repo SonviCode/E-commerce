@@ -30,6 +30,7 @@ export type productsItem = {
 
 export type productComment = {
   name: string;
+  firstname: string;
   date: Date;
   description: string;
   title: string;

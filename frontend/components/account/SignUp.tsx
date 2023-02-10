@@ -84,7 +84,7 @@ const SignUp = () => {
           />
         </div>
       ))}
-      <button className="rounded-md bg-gray-200 hover:bg-main w-max py-1 px-2 text-white duration-300">
+      <button className="rounded-md bg-gray-200 hover:bg-main py-1 px-2 text-white duration-300 mt-5">
         S&apos;inscrire
       </button>
     </form>

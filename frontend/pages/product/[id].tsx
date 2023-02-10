@@ -18,6 +18,8 @@ export default function Home({ product }: { product: productsItem }) {
   const [counter, setCounter] = useState<number>(1);
   const [displayDescription, setDisplayDescription] = useState<boolean>(true);
 
+  console.log(product.like);
+
   return (
     <>
       <Head>
@@ -50,7 +52,7 @@ export default function Home({ product }: { product: productsItem }) {
           <div className="overflow-hidden group w-full mx-auto rounded-md bg-gray-200 relative flex-1 flex justify-center items-center h-fit">
             <i
               onClick={() => toggleHeart(product)}
-              className={` text-sm p-1 rounded-full w-8 h-8 bg-white flex justify-center items-center absolute top-4 right-4 z-10  ${
+              className={` text-sm p-1 rounded-full w-8 h-8 bg-white flex justify-center items-center absolute cursor-pointer top-4 right-4 z-10  ${
                 product.like === true
                   ? `fa-solid fa-heart text-red-500`
                   : `fa-regular fa-heart `
@@ -146,7 +148,7 @@ export default function Home({ product }: { product: productsItem }) {
               onClick={() => setDisplayDescription(!displayDescription)}
               className="flex justify-between items-center cursor-pointer"
             >
-              <h3 className="py-2">Description</h3>{" "}
+              <h3 className="py-2 font-semibold text-xl">Description</h3>{" "}
               {displayDescription ? (
                 <i className="fa-solid fa-chevron-up mr-2"></i>
               ) : (
@@ -173,7 +175,9 @@ export default function Home({ product }: { product: productsItem }) {
               (el: any, index: React.Key | null | undefined) => (
                 <div key={index} className="flex flex-col py-5">
                   <hr />
-                  <h2 className="mt-5 font-medium">{el.name}</h2>
+                  <h2 className="mt-5 font-medium">
+                    {capitalize(el.firstname)} {capitalize(el.name)}
+                  </h2>
                   <p className="mb-5 italic">{handleDate(el.date)}</p>
                   <span>
                     <>

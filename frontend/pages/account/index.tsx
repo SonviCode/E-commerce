@@ -26,9 +26,7 @@ export default function Home() {
         />
       </Head>
 
-      <div className="relative h-full flex justify-center items-center py-10">
-        <ConnectModal />
-      </div>
+      <ConnectModal />
     </>
   );
 }

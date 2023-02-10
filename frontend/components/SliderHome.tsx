@@ -22,12 +22,12 @@ const SliderHome = () => {
         <Link
           href={`/product/${el.name}`}
           key={index}
-          className="min-w-[220px] cursor-pointer"
+          className="min-w-[220px] cursor-pointer z-10"
         >
           <div className="relative overflow-hidden group w-fit mx-auto rounded-md bg-gray-200 ">
             <i
               onClick={() => toggleHeart(el)}
-              className={` text-sm p-1 rounded-full w-8 h-8 bg-white flex justify-center items-center absolute top-4 right-4 z-10  ${
+              className={` text-sm p-1 rounded-full w-8 h-8 bg-white flex justify-center items-center absolute top-4 right-4 z-20  ${
                 el.like === true
                   ? `fa-solid fa-heart text-red-500`
                   : `fa-regular fa-heart `

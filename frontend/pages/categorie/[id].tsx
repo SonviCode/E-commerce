@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Filter from "../../components/category/Filter";
 import { COMPANY_NAME } from "../../constants/Constants";
 import { productsData, productsItem } from "../../types/product";
 import {
@@ -36,23 +37,16 @@ export default function Home({ category }: { category: productsData }) {
       </Head>
       <div>
         <p className="italic ">
-          <Link href="/">{COMPANY_NAME}</Link> -
+          <Link href="/">{COMPANY_NAME}</Link> -{" "}
+          <Link href="/categorie">Catégorie</Link> -
           <span className="font-bold"> {capitalize(router.query.id)}</span>
         </p>
       </div>
-      <h1 className="text-xl mt-10">
+      <h1 className="text-2xl mt-10 text-center">
         Tous nos produits de la catégorie : {capitalize(router.query.id)}
       </h1>
-      <div>
-        <h2>filtre</h2>
-        -tailles -marque -prix -sports
-        <ul>
-          <li>Prix croissants</li>
-          <li>Prix décroissants</li>
-          <li>Les nouveautés</li>
-          <li>Les plus populaires</li>
-        </ul>
-      </div>
+
+      <Filter />
       <div className="flex py-5 gap-5  overflow-hidden">
         {category.map((el: productsItem, index: any) => (
           <Link
@@ -114,7 +108,7 @@ export default function Home({ category }: { category: productsData }) {
 export async function getStaticProps(context: any) {
   const id = await context.params.id;
 
-  const res = await fetch(`http://localhost:5000/api/category/category/${id}`);
+  const res = await fetch(`http://localhost:5000/api/product/category/${id}`);
   const category = await res.json();
 
   return {
@@ -125,15 +119,13 @@ export async function getStaticProps(context: any) {
 }
 
 export async function getStaticPaths() {
-  const res = await fetch(`http://localhost:5000/api/category`);
+  const res = await fetch(`http://localhost:5000/api/product`);
   const categorys = await res.json();
 
   const ids = categorys.map((category: any) => category.category);
   const paths = ids.map((category: string) => ({
     params: { id: category.toString() },
   }));
-
-  console.log(paths);
 
   return {
     paths,

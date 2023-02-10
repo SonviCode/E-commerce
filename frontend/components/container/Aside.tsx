@@ -3,6 +3,7 @@ import { useState } from "react";
 import logo from "../../public/logo.png";
 import { COMPANY_NAME } from "../../constants/Constants";
 import Link from "next/link";
+import { capitalize } from "../../utils/productUtils";
 
 interface Navbar {
   toggleAside: boolean;
@@ -40,25 +41,25 @@ const Aside = ({ toggleAside, setToggleAside }: Navbar) => {
           <i className="fa-solid fa-magnifying-glass"></i>
         </button>
       </form>
-      <div className="flex flex-col  ">
+      <div className="flex flex-col ">
         <Link
-          href="/category/chaussures"
-          className="py-1 pr-10 flex justify-between items-center gap-2 text-xl py-4 hover:bg-gradient-to-r from-white to-gray-200"
+          href="/categorie"
+          className="py-1 pr-10 flex justify-between items-center gap-2 text-xl py-4 font-semibold"
         >
-          Chaussures<i className="fa-solid fa-chevron-right"></i>
+          Catégories :
         </Link>
-        <Link
-          href="/category/habits"
-          className="py-1 pr-10 flex justify-between items-center gap-2 text-xl py-4 hover:bg-gradient-to-r from-white to-gray-200"
-        >
-          Habits
-        </Link>
-        <Link
-          href="/category/accesoires"
-          className="py-1 pr-10 flex justify-between items-center gap-2 text-xl py-4 hover:bg-gradient-to-r from-white to-gray-200"
-        >
-          Accessoires<i className="fa-solid fa-chevron-right"></i>
-        </Link>
+        {new Array("chaussures", "habits", "accessoires").map(
+          (el: string, index) => (
+            <Link
+              key={index}
+              href={`/categorie/${el}`}
+              className="py-1 pr-10 flex justify-between items-center gap-2 text-xl py-4 hover:bg-gradient-to-r from-white to-gray-200"
+            >
+              {capitalize(el)}
+              <i className="fa-solid fa-chevron-right"></i>
+            </Link>
+          )
+        )}
       </div>
       <div className="flex flex-col gap-5 py-10">
         <Link href="/favoris">
