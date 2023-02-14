@@ -24,7 +24,11 @@ exports.getProductById = (req, res, next) => {
 };
 
 exports.getProductByCategory = (req, res, next) => {
-  UserProduct.find({ category: req.params.category })
+  UserProduct.find({
+    category: req.params.category,
+    sex: req.query.sex ? req.query.sex : /.*/,
+    // name: req.query.name ? req.query.name : "",
+  })
     .then((product) => res.status(200).json(product))
     .catch((error) => res.status(400).json({ error }));
 };

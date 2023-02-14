@@ -6,7 +6,7 @@ const Container = (props: any) => {
   return (
     <>
       <Nav />
-        <main className="grow pt-24 px-5">{props.children}</main>
+        <main className="grow pt-24 ">{props.children}</main>
       <Footer />
     </>
   );

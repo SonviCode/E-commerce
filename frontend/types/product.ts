@@ -36,3 +36,14 @@ export type productComment = {
   title: string;
   star: number;
 };
+
+export type productFilter = {
+  name: string;
+  filterData: string[];
+}[];
+
+export type toggleFilter = {
+  toggleFilter: Boolean;
+  setToggleFilter: any;
+  category: productsData;
+};

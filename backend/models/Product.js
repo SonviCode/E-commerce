@@ -12,6 +12,9 @@ const ProductSchema = mongoose.Schema({
   star: { type: Array, required: true },
   sex: { type: String, required: true },
   comments: { type: Array, required: false },
+  sport: { type: String, required: true },
+  size: { type: String, required: true },
+  brand: { type: String, required: true },
 });
 
 module.exports = mongoose.model("Product", ProductSchema);

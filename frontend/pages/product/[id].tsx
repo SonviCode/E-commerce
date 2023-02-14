@@ -43,7 +43,7 @@ export default function Home({ product }: { product: productsItem }) {
         <div>
           <p className="italic ">
             <Link href="/">{COMPANY_NAME}</Link> -{" "}
-            <Link href="/category/habits">Habits</Link> -
+            <Link href="/categorie/habits">Habits</Link> -
             <span className="font-bold"> {capitalize(router.query.id)}</span>
           </p>
         </div>

@@ -3,7 +3,7 @@ import Head from "next/head";
 import BgHome from "../components/home/BgHome";
 import ImageHome from "../components/home/ImageHome";
 import SliderHome from "../components/SliderHome";
-import { COMPANY_NAME } from "../constants/Constants";
+import { COMPANY_NAME, URL_CATEGORY } from "../constants/Constants";
 import { imgHomeData } from "../types/home";
 
 export default function Home({
@@ -44,7 +44,7 @@ export default function Home({
 export const getStaticProps: GetStaticProps<{
   imgHomeData: imgHomeData;
 }> = async () => {
-  const resNext = await fetch("http://localhost:3000/api/imgHome");
+  const resNext = await fetch(URL_CATEGORY);
   const imgHomeData = await resNext.json();
 
   return {
