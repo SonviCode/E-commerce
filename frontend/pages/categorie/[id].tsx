@@ -56,7 +56,7 @@ export default function Home({ category }: { category: productsData }) {
           </h1>
         </div>
 
-        <div className="flex flex-col lg:flex-row  px-5 lg:px-0 border-t mb-20">
+        <div className="flex flex-col lg:flex-row  px-5 lg:px-0 border-t ">
           <Filter
             toggleFilter={toggleFilter}
             setToggleFilter={setToggleFilter}
@@ -85,7 +85,7 @@ export default function Home({ category }: { category: productsData }) {
               </div>
             </div>
 
-            <div className="flex py-5 gap-5 flex-wrap   overflow-hidden">
+            <div className="flex py-5 gap-5 flex-wrap pb-20 overflow-hidden">
               {category.map((el: productsItem, index: any) => (
                 <Link
                   href={`/product/${el.name}`}
@@ -148,11 +148,10 @@ export default function Home({ category }: { category: productsData }) {
   );
 }
 
-export async function getServerSideProps(context: any, query: any) {
-  // console.log(context);
+export async function getServerSideProps(context: any) {
 
-  console.log(context);
-  console.log(query);
+  console.log(context.params);
+  console.log(context.query);
 
   const id = await context.params.id;
 
@@ -163,20 +162,5 @@ export async function getServerSideProps(context: any, query: any) {
     props: {
       category,
     },
-  };
-}
-
-export async function getStaticPaths() {
-  const res = await fetch(URL_GET_PRODUCT);
-  const categorys = await res.json();
-
-  const ids = categorys.map((category: any) => category.category);
-  const paths = ids.map((category: string) => ({
-    params: { id: category.toString() },
-  }));
-
-  return {
-    paths,
-    fallback: false,
   };
 }

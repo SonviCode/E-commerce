@@ -8,22 +8,27 @@ export default function handler(
   res.status(200).json([
     {
       name: "tailles",
+      keyRequest: "size",
       filterData: ["S", "M", "L", "XL"],
     },
     {
       name: "sport",
+      keyRequest: "sport",
       filterData: ["rando", "alpinisme", "vélo"],
     },
     {
       name: "type",
+      keyRequest: "type",
       filterData: ["veste", "t-shirt", "pantalon", "chaussette"],
     },
     {
       name: "marque",
+      keyRequest: "brand",
       filterData: ["lafuma", "millet", "forclaz", "aliexpress"],
     },
     {
       name: "sexe",
+      keyRequest: "sex",
       filterData: ["homme", "femme"],
     },
   ]);

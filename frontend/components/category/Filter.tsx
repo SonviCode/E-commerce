@@ -34,11 +34,20 @@ const Filter = ({ toggleFilter, setToggleFilter, category }: toggleFilter) => {
         })
         .then((res) => (category = res.data))
         .catch((error) => console.log(error));
+    
+        router.query
+
+    router.replace(router.asPath);
+
+    console.log(router);
+    console.log(router.query);
+    
+
   };
 
   return (
     <div
-      className={`flex flex-col py-5 lg:py-0 fixed z-30 bg-white left-0 right-0 lg:relative min-w-[250px] border-x   top-20 lg:top-0   overflow-y-auto scrollbar ease       [1023px]:duration-300 lg:transition-none bottom-0 max-h-full ${
+      className={`flex flex-col py-5 lg:py-0 fixed z-30 bg-white left-0 right-0 lg:relative min-w-[250px] border-x   top-20 lg:top-0 overflow-y-auto scrollbar ease       [1023px]:duration-300 lg:transition-none bottom-0 max-h-full ${
         toggleFilter ? "" : " translate-y-full lg:translate-y-0  "
       }`}
     >
@@ -65,7 +74,7 @@ const Filter = ({ toggleFilter, setToggleFilter, category }: toggleFilter) => {
                 {key.filterData.map((el: string, index) => (
                   <li className="flex" key={index}>
                     <input
-                      onClick={(e) => getFilterProduct(e, el, key.name)}
+                      onClick={(e) => getFilterProduct(e, el, key.keyRequest)}
                       id={el}
                       type="checkbox"
                       className="cursor-pointer"

@@ -39,6 +39,7 @@ export type productComment = {
 
 export type productFilter = {
   name: string;
+  keyRequest: string;
   filterData: string[];
 }[];
 
