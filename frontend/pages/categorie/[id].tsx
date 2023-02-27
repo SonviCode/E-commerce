@@ -149,13 +149,14 @@ export default function Home({ category }: { category: productsData }) {
 }
 
 export async function getServerSideProps(context: any) {
+  // console.log(context.params);
+  // console.log(context.query);
 
-  console.log(context.params);
-  console.log(context.query);
+  const sex = context.query.sex || "";
 
   const id = await context.params.id;
 
-  const res = await fetch(URL_GET_PRODUCT_BY_CATEGORY + id);
+  const res = await fetch(URL_GET_PRODUCT_BY_CATEGORY + id + `?sex=${sex}`);
   const category = await res.json();
 
   return {

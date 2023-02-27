@@ -3,19 +3,14 @@ import React from "react";
 import { productFilter, productsData, toggleFilter } from "../../types/product";
 import { capitalize } from "../../utils/productUtils";
 import { useEffect, useState } from "react";
-import {
-  URL_FILTER,
-  URL_GET_PRODUCT_BY_CATEGORY,
-} from "../../constants/Constants";
+import { URL_FILTER } from "../../constants/Constants";
 import { useRouter } from "next/router";
 
-const Filter = ({ toggleFilter, setToggleFilter, category }: toggleFilter) => {
+const Filter = ({ toggleFilter, setToggleFilter }: toggleFilter) => {
   const [dataFilter, setDataFilter] = useState<productFilter>();
+  const [arrayFilterSex, setArrayFilterSex] = useState<string[]>([]);
 
   const router = useRouter();
-  const id = router.query.id;
-
-  console.log(category);
 
   useEffect(() => {
     axios
@@ -27,23 +22,22 @@ const Filter = ({ toggleFilter, setToggleFilter, category }: toggleFilter) => {
   const getFilterProduct = (e: any, params: string, key: string) => {
     const checked = e.target.checked;
 
-    checked &&
-      axios
-        .get<productsData>(URL_GET_PRODUCT_BY_CATEGORY + id, {
-          params: { [key]: params },
-        })
-        .then((res) => (category = res.data))
-        .catch((error) => console.log(error));
-    
-        router.query
+    let filteredArray = arrayFilterSex.filter(
+      (item) => item !== `${key}=${params}`
+    );
 
-    router.replace(router.asPath);
+    checked
+      ? setArrayFilterSex((curr) => [...curr, `${key}=${params}`])
+      : setArrayFilterSex(filteredArray);
 
-    console.log(router);
-    console.log(router.query);
-    
+    console.log(arrayFilterSex);
 
+    router.push({
+      pathname: "habits",
+      query: arrayFilterSex.join("&"),
+    });
   };
+  console.log(arrayFilterSex);
 
   return (
     <div
