@@ -13,7 +13,7 @@ const ImageHome = ({ imgHomeData }: { imgHomeData: imgHomeData }) => {
       <div className="flex flex-wrap lg:flex-nowrap p-5 gap-5  ">
         {imgHomeData.map((el: imgHomeItem, index: React.Key | null | undefined) => (
           <Link
-            href={`/categorie/${el.name}`}
+            href={`/category/${el.name}`}
             className="relative overflow-hidden group cursor-pointer w-fit mx-auto rounded-md"
             key={index}
           >

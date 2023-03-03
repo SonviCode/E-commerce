@@ -46,5 +46,5 @@ export type productFilter = {
 export type toggleFilter = {
   toggleFilter: Boolean;
   setToggleFilter: any;
-  category: productsData;
+  product: productsData;
 };

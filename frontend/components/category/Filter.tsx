@@ -8,7 +8,8 @@ import { useRouter } from "next/router";
 
 const Filter = ({ toggleFilter, setToggleFilter }: toggleFilter) => {
   const [dataFilter, setDataFilter] = useState<productFilter>();
-  const [arrayFilterSex, setArrayFilterSex] = useState<string[]>([]);
+  const [arrayFilter, setArrayFilter] = useState<string[]>([]);
+  const stringFilter: string = arrayFilter.join("&");
 
   const router = useRouter();
 
@@ -22,22 +23,23 @@ const Filter = ({ toggleFilter, setToggleFilter }: toggleFilter) => {
   const getFilterProduct = (e: any, params: string, key: string) => {
     const checked = e.target.checked;
 
-    let filteredArray = arrayFilterSex.filter(
+    let filteredArray = arrayFilter.filter(
       (item) => item !== `${key}=${params}`
     );
 
     checked
-      ? setArrayFilterSex((curr) => [...curr, `${key}=${params}`])
-      : setArrayFilterSex(filteredArray);
+      ? setArrayFilter((curr) => [...curr, `${key}=${params}`])
+      : setArrayFilter(filteredArray);
+  };
 
-    console.log(arrayFilterSex);
+  console.log(arrayFilter);
 
+  useEffect(() => {
     router.push({
       pathname: "habits",
-      query: arrayFilterSex.join("&"),
+      query: arrayFilter.join("&"),
     });
-  };
-  console.log(arrayFilterSex);
+  }, [arrayFilter]);
 
   return (
     <div

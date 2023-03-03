@@ -10,6 +10,7 @@ import {
   URL_GET_PRODUCT_BY_CATEGORY,
 } from "../../constants/Constants";
 import { productsData, productsItem } from "../../types/product";
+import { queryFormat } from "../../utils/fetchData";
 import {
   ArrayAvg,
   capitalize,
@@ -17,11 +18,11 @@ import {
   toggleHeart,
 } from "../../utils/productUtils";
 
-export default function Home({ category }: { category: productsData }) {
+export default function Home({ product }: { product: productsData }) {
   const router = useRouter();
   const [toggleFilter, setToggleFilter] = useState<Boolean>(false);
 
-  console.log(category);
+  console.log(product);
 
   return (
     <>
@@ -60,7 +61,7 @@ export default function Home({ category }: { category: productsData }) {
           <Filter
             toggleFilter={toggleFilter}
             setToggleFilter={setToggleFilter}
-            category={category}
+            product={product}
           />
           <div className="lg:pr-5 grow pt-5">
             <div className="flex flex-wrap gap-x-10 gap-y-5 flex-row-reverse justify-between">
@@ -86,7 +87,7 @@ export default function Home({ category }: { category: productsData }) {
             </div>
 
             <div className="flex py-5 gap-5 flex-wrap pb-20 overflow-hidden">
-              {category.map((el: productsItem, index: any) => (
+              {product.map((el: productsItem, index: any) => (
                 <Link
                   href={`/product/${el.name}`}
                   key={index}
@@ -149,19 +150,15 @@ export default function Home({ category }: { category: productsData }) {
 }
 
 export async function getServerSideProps(context: any) {
-  // console.log(context.params);
-  // console.log(context.query);
 
-  const sex = context.query.sex || "";
+  const url:string = context.resolvedUrl;
 
-  const id = await context.params.id;
-
-  const res = await fetch(URL_GET_PRODUCT_BY_CATEGORY + id + `?sex=${sex}`);
-  const category = await res.json();
+  const res = await fetch(URL_GET_PRODUCT + url);
+  const product = await res.json();
 
   return {
     props: {
-      category,
+      product,
     },
   };
 }
