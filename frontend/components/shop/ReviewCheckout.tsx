@@ -1,7 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import Link from "next/link";
 import React from "react";
-import SliderHome from "../SliderHome";
 import Favoris from "./Favoris";
 
 const ReviewCheckout = () => {
@@ -27,7 +26,7 @@ const ReviewCheckout = () => {
       <Favoris />
       <div className="border-2 rounded-md px-5 py-10 overflow-hidden">
         <h2 className="text-2xl font-bold mb-5">Historique</h2>
-        <SliderHome />
+        
       </div>
     </>
   );

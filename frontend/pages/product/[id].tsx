@@ -3,61 +3,54 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { COMPANY_NAME } from "../../constants/Constants";
+import { COMPANY_NAME, URL_GET_PRODUCT } from "../../constants/Constants";
 import { productComment, productsItem } from "../../types/product";
-import { handleDate } from "../../utils/productUtils";
+import { handleDate, changeCounter } from "../../utils/productUtils";
 import {
   ArrayAvg,
   capitalize,
   starInArray,
   toggleHeart,
 } from "../../utils/productUtils";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import * as fs from "@fortawesome/free-solid-svg-icons";
+import * as fr from "@fortawesome/free-regular-svg-icons";
 
 export default function Home({ product }: { product: productsItem }) {
   const router = useRouter();
   const [counter, setCounter] = useState<number>(1);
   const [displayDescription, setDisplayDescription] = useState<boolean>(true);
 
-  console.log(product.like);
-
   return (
     <>
       <Head>
-        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>{COMPANY_NAME} - Panier</title>
-        <link rel="icon" href="logo.png" />
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-          integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
-          crossOrigin="anonymous"
-          referrerPolicy="no-referrer"
-        />
-        <meta
-          name="description"
-          content="Montagne Addicte : E-commerce crée par Tom Sonvico (@SonviCode) avec Next.Js - Typescript - Tailwind CSS - MongoDB - Node.Js - Express."
-        />
+        <title>
+          {COMPANY_NAME} - {product.name}
+        </title>
       </Head>
       <div className="md:px-5 mb-20">
         <div>
           <p className="italic ">
             <Link href="/">{COMPANY_NAME}</Link> -{" "}
-            <Link href="/categorie/habits">Habits</Link> -
-            <span className="font-bold"> {capitalize(router.query.id)}</span>
+            <Link href={`/category/${product.category}`}>
+              {capitalize(product.category)}
+            </Link>{" "}
+            -<span className="font-bold"> {capitalize(router.query.id)}</span>
           </p>
         </div>
 
         <div className="flex flex-col lg:flex-row gap-20 my-10">
           <div className="overflow-hidden group w-full mx-auto rounded-md bg-gray-200 relative flex-1 flex justify-center items-center h-fit">
-            <i
+            <span
               onClick={() => toggleHeart(product)}
-              className={` text-sm p-1 rounded-full w-8 h-8 bg-white flex justify-center items-center absolute cursor-pointer top-4 right-4 z-10  ${
-                product.like === true
-                  ? `fa-solid fa-heart text-red-500`
-                  : `fa-regular fa-heart `
-              }`}
-            ></i>
+              className="text-sm p-1 rounded-full w-8 h-8 bg-white flex justify-center items-center absolute cursor-pointer top-4 right-4 z-10"
+            >
+              {product.like === true ? (
+                <FontAwesomeIcon icon={fs.faHeart} className="text-red-500" />
+              ) : (
+                <FontAwesomeIcon icon={fr.faHeart} />
+              )}
+            </span>
             <Image
               src={product.url}
               width="800"
@@ -74,16 +67,24 @@ export default function Home({ product }: { product: productsItem }) {
               <span>
                 <>
                   {starInArray(ArrayAvg(product.star)).map((nb, i) => (
-                    <i
-                      key={i}
-                      className={`${
-                        nb == 1
-                          ? `fa-solid fa-star text-yellow-300`
-                          : nb == 5
-                          ? `fa-solid fa-star-half-stroke text-yellow-300`
-                          : `fa-solid fa-star text-gray-200`
-                      }`}
-                    ></i>
+                    <span key={i}>
+                      {nb == 1 ? (
+                        <FontAwesomeIcon
+                          icon={fs.faStar}
+                          className="text-yellow-300"
+                        />
+                      ) : nb == 5 ? (
+                        <FontAwesomeIcon
+                          icon={fs.faStarHalfStroke}
+                          className="text-yellow-300"
+                        />
+                      ) : (
+                        <FontAwesomeIcon
+                          icon={fs.faStar}
+                          className="text-gray-200"
+                        />
+                      )}
+                    </span>
                   ))}
                 </>
               </span>
@@ -115,14 +116,14 @@ export default function Home({ product }: { product: productsItem }) {
               <div>
                 <div className="rounded-full bg-gray-200 justify-between items-center w-fit flex gap-5 w-[120px]">
                   <button
-                    onClick={() => setCounter((curr) => curr - 1)}
+                    onClick={() => changeCounter(-1, counter, setCounter)}
                     className="py-2 pl-4"
                   >
                     -
                   </button>
                   <span>{counter}</span>
                   <button
-                    onClick={() => setCounter((curr) => curr + 1)}
+                    onClick={() => changeCounter(1, counter, setCounter)}
                     className="py-2 pr-4"
                   >
                     +
@@ -150,9 +151,9 @@ export default function Home({ product }: { product: productsItem }) {
             >
               <h3 className="py-2 font-semibold text-xl">Description</h3>{" "}
               {displayDescription ? (
-                <i className="fa-solid fa-chevron-up mr-2"></i>
+                <FontAwesomeIcon icon={fs.faChevronDown} className="mr-2" />
               ) : (
-                <i className="fa-solid fa-chevron-down mr-2"></i>
+                <FontAwesomeIcon icon={fs.faChevronUp} className="mr-2" />
               )}
             </div>
             <hr />
@@ -182,16 +183,24 @@ export default function Home({ product }: { product: productsItem }) {
                   <span>
                     <>
                       {starInArray(ArrayAvg([el.star])).map((nb, i) => (
-                        <i
-                          key={i}
-                          className={`${
-                            nb == 1
-                              ? `fa-solid fa-star text-yellow-300`
-                              : nb == 5
-                              ? `fa-solid fa-star-half-stroke text-yellow-300`
-                              : `fa-solid fa-star text-gray-200`
-                          }`}
-                        ></i>
+                        <span key={i}>
+                          {nb == 1 ? (
+                            <FontAwesomeIcon
+                              icon={fs.faStar}
+                              className="text-yellow-300"
+                            />
+                          ) : nb == 5 ? (
+                            <FontAwesomeIcon
+                              icon={fs.faStarHalfStroke}
+                              className="text-yellow-300"
+                            />
+                          ) : (
+                            <FontAwesomeIcon
+                              icon={fs.faStar}
+                              className="text-gray-200"
+                            />
+                          )}
+                        </span>
                       ))}
                     </>
                   </span>
@@ -210,11 +219,10 @@ export default function Home({ product }: { product: productsItem }) {
 export async function getStaticProps(context: any) {
   const id = await context.params.id;
 
-  // console.log(context.params);
-  console.log("id =", id);
-
-  const res = await fetch(`http://localhost:5000/api/product/${id}`);
+  const res = await fetch(URL_GET_PRODUCT + "/" + id);
   const product = await res.json();
+
+  console.log(res);
 
   return {
     props: {
@@ -224,7 +232,7 @@ export async function getStaticProps(context: any) {
 }
 
 export async function getStaticPaths() {
-  const res = await fetch(`http://localhost:5000/api/product`);
+  const res = await fetch(URL_GET_PRODUCT);
   const product = await res.json();
 
   const ids = product.map((product: any) => product.name);

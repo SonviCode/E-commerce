@@ -1,15 +1,23 @@
 import axios from "axios";
 import React from "react";
 import { productFilter, productsData, toggleFilter } from "../../types/product";
-import { capitalize } from "../../utils/productUtils";
+import {
+  capitalize,
+  // handleChangePrice,
+} from "../../utils/productUtils";
 import { useEffect, useState } from "react";
 import { URL_FILTER } from "../../constants/Constants";
 import { useRouter } from "next/router";
+import { handleChangePrice } from "../../utils/productUtils";
 
-const Filter = ({ toggleFilter, setToggleFilter }: toggleFilter) => {
+const Filter = ({
+  toggleFilter,
+  setToggleFilter,
+  setProduct,
+  productData,
+}: toggleFilter) => {
   const [dataFilter, setDataFilter] = useState<productFilter>();
   const [arrayFilter, setArrayFilter] = useState<string[]>([]);
-  const stringFilter: string = arrayFilter.join("&");
 
   const router = useRouter();
 
@@ -31,8 +39,6 @@ const Filter = ({ toggleFilter, setToggleFilter }: toggleFilter) => {
       ? setArrayFilter((curr) => [...curr, `${key}=${params}`])
       : setArrayFilter(filteredArray);
   };
-
-  console.log(arrayFilter);
 
   useEffect(() => {
     router.push({
@@ -96,10 +102,17 @@ const Filter = ({ toggleFilter, setToggleFilter }: toggleFilter) => {
           </div>
 
           <div className="peer-checked:flex flex-col hidden z-10 w-full py-4">
-            <input type="range" className="w-full" />
+            <input
+              type="range"
+              defaultValue="50"
+              className="w-full"
+              onChange={(e) =>
+                handleChangePrice(e.target.value, productData, setProduct)
+              }
+            />
             <div className="flex justify-between">
               <span>0€</span>
-              <span>500€</span>
+              <span>150€</span>
             </div>
           </div>
         </div>

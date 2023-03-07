@@ -3,7 +3,6 @@ import React from "react";
 import { URL_LOGIN } from "../../constants/Constants";
 
 const Login = ({ setLoginStatus }: any) => {
-  
   const onSubmit = (e: any) => {
     e.preventDefault();
     const email: string = e.target.elements.email.value;
@@ -21,8 +20,16 @@ const Login = ({ setLoginStatus }: any) => {
           password: password,
         })
         .then((res) => {
-          localStorage.setItem("userId", res.data.userId),
-            localStorage.setItem("token", `Bearer ${res.data.token}`),
+          console.log(res);
+
+          localStorage.setItem(
+            process.env.NEXT_PUBLIC_USER_ID!,
+            res.data.userId
+          ),
+            localStorage.setItem(
+              process.env.NEXT_PUBLIC_USER_TOKEN!,
+              `Bearer ${res.data.token}`
+            ),
             setLoginStatus(true);
         })
         .catch((error) => console.log(error));

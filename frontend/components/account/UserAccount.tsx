@@ -10,44 +10,48 @@ const UserAccount = () => {
 
   useEffect(() => {
     axios
-      .get<User>(URL_GETUSER + localStorage.getItem("userId"), {
-        headers: { Authorization: localStorage.getItem("token") },
-      })
+      .get<User>(
+        URL_GETUSER + localStorage.getItem(process.env.NEXT_PUBLIC_USER_ID!),
+        {
+          headers: {
+            Authorization: localStorage.getItem(
+              process.env.NEXT_PUBLIC_USER_TOKEN!
+            ),
+          },
+        }
+      )
       .then((res) => {
+        delete res.data.password;
         setUser(res.data),
-          localStorage.setItem("userData", JSON.stringify(res.data));
+          localStorage.setItem(
+            process.env.NEXT_PUBLIC_USER_DATA!,
+            JSON.stringify(res.data)
+          );
       })
       .catch((error) => console.log(error));
   }, []);
 
-  console.log(user);
-
   return (
-    <div className="flex flex-col lg:flex-row  pt-5 pb-10 gap-10 ">
+    <div className="flex flex-col lg:flex-row p-5 pb-10 gap-10 ">
       <div className="lg:min-w-[285px] lg:w-1/4">
         <div className="flex flex-col gap-10 border-2 rounded-md p-5 sticky top-0  justify-between h-full">
           <h1 className="text-3xl">Bienvenue {user && user.name} !</h1>
           <div className="flex flex-col gap-2.5">
-            <button
-              className="hover:font-semibold text-left"
-              onClick={() => setTab(1)}
-            >
-              Informations personnelles
-            </button>
-            <hr />
-            <button
-              className="hover:font-semibold text-left"
-              onClick={() => setTab(2)}
-            >
-              Commandes
-            </button>
-            <hr />
-            <button
-              className="hover:font-semibold text-left"
-              onClick={() => setTab(3)}
-            >
-              Historique de navigation
-            </button>
+            {[
+              "Informations personnelles",
+              "Commandes",
+              "Historique de navigation",
+            ].map((el: string, i: any) => (
+              <React.Fragment key={i}>
+                <button
+                  className="hover:font-semibold text-left"
+                  onClick={() => setTab(i + 1)}
+                >
+                  {el}
+                </button>
+                <hr />
+              </React.Fragment>
+            ))}
           </div>
           <button className="w-full rounded-md bg-main py-2 ">
             Se déconnecter
@@ -69,12 +73,14 @@ const UserAccount = () => {
                 <hr />
                 <p>Nom : {user && user.firstname}</p>
                 <hr />
-                <p>
+                <p className="flex">
                   Numéro de téléphone : + 33{" "}
-                  {user &&
-                    formatNumberPhone(user.phonenumber).map((n, i) => (
-                      <span key={i}>{n}</span>
-                    ))}
+                  <span className="flex gap-2 ml-2">
+                    {user &&
+                      formatNumberPhone(user.phonenumber).map((n, i) => (
+                        <span key={i}>{n}</span>
+                      ))}
+                  </span>
                 </p>
                 <hr />
               </div>
@@ -88,7 +94,13 @@ const UserAccount = () => {
               </div>
             </>
           ) : (
-            ""
+            <>
+              <h2 className="text-2xl font-bold mb-5">Navigation</h2>
+              <div className="flex flex-col gap-2.5">
+                <p>Historique de navigation :</p>
+                <hr />
+              </div>
+            </>
           )}
         </div>
       </div>

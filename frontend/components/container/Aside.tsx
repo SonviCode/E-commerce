@@ -4,6 +4,9 @@ import logo from "../../public/logo.png";
 import { COMPANY_NAME } from "../../constants/Constants";
 import Link from "next/link";
 import { capitalize } from "../../utils/productUtils";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import * as fs from "@fortawesome/free-solid-svg-icons";
+import * as fr from "@fortawesome/free-regular-svg-icons";
 
 interface Navbar {
   toggleAside: boolean;
@@ -26,10 +29,11 @@ const Aside = ({ toggleAside, setToggleAside }: Navbar) => {
           <Image src={logo} width={60} height={60} alt="logo" />
           <h1 className="text-xl">{COMPANY_NAME}</h1>
         </div>
-        <i
+        <FontAwesomeIcon
           onClick={() => closeAside()}
-          className="fa-solid fa-xmark cursor-pointer text-2xl"
-        ></i>
+          icon={fs.faXmark}
+          className="cursor-pointer text-2xl"
+        />
       </div>
       <form className="flex bg-gray-100 py-2 px-4 rounded-md w-full mb-10">
         <input

@@ -1,4 +1,5 @@
 import { productsData, productsItem } from "../types/product";
+import { Dispatch, SetStateAction } from "react";
 
 export const ArrayAvg = (myArray: number[]) => {
   let i = 0,
@@ -43,4 +44,53 @@ export const handleDate = (dateFromDb: string) => {
   });
 
   return formattedDate;
+};
+
+export const changeCounter = (
+  nb: number,
+  counter: number,
+  setCounter: Dispatch<SetStateAction<number>>
+) => {
+  if (counter == 1 && nb == -1) {
+    return;
+  }
+  setCounter((curr) => curr + nb);
+};
+
+// --------------------FILTER------------------------
+export const ascendingPrice = (product: Array<Object>) => {
+  product.sort(function (a: any, b: any) {
+    return a.price - b.price;
+  });
+};
+
+export const decreasingPrice = (product: Array<Object>) => {
+  product.sort(function (a: any, b: any) {
+    return b.price - a.price;
+  });
+};
+
+// export const largestPrice = (product: productsData) => {
+
+//   let largest = product[0].price;
+
+//   for (let i = 0; i < product.length; i++) {
+//     if (largest < product[i].price) {
+//       largest = product[i].price;
+//     }
+//   }
+
+//   return largest;
+// };
+
+export const handleChangePrice = (
+  price: any,
+  productData: productsData,
+  setProduct: Dispatch<SetStateAction<productsData>>
+) => {
+  const percentage: number = 150;
+
+  const maxPrice: number = (percentage * price) / 100;
+
+  setProduct([...productData].filter((el) => el.price <= maxPrice));
 };

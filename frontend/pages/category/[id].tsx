@@ -6,49 +6,65 @@ import { useEffect, useState } from "react";
 import Filter from "../../components/category/Filter";
 import {
   COMPANY_NAME,
+  THE_MOST_POPULAR,
   URL_GET_PRODUCT,
   URL_GET_PRODUCT_BY_CATEGORY,
 } from "../../constants/Constants";
 import { productsData, productsItem } from "../../types/product";
 import { queryFormat } from "../../utils/fetchData";
 import {
+  NO_PRODUCT_FOR_FILTER,
+  ASCENDING_PRICE,
+  THE_NEWS,
+  DECREASING_PRICE,
+} from "../../constants/Constants";
+import {
   ArrayAvg,
+  ascendingPrice,
   capitalize,
+  decreasingPrice,
   starInArray,
   toggleHeart,
 } from "../../utils/productUtils";
+import ProductCard from "../../components/ProductCard";
 
-export default function Home({ product }: { product: productsData }) {
-  const router = useRouter();
+export default function Home({ productData }: { productData: productsData }) {
+  const [product, setProduct] = useState<productsData>(productData);
   const [toggleFilter, setToggleFilter] = useState<Boolean>(false);
 
-  console.log(product);
+  const router = useRouter();
+
+  useEffect(() => {
+    setProduct(productData);
+  }, [productData]);
+
+  const handleChange = (name: any) => {
+    if (name == ASCENDING_PRICE) {
+      setProduct([...product].sort((a: any, b: any) => a.price - b.price));
+    } else if (name == THE_NEWS) {
+      console.log("created by most recent (add date)");
+    } else if (name == DECREASING_PRICE) {
+      setProduct([...product].sort((a: any, b: any) => b.price - a.price));
+    } else if (name == THE_MOST_POPULAR) {
+      setProduct(
+        [...product].sort(
+          (a: any, b: any) => ArrayAvg(b.star) - ArrayAvg(a.star)
+        )
+      );
+    }
+  };
 
   return (
     <>
       <Head>
-        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{COMPANY_NAME} - Panier</title>
-        <link rel="icon" href="logo.png" />
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-          integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
-          crossOrigin="anonymous"
-          referrerPolicy="no-referrer"
-        />
-        <meta
-          name="description"
-          content="Montagne Addicte : E-commerce crée par Tom Sonvico (@SonviCode) avec Next.Js - Typescript - Tailwind CSS - MongoDB - Node.Js - Express."
-        />
       </Head>
       <div>
         <div className="px-5">
           <div className="text-xs md:text-base">
             <p className="italic ">
               <Link href="/">{COMPANY_NAME}</Link> -{" "}
-              <Link href="/categorie">Catégorie</Link> -
+              <Link href="/category">Catégorie</Link> -
               <span className="font-bold"> {capitalize(router.query.id)}</span>
             </p>
           </div>
@@ -57,20 +73,28 @@ export default function Home({ product }: { product: productsData }) {
           </h1>
         </div>
 
-        <div className="flex flex-col lg:flex-row  px-5 lg:px-0 border-t ">
+        <div className="flex flex-col lg:flex-row overflow-hidden px-5 lg:px-0 border-t ">
           <Filter
             toggleFilter={toggleFilter}
             setToggleFilter={setToggleFilter}
-            product={product}
+            setProduct={setProduct}
+            productData={productData}
           />
           <div className="lg:pr-5 grow pt-5">
             <div className="flex flex-wrap gap-x-10 gap-y-5 flex-row-reverse justify-between">
-              <div className="relative">
-                <select className="rounded-md border border-gray-300 appearance-none w-fit bg-white text-gray-700 h-full py-2 px-4 pr-10 leading-tight focus:outline-none focus:border-gray-500 cursor-pointer ">
-                  <option>Les nouveautés</option>
-                  <option>Prix croissants</option>
-                  <option>Prix décroissants</option>
-                  <option>Les plus populaires</option>
+              <div className="relative ">
+                <select
+                  onChange={(e) => handleChange(e.target.value)}
+                  className="rounded-md border border-gray-300 appearance-none w-fit bg-white text-gray-700 h-full py-2 px-4 pr-10 leading-tight focus:outline-none focus:border-gray-500 cursor-pointer"
+                >
+                  {[
+                    THE_NEWS,
+                    ASCENDING_PRICE,
+                    DECREASING_PRICE,
+                    THE_MOST_POPULAR,
+                  ].map((el: string, index: any) => (
+                    <option key={index}>{el}</option>
+                  ))}
                 </select>
                 <i className="fa-solid fa-chevron-down absolute pointer-events-none right-4 top-1/2 -translate-y-1/2"></i>
               </div>
@@ -86,62 +110,17 @@ export default function Home({ product }: { product: productsData }) {
               </div>
             </div>
 
-            <div className="flex py-5 gap-5 flex-wrap pb-20 overflow-hidden">
-              {product.map((el: productsItem, index: any) => (
-                <Link
-                  href={`/product/${el.name}`}
-                  key={index}
-                  className="min-w-[220px] max-w-[400px] cursor-pointer"
-                >
-                  <div className="relative overflow-hidden group w-fit mx-auto rounded-md bg-gray-200 ">
-                    <i
-                      onClick={() => toggleHeart(el)}
-                      className={` text-sm p-1 rounded-full w-8 h-8 bg-white flex justify-center items-center absolute top-4 right-4 z-10  ${
-                        el.like === true
-                          ? `fa-solid fa-heart text-red-500`
-                          : `fa-regular fa-heart `
-                      }`}
-                    ></i>
-                    <Image
-                      src={el.url}
-                      width="300"
-                      height="300"
-                      alt={el.name}
-                      className="group-hover:scale-75 duration-300 ease  object-center rounded-md p-10"
-                    />
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <h3 className="text-base font-bold">{el.name}</h3>
-                    <span className="text-sm font-bold pt-0.5">
-                      {el.price},00€
-                    </span>
-                  </div>
-                  <div className="text-xs">
-                    <p>{el.smallDescription}</p>
-                    <span>
-                      <>
-                        {starInArray(ArrayAvg(el.star)).map((nb, i) => (
-                          <i
-                            key={i}
-                            className={`${
-                              nb == 1
-                                ? `fa-solid fa-star text-yellow-300`
-                                : nb == 5
-                                ? `fa-solid fa-star-half-stroke text-yellow-300`
-                                : `fa-solid fa-star text-gray-200`
-                            }`}
-                          ></i>
-                        ))}
-                      </>
-                    </span>
-                    <span>({el.star.length})</span>
-                  </div>
-                  <button className="rounded-md text-xs border-solid border-gray-600 border-2 py-1 px-2 hover:bg-main hover:border-main hover:text-white duration-300 ease-in hover:scale-90">
-                    En savoir plus
-                  </button>
-                </Link>
-              ))}
-            </div>
+            {product.length >= 1 ? (
+              <div className="flex py-5 gap-5 pb-20 overflow-hidden">
+                {product.map((el: productsItem, index: any) => (
+                  <ProductCard el={el} key={index} />
+                ))}
+              </div>
+            ) : (
+              <h2 className="text-center py-28 font-bold">
+                {NO_PRODUCT_FOR_FILTER}
+              </h2>
+            )}
           </div>
         </div>
       </div>
@@ -150,15 +129,14 @@ export default function Home({ product }: { product: productsData }) {
 }
 
 export async function getServerSideProps(context: any) {
-
-  const url:string = context.resolvedUrl;
+  const url: string = context.resolvedUrl;
 
   const res = await fetch(URL_GET_PRODUCT + url);
-  const product = await res.json();
+  const productData = await res.json();
 
   return {
     props: {
-      product,
+      productData,
     },
   };
 }

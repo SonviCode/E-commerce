@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export type productsData = {
   name: string;
   url: string;
@@ -46,5 +48,6 @@ export type productFilter = {
 export type toggleFilter = {
   toggleFilter: Boolean;
   setToggleFilter: any;
-  product: productsData;
+  setProduct: Dispatch<SetStateAction<productsData>>;
+  productData: productsData;
 };
