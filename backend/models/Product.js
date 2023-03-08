@@ -8,7 +8,6 @@ const ProductSchema = mongoose.Schema({
   type: { type: String, required: true },
   smallDescription: { type: String, required: true },
   bigDescription: { type: String, required: true },
-  like: { type: Boolean, required: true },
   star: { type: Array, required: true },
   sex: { type: String, required: true },
   comments: { type: Array, required: false },

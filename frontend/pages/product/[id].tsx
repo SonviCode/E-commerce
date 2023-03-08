@@ -2,7 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Dispatch } from "react";
 import { COMPANY_NAME, URL_GET_PRODUCT } from "../../constants/Constants";
 import { productComment, productsItem } from "../../types/product";
 import { handleDate, changeCounter } from "../../utils/productUtils";
@@ -15,11 +15,19 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as fs from "@fortawesome/free-solid-svg-icons";
 import * as fr from "@fortawesome/free-regular-svg-icons";
+import { useDispatch } from "react-redux";
+import { setShopData } from "../../store/features/slice/shopSlice";
 
 export default function Home({ product }: { product: productsItem }) {
   const router = useRouter();
   const [counter, setCounter] = useState<number>(1);
   const [displayDescription, setDisplayDescription] = useState<boolean>(true);
+
+  const dispatch = useDispatch();
+
+  const addToShopCart = () => {
+    dispatch(setShopData(product));
+  };
 
   return (
     <>
@@ -28,7 +36,7 @@ export default function Home({ product }: { product: productsItem }) {
           {COMPANY_NAME} - {product.name}
         </title>
       </Head>
-      <div className="md:px-5 mb-20">
+      <div className="px-5 mb-20">
         <div>
           <p className="italic ">
             <Link href="/">{COMPANY_NAME}</Link> -{" "}
@@ -114,7 +122,7 @@ export default function Home({ product }: { product: productsItem }) {
             <hr />
             <div className="flex flex-col gap-4">
               <div>
-                <div className="rounded-full bg-gray-200 justify-between items-center w-fit flex gap-5 w-[120px]">
+                <div className="rounded-lg bg-gray-200 justify-between items-center w-fit flex gap-5 w-[120px] mb-5">
                   <button
                     onClick={() => changeCounter(-1, counter, setCounter)}
                     className="py-2 pl-4"
@@ -131,11 +139,14 @@ export default function Home({ product }: { product: productsItem }) {
                 </div>
               </div>
               <div className="flex flex-col sm:flex-row gap-4">
-                <button className="rounded-full bg-main items-center sm:w-fit py-2 px-4 hover:text-white">
+                {/* <button className="rounded-full bg-main items-center sm:w-fit py-2 px-4 hover:text-white">
                   Achetez maintenant
-                </button>
+                </button> */}
 
-                <button className="rounded-full border-main border-2 items-center sm:w-fit py-2 px-4">
+                <button
+                  onClick={() => addToShopCart()}
+                  className="rounded-lg border-main border-2 items-center py-2 px-4 bg-main hover:text-white w-full hover:border-black"
+                >
                   Ajouter au panier
                 </button>
               </div>

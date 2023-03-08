@@ -29,7 +29,25 @@ export const starInArray = (nb: number) => {
 };
 
 export const toggleHeart = (el: productsItem) => {
-  el.like = !el.like;
+  const favorisArray: productsItem[] = JSON.parse(
+    localStorage.getItem("favoris")!
+  );
+
+  favorisArray && favorisArray.push(el);
+
+  if (el.like == true) {
+    const favorisArrayFilter = favorisArray.filter(
+      (fav) => fav.name !== el.name
+    );
+    console.log(favorisArrayFilter);
+    localStorage.setItem("favoris", JSON.stringify(favorisArrayFilter));
+  } else {
+    if (favorisArray) {
+      localStorage.setItem("favoris", JSON.stringify(favorisArray));
+    } else {
+      localStorage.setItem("favoris", JSON.stringify([el]));
+    }
+  }
 };
 
 export const capitalize = (s: string | string[] | undefined) =>

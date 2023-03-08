@@ -7,8 +7,14 @@ import mastercard from "../../public/svg/mastercard.svg";
 import paypal from "../../public/svg/paypal.svg";
 import visa from "../../public/svg/visa.svg";
 import btc from "../../public/btc.png";
+import { useSelector } from "react-redux";
+import { subtotal } from "../../utils/shopUtils";
 
 const Summary = () => {
+  const shopData = useSelector((state: any) => state.shop.value);
+
+  console.log(shopData);
+
   return (
     <div className="flex flex-col gap-10 border-2 rounded-md p-5 sticky top-24">
       <div className="flex flex-col gap-5">
@@ -16,17 +22,21 @@ const Summary = () => {
         <div className="flex flex-col gap-2.5">
           <div className="flex justify-between items-center">
             <span>Sous-total</span>
-            <span>0€</span>
+            <span>{shopData.length > 0 ? `${subtotal(shopData)}€` : "0€"}</span>
           </div>
           <hr />
           <div className="flex justify-between items-center">
             <span>Livraison</span>
-            <span className="text-xs text-right">Calculé à l'étape suivante</span>
+            <span className="text-xs text-right">
+              Calculé à l'étape suivante
+            </span>
           </div>
           <hr />
           <div className="flex justify-between items-center">
             <span>Total</span>
-            <span>0€</span>
+            <span className="font-bold">
+              {shopData.length > 0 ? `${subtotal(shopData)}€` : "0€"}
+            </span>
           </div>
         </div>
         <button className="w-full rounded-md bg-yellow-300 py-2 ">

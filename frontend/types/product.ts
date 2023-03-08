@@ -48,6 +48,6 @@ export type productFilter = {
 export type toggleFilter = {
   toggleFilter: Boolean;
   setToggleFilter: any;
-  setProduct: Dispatch<SetStateAction<productsData>>;
+  setProducts: Dispatch<SetStateAction<productsData>>;
   productData: productsData;
 };

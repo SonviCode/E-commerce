@@ -27,27 +27,37 @@ import {
   toggleHeart,
 } from "../../utils/productUtils";
 import ProductCard from "../../components/ProductCard";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import * as fs from "@fortawesome/free-solid-svg-icons";
+import { useDispatch } from "react-redux";
+import { setProductData } from "../../store/features/slice/productSlice";
 
 export default function Home({ productData }: { productData: productsData }) {
-  const [product, setProduct] = useState<productsData>(productData);
+  const [products, setProducts] = useState<productsData>(productData);
   const [toggleFilter, setToggleFilter] = useState<Boolean>(false);
+  const [sort, setSort] = useState<Boolean>(false);
+
+  const dispatch = useDispatch();
 
   const router = useRouter();
 
   useEffect(() => {
-    setProduct(productData);
-  }, [productData]);
+    // productData.forEach((val) => (val.like = false));
+    setProducts(productData);
 
-  const handleChange = (name: any) => {
+    dispatch(setProductData(productData));
+  }, [dispatch, productData]);
+
+  const handleSort = (name: any) => {
     if (name == ASCENDING_PRICE) {
-      setProduct([...product].sort((a: any, b: any) => a.price - b.price));
+      setProducts([...products].sort((a: any, b: any) => a.price - b.price));
     } else if (name == THE_NEWS) {
       console.log("created by most recent (add date)");
     } else if (name == DECREASING_PRICE) {
-      setProduct([...product].sort((a: any, b: any) => b.price - a.price));
+      setProducts([...products].sort((a: any, b: any) => b.price - a.price));
     } else if (name == THE_MOST_POPULAR) {
-      setProduct(
-        [...product].sort(
+      setProducts(
+        [...products].sort(
           (a: any, b: any) => ArrayAvg(b.star) - ArrayAvg(a.star)
         )
       );
@@ -77,14 +87,15 @@ export default function Home({ productData }: { productData: productsData }) {
           <Filter
             toggleFilter={toggleFilter}
             setToggleFilter={setToggleFilter}
-            setProduct={setProduct}
+            setProducts={setProducts}
             productData={productData}
           />
           <div className="lg:pr-5 grow pt-5">
             <div className="flex flex-wrap gap-x-10 gap-y-5 flex-row-reverse justify-between">
               <div className="relative ">
                 <select
-                  onChange={(e) => handleChange(e.target.value)}
+                  onChange={(e) => handleSort(e.target.value)}
+                  onClick={() => setSort(!sort)}
                   className="rounded-md border border-gray-300 appearance-none w-fit bg-white text-gray-700 h-full py-2 px-4 pr-10 leading-tight focus:outline-none focus:border-gray-500 cursor-pointer"
                 >
                   {[
@@ -96,7 +107,12 @@ export default function Home({ productData }: { productData: productsData }) {
                     <option key={index}>{el}</option>
                   ))}
                 </select>
-                <i className="fa-solid fa-chevron-down absolute pointer-events-none right-4 top-1/2 -translate-y-1/2"></i>
+                <FontAwesomeIcon
+                  icon={fs.faChevronDown}
+                  className={`duration-200 ease absolute pointer-events-none right-4 top-1/2 -translate-y-1/2 ${
+                    sort && "rotate-180"
+                  }`}
+                />
               </div>
 
               <div className="relative lg:hidden">
@@ -106,14 +122,22 @@ export default function Home({ productData }: { productData: productsData }) {
                 >
                   Tout les filtres
                 </button>
-                <i className="fa-solid fa-list absolute pointer-events-none right-4 top-1/2 -translate-y-1/2"></i>
+                <FontAwesomeIcon
+                  icon={fs.faList}
+                  className="duration-200 ease absolute pointer-events-none right-4 top-1/2 -translate-y-1/2"
+                />
               </div>
             </div>
 
-            {product.length >= 1 ? (
+            {products.length >= 1 ? (
               <div className="flex py-5 gap-5 pb-20 overflow-hidden">
-                {product.map((el: productsItem, index: any) => (
-                  <ProductCard el={el} key={index} />
+                {products.map((el: productsItem, index: any) => (
+                  <ProductCard
+                    el={el}
+                    key={index}
+                    setProducts={setProducts}
+                    product={products}
+                  />
                 ))}
               </div>
             ) : (

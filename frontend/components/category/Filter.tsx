@@ -9,6 +9,8 @@ import { useEffect, useState } from "react";
 import { URL_FILTER } from "../../constants/Constants";
 import { useRouter } from "next/router";
 import { handleChangePrice } from "../../utils/productUtils";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import * as fs from "@fortawesome/free-solid-svg-icons";
 
 const Filter = ({
   toggleFilter,
@@ -64,12 +66,14 @@ const Filter = ({
             >
               <input
                 type="checkbox"
-                className="peer absolute left-0 top-0 right-0 h-[32px] peer appearance-none cursor-pointer z-10"
+                className="peer absolute left-0 top-0 right-0 h-[32px] appearance-none cursor-pointer z-10"
               />
-
-              <div className="flex items-center justify-between ">
+              <div className="peer-checked:[&>svg]:rotate-180 flex items-center justify-between ">
                 <span>{capitalize(key.name)}</span>{" "}
-                <i className="fa-solid fa-chevron-down peer-checked:rotate-180 duration-200 ease pointer-events-none ml-1"></i>
+                <FontAwesomeIcon
+                  icon={fs.faChevronDown}
+                  className="duration-200 ease pointer-events-none ml-1"
+                />
               </div>
 
               <ul className="peer-checked:flex flex flex-col hidden gap-2 py-2 z-20">
@@ -96,9 +100,12 @@ const Filter = ({
             className="peer absolute left-0 top-0 right-0 h-[32px] peer appearance-none cursor-pointer z-10"
           />
 
-          <div className="flex items-center justify-between ">
+          <div className="peer-checked:[&>svg]:rotate-180 flex items-center justify-between ">
             <span>Prix</span>{" "}
-            <i className="fa-solid fa-chevron-down peer-checked:rotate-180 duration-200 ease pointer-events-none ml-1"></i>
+            <FontAwesomeIcon
+              icon={fs.faChevronDown}
+              className="duration-200 ease pointer-events-none ml-1"
+            />
           </div>
 
           <div className="peer-checked:flex flex-col hidden z-10 w-full py-4">

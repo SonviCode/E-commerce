@@ -2,7 +2,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export interface ShopState {
-  value: Object[];
+  value: any;
 }
 
 const initialState: ShopState = {
@@ -14,7 +14,7 @@ const shopSlice = createSlice({
   initialState,
   reducers: {
     setShopData: (state, action) => {
-      state.value = action.payload;
+      state.value.push(action.payload);
     },
   },
 });
