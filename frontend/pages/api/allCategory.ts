@@ -1,10 +1,10 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-import { imgHomeData } from "../../types/home";
+import { allCategoryData } from "../../types/home";
 
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<imgHomeData>
+  res: NextApiResponse<allCategoryData>
 ) {
   res.status(200).json([
     {

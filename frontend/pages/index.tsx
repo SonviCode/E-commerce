@@ -1,18 +1,18 @@
 import { InferGetStaticPropsType, GetStaticProps } from "next";
 import Head from "next/head";
 import BgHome from "../components/home/BgHome";
-import ImageHome from "../components/home/ImageHome";
+import ImageHome from "../components/home/AllCategory";
 import {
   COMPANY_NAME,
   URL_CATEGORY,
   URL_GET_PRODUCT,
 } from "../constants/Constants";
-import { imgHomeData } from "../types/home";
+import { allCategoryData } from "../types/home";
 import { productsData, productsItem } from "../types/product";
 import ProductCard from "../components/ProductCard";
 
 export default function Home({
-  imgHomeData,
+  allCategoryData,
   products,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
@@ -22,7 +22,7 @@ export default function Home({
       </Head>
 
       <BgHome />
-      <ImageHome imgHomeData={imgHomeData} />
+      <ImageHome allCategoryData={allCategoryData} />
       <div className="px-5 mt-20 mb-20 max-w-7xl mx-auto">
         <h2 className="uppercase after:block after:absolute after:w-40 after:h-1 after:bg-main after:rounded-md pl-[5%] text-3xl">
           Les dernières nouveautés
@@ -40,19 +40,17 @@ export default function Home({
 }
 
 export const getStaticProps: GetStaticProps<{
-  imgHomeData: imgHomeData;
+  allCategoryData: allCategoryData;
   products: productsData;
 }> = async () => {
-  const imgHomeData = await (await fetch(URL_CATEGORY)).json();
+  const allCategoryData = await (await fetch(URL_CATEGORY)).json();
   const products = await (await fetch(URL_GET_PRODUCT)).json();
 
-  const res = await Promise.all([imgHomeData, products]);
-
-  console.log(res);
+  const res = await Promise.all([allCategoryData, products]);
 
   return {
     props: {
-      imgHomeData: res[0],
+      allCategoryData: res[0],
       products: res[1],
     },
   };

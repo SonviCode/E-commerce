@@ -1,30 +1,32 @@
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { starInArray, toggleHeart, ArrayAvg } from "../utils/productUtils";
-import {  productsItem } from "../types/product";
+import { productsItem } from "../types/product";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as fs from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
+import * as fr from "@fortawesome/free-regular-svg-icons";
+import { useDispatch, useSelector } from "react-redux";
+import ButtonShop from "./UI/ButtonShop";
 
 const ProductCard = ({ el }: { el: productsItem }) => {
-  const [fav, setFav] = useState<productsItem[]>([]);
+  const favData: productsItem[] = useSelector((state: any) => state.fav.value);
 
-  useEffect(() => {
-    setFav(JSON.parse(localStorage.getItem("favoris")!));
-  }, []);
+  const dispatch = useDispatch();
 
   return (
     <div className="relative min-w-[220px] cursor-pointer">
       <div
-        onClick={() => toggleHeart(el)}
+        onClick={() =>
+          toggleHeart(el, favData, dispatch)
+        }
         className="text-sm p-1 rounded-full w-8 h-8 bg-white flex justify-center items-center absolute top-4 right-4 z-10"
       >
-        {/* {fav[0] && fav.some((fav) => fav.name === el.name) ? (
+        {favData.includes(el) ? (
           <FontAwesomeIcon icon={fs.faHeart} className="text-red-500" />
         ) : (
           <FontAwesomeIcon icon={fr.faHeart} />
-        )} */}
+        )}
       </div>
       <Link href={`/product/${el.name}`} className="z-0">
         <div className="overflow-hidden group w-fit mx-auto rounded-md bg-gray-200 ">
@@ -63,10 +65,10 @@ const ProductCard = ({ el }: { el: productsItem }) => {
             <span className="ml-1">({el.star.length})</span>
           </span>
         </div>
-        <button className="rounded-md text-xs border-solid border-gray-600 border-2 py-1 px-2 hover:bg-main hover:border-main hover:text-white duration-300 ease-in hover:scale-90">
-          En savoir plus
-        </button>
       </Link>
+      <div className="w-fit text-xs">
+        <ButtonShop product={el}>Ajouter au panier</ButtonShop>
+      </div>
     </div>
   );
 };

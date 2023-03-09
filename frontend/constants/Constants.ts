@@ -10,7 +10,7 @@ export const URL_GET_PRODUCT_BY_CATEGORY: string = `${API_NODE_URL}product/categ
 const API_NEXT_URL = process.env.NEXT_PUBLIC_API_NEXT_URL;
 
 export const URL_FILTER: string = `${API_NEXT_URL}filtreProduct`;
-export const URL_CATEGORY: string = `${API_NEXT_URL}imgHome`;
+export const URL_CATEGORY: string = `${API_NEXT_URL}allCategory`;
 
 // PRODUCT
 export const COMPANY_NAME: string = "Montagne Addicte";

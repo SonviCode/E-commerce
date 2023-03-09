@@ -7,6 +7,9 @@ import { capitalize } from "../../utils/productUtils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as fs from "@fortawesome/free-solid-svg-icons";
 import * as fr from "@fortawesome/free-regular-svg-icons";
+import { productsItem } from "../../types/product";
+import { useSelector } from "react-redux";
+import Favoris from "../shop/Favoris";
 
 interface Navbar {
   toggleAside: boolean;
@@ -14,6 +17,11 @@ interface Navbar {
 }
 
 const Aside = ({ toggleAside, setToggleAside }: Navbar) => {
+  const favData: productsItem[] = useSelector((state: any) => state.fav.value);
+  const shopData: productsItem[] = useSelector(
+    (state: any) => state.shop.value
+  );
+
   const closeAside = () => {
     setToggleAside(false);
   };
@@ -47,7 +55,8 @@ const Aside = ({ toggleAside, setToggleAside }: Navbar) => {
       </form>
       <div className="flex flex-col ">
         <Link
-          href="/categorie"
+          onClick={() => closeAside()}
+          href="/category"
           className="py-1 pr-10 flex justify-between items-center gap-2 text-xl py-4 font-semibold"
         >
           Catégories :
@@ -55,8 +64,9 @@ const Aside = ({ toggleAside, setToggleAside }: Navbar) => {
         {new Array("chaussures", "habits", "accessoires").map(
           (el: string, index) => (
             <Link
+              onClick={() => closeAside()}
               key={index}
-              href={`/categorie/${el}`}
+              href={`/category/${el}`}
               className="py-1 pr-10 flex justify-between items-center gap-2 text-xl py-4 hover:bg-gradient-to-r from-white to-gray-200"
             >
               {capitalize(el)}
@@ -66,14 +76,31 @@ const Aside = ({ toggleAside, setToggleAside }: Navbar) => {
         )}
       </div>
       <div className="flex flex-col gap-5 py-10">
-        <Link href="/favoris">
-          <i className="fa-regular fa-heart mr-2"></i>Favoris
+        <Link href="/favoris" className="relative">
+          <FontAwesomeIcon icon={fr.faHeart} className="mr-2"/>
+          {favData.length > 0 ? (
+            <div className="absolute rounded-full text-xs px-1 flex items-center justify-center bg-red-600 top-3 left-2 text-white">
+              {favData.length}
+            </div>
+          ) : (
+            ""
+          )}
+          Favoris
         </Link>
         <Link href="/account">
-          <i className="fa-regular fa-user mr-2"></i>Compte
+          <FontAwesomeIcon icon={fr.faUser} className="mr-2" />
+          Compte
         </Link>
-        <Link href="/panier">
-          <i className="fa-solid fa-cart-shopping mr-2"></i>Panier
+        <Link href="/panier" className="relative">
+          <FontAwesomeIcon icon={fs.faCartShopping} className="mr-2" />
+          {shopData.length > 0 ? (
+            <div className="absolute rounded-full text-xs flex items-center justify-center bg-red-600 top-3 left-2 text-white px-1">
+              {shopData.length}
+            </div>
+          ) : (
+            ""
+          )}
+          Panier
         </Link>
       </div>
     </div>

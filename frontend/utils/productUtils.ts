@@ -1,5 +1,11 @@
 import { productsData, productsItem } from "../types/product";
 import { Dispatch, SetStateAction } from "react";
+import {
+  removeItemFav,
+  setFavData,
+} from "../store/features/slice/favorisSlice";
+import { setNotif } from "../store/features/slice/notifSlice";
+import { setShopData } from "../store/features/slice/shopSlice";
 
 export const ArrayAvg = (myArray: number[]) => {
   let i = 0,
@@ -28,26 +34,37 @@ export const starInArray = (nb: number) => {
   return avgStar;
 };
 
-export const toggleHeart = (el: productsItem) => {
-  const favorisArray: productsItem[] = JSON.parse(
-    localStorage.getItem("favoris")!
-  );
-
-  favorisArray && favorisArray.push(el);
-
-  if (el.like == true) {
-    const favorisArrayFilter = favorisArray.filter(
-      (fav) => fav.name !== el.name
-    );
-    console.log(favorisArrayFilter);
-    localStorage.setItem("favoris", JSON.stringify(favorisArrayFilter));
+export const toggleHeart = (
+  el: productsItem,
+  favData: productsItem[],
+  dispatch: any
+) => {
+  if (favData.includes(el)) {
+    dispatch(removeItemFav(el));
   } else {
-    if (favorisArray) {
-      localStorage.setItem("favoris", JSON.stringify(favorisArray));
-    } else {
-      localStorage.setItem("favoris", JSON.stringify([el]));
-    }
+    dispatch(setNotif("favoris"));
+    dispatch(setFavData(el));
   }
+
+  // const favorisArray: productsItem[] = JSON.parse(
+  //   localStorage.getItem("favoris")!
+  // );
+
+  // favorisArray && favorisArray.push(el);
+
+  // if (el.like == true) {
+  //   const favorisArrayFilter = favorisArray.filter(
+  //     (fav) => fav.name !== el.name
+  //   );
+  //   console.log(favorisArrayFilter);
+  //   localStorage.setItem("favoris", JSON.stringify(favorisArrayFilter));
+  // } else {
+  //   if (favorisArray) {
+  //     localStorage.setItem("favoris", JSON.stringify(favorisArray));
+  //   } else {
+  //     localStorage.setItem("favoris", JSON.stringify([el]));
+  //   }
+  // }
 };
 
 export const capitalize = (s: string | string[] | undefined) =>
@@ -64,15 +81,11 @@ export const handleDate = (dateFromDb: string) => {
   return formattedDate;
 };
 
-export const changeCounter = (
-  nb: number,
-  counter: number,
-  setCounter: Dispatch<SetStateAction<number>>
-) => {
-  if (counter == 1 && nb == -1) {
+export const changeCounter = (nb: number, el: any, dispatch: any) => {
+  if (el[1] == 1 && nb == -1) {
     return;
   }
-  setCounter((curr) => curr + nb);
+  dispatch(setShopData([el[0], el[1] + nb]));
 };
 
 // --------------------FILTER------------------------

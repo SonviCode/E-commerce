@@ -13,9 +13,12 @@ export type productsData = {
   type: string;
   star: number[];
   comments: string[];
+  sport: string;
+  size: string;
 }[];
 
 export type productsItem = {
+  sport: string;
   name: string;
   url: string;
   _id: string;
@@ -28,6 +31,7 @@ export type productsItem = {
   type: string;
   star: number[];
   comments: string[];
+  size: string;
 };
 
 export type productComment = {

@@ -2,9 +2,9 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState, Dispatch } from "react";
+import {  useState } from "react";
 import { COMPANY_NAME, URL_GET_PRODUCT } from "../../constants/Constants";
-import { productComment, productsItem } from "../../types/product";
+import { productsItem } from "../../types/product";
 import { handleDate, changeCounter } from "../../utils/productUtils";
 import {
   ArrayAvg,
@@ -15,19 +15,20 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as fs from "@fortawesome/free-solid-svg-icons";
 import * as fr from "@fortawesome/free-regular-svg-icons";
-import { useDispatch } from "react-redux";
-import { setShopData } from "../../store/features/slice/shopSlice";
+import { useDispatch, useSelector } from "react-redux";
+import ButtonShop from "../../components/UI/ButtonShop";
 
 export default function Home({ product }: { product: productsItem }) {
   const router = useRouter();
+
   const [counter, setCounter] = useState<number>(1);
+
   const [displayDescription, setDisplayDescription] = useState<boolean>(true);
 
-  const dispatch = useDispatch();
+  const favData: productsItem[] = useSelector((state: any) => state.fav.value);
 
-  const addToShopCart = () => {
-    dispatch(setShopData(product));
-  };
+  const dispatch = useDispatch();
+  
 
   return (
     <>
@@ -50,10 +51,12 @@ export default function Home({ product }: { product: productsItem }) {
         <div className="flex flex-col lg:flex-row gap-20 my-10">
           <div className="overflow-hidden group w-full mx-auto rounded-md bg-gray-200 relative flex-1 flex justify-center items-center h-fit">
             <span
-              onClick={() => toggleHeart(product)}
+              onClick={() =>
+                toggleHeart(product, favData, dispatch)
+              }
               className="text-sm p-1 rounded-full w-8 h-8 bg-white flex justify-center items-center absolute cursor-pointer top-4 right-4 z-10"
             >
-              {product.like === true ? (
+              {favData.includes(product) ? (
                 <FontAwesomeIcon icon={fs.faHeart} className="text-red-500" />
               ) : (
                 <FontAwesomeIcon icon={fr.faHeart} />
@@ -139,16 +142,7 @@ export default function Home({ product }: { product: productsItem }) {
                 </div>
               </div>
               <div className="flex flex-col sm:flex-row gap-4">
-                {/* <button className="rounded-full bg-main items-center sm:w-fit py-2 px-4 hover:text-white">
-                  Achetez maintenant
-                </button> */}
-
-                <button
-                  onClick={() => addToShopCart()}
-                  className="rounded-lg border-main border-2 items-center py-2 px-4 bg-main hover:text-white w-full hover:border-black"
-                >
-                  Ajouter au panier
-                </button>
+                <ButtonShop product={product} counter={counter}>Ajouter au panier</ButtonShop>
               </div>
             </div>
           </div>

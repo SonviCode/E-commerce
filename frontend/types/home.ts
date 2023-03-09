@@ -1,11 +1,11 @@
-export type imgHomeData = {
+export type allCategoryData = {
   name: string;
   url: string;
   width: number;
   height: number;
 }[];
 
-export type imgHomeItem = {
+export type allCategoryItem = {
   name: string;
   url: string;
   width: number;
