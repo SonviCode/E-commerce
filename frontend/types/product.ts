@@ -15,6 +15,7 @@ export type productsData = {
   comments: string[];
   sport: string;
   size: string;
+  counterShop: number;
 }[];
 
 export type productsItem = {
@@ -32,6 +33,7 @@ export type productsItem = {
   star: number[];
   comments: string[];
   size: string;
+  counterShop: number;
 };
 
 export type productComment = {

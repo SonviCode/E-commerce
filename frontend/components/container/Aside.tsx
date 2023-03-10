@@ -9,7 +9,7 @@ import * as fs from "@fortawesome/free-solid-svg-icons";
 import * as fr from "@fortawesome/free-regular-svg-icons";
 import { productsItem } from "../../types/product";
 import { useSelector } from "react-redux";
-import Favoris from "../shop/Favoris";
+import Favoris from "../favoris/Favoris";
 
 interface Navbar {
   toggleAside: boolean;
@@ -77,7 +77,7 @@ const Aside = ({ toggleAside, setToggleAside }: Navbar) => {
       </div>
       <div className="flex flex-col gap-5 py-10">
         <Link href="/favoris" className="relative">
-          <FontAwesomeIcon icon={fr.faHeart} className="mr-2"/>
+          <FontAwesomeIcon icon={fr.faHeart} className="mr-2" />
           {favData.length > 0 ? (
             <div className="absolute rounded-full text-xs px-1 flex items-center justify-center bg-red-600 top-3 left-2 text-white">
               {favData.length}

@@ -1,6 +1,6 @@
 import { InferGetStaticPropsType, GetStaticProps } from "next";
 import Head from "next/head";
-import BgHome from "../components/home/BgHome";
+import HeaderHome from "../components/home/HeaderHome";
 import ImageHome from "../components/home/AllCategory";
 import {
   COMPANY_NAME,
@@ -9,7 +9,7 @@ import {
 } from "../constants/Constants";
 import { allCategoryData } from "../types/home";
 import { productsData, productsItem } from "../types/product";
-import ProductCard from "../components/ProductCard";
+import ProductCard from "../components/product/ProductCard";
 
 export default function Home({
   allCategoryData,
@@ -21,7 +21,7 @@ export default function Home({
         <title>{COMPANY_NAME}</title>
       </Head>
 
-      <BgHome />
+      <HeaderHome />
       <ImageHome allCategoryData={allCategoryData} />
       <div className="px-5 mt-20 mb-20 max-w-7xl mx-auto">
         <h2 className="uppercase after:block after:absolute after:w-40 after:h-1 after:bg-main after:rounded-md pl-[5%] text-3xl">

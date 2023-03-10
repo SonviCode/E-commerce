@@ -1,5 +1,6 @@
 // 'use client';
 import { createSlice } from "@reduxjs/toolkit";
+import { filterOneItemByName } from "../../../utils/reducerUtils";
 
 export interface FavState {
   value: any;
@@ -14,12 +15,10 @@ const favSlice = createSlice({
   initialState,
   reducers: {
     setFavData: (state, action) => {
-      state.value.push(action.payload);
+      state.value.unshift(action.payload);
     },
     removeItemFav: (state, action) => {
-      state.value = state.value.filter(
-        (product: any) => product.name !== action.payload.name
-      );
+      filterOneItemByName(state, action);
     },
   },
 });

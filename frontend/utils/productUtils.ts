@@ -5,7 +5,6 @@ import {
   setFavData,
 } from "../store/features/slice/favorisSlice";
 import { setNotif } from "../store/features/slice/notifSlice";
-import { setShopData } from "../store/features/slice/shopSlice";
 
 export const ArrayAvg = (myArray: number[]) => {
   let i = 0,
@@ -39,7 +38,7 @@ export const toggleHeart = (
   favData: productsItem[],
   dispatch: any
 ) => {
-  if (favData.includes(el)) {
+  if (favData.some((fav: any) => fav.name == el.name)) {
     dispatch(removeItemFav(el));
   } else {
     dispatch(setNotif("favoris"));
@@ -81,11 +80,15 @@ export const handleDate = (dateFromDb: string) => {
   return formattedDate;
 };
 
-export const changeCounter = (nb: number, el: any, dispatch: any) => {
-  if (el[1] == 1 && nb == -1) {
+export const changeCounterProduct = (
+  nb: number,
+  counter: number,
+  setCounter: any
+) => {
+  if (counter == 1 && nb == -1) {
     return;
   }
-  dispatch(setShopData([el[0], el[1] + nb]));
+  setCounter(counter + nb);
 };
 
 // --------------------FILTER------------------------

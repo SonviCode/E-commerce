@@ -2,10 +2,10 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import {  useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { COMPANY_NAME, URL_GET_PRODUCT } from "../../constants/Constants";
 import { productsItem } from "../../types/product";
-import { handleDate, changeCounter } from "../../utils/productUtils";
+import { handleDate, changeCounterProduct } from "../../utils/productUtils";
 import {
   ArrayAvg,
   capitalize,
@@ -16,19 +16,31 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as fs from "@fortawesome/free-solid-svg-icons";
 import * as fr from "@fortawesome/free-regular-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
-import ButtonShop from "../../components/UI/ButtonShop";
+import ButtonShop from "../../components/UI/components/ButtonShop";
+import { setHistoric } from "../../store/features/slice/historicSlice";
 
 export default function Home({ product }: { product: productsItem }) {
-  const router = useRouter();
-
   const [counter, setCounter] = useState<number>(1);
-
   const [displayDescription, setDisplayDescription] = useState<boolean>(true);
 
   const favData: productsItem[] = useSelector((state: any) => state.fav.value);
+  const shopData: productsItem[] = useSelector(
+    (state: any) => state.shop.value
+  );
 
+  const router = useRouter();
   const dispatch = useDispatch();
-  
+  const effectRan = useRef(false);
+
+  useEffect(() => {
+    if (effectRan.current === true) {
+      dispatch(setHistoric(product));
+    }
+
+    return () => {
+      effectRan.current = true;
+    };
+  }, [dispatch, product]);
 
   return (
     <>
@@ -51,12 +63,10 @@ export default function Home({ product }: { product: productsItem }) {
         <div className="flex flex-col lg:flex-row gap-20 my-10">
           <div className="overflow-hidden group w-full mx-auto rounded-md bg-gray-200 relative flex-1 flex justify-center items-center h-fit">
             <span
-              onClick={() =>
-                toggleHeart(product, favData, dispatch)
-              }
+              onClick={() => toggleHeart(product, favData, dispatch)}
               className="text-sm p-1 rounded-full w-8 h-8 bg-white flex justify-center items-center absolute cursor-pointer top-4 right-4 z-10"
             >
-              {favData.includes(product) ? (
+              {favData.some((fav: any) => fav.name == product.name) ? (
                 <FontAwesomeIcon icon={fs.faHeart} className="text-red-500" />
               ) : (
                 <FontAwesomeIcon icon={fr.faHeart} />
@@ -127,14 +137,16 @@ export default function Home({ product }: { product: productsItem }) {
               <div>
                 <div className="rounded-lg bg-gray-200 justify-between items-center w-fit flex gap-5 w-[120px] mb-5">
                   <button
-                    onClick={() => changeCounter(-1, counter, setCounter)}
+                    onClick={() =>
+                      changeCounterProduct(-1, counter, setCounter)
+                    }
                     className="py-2 pl-4"
                   >
                     -
                   </button>
                   <span>{counter}</span>
                   <button
-                    onClick={() => changeCounter(1, counter, setCounter)}
+                    onClick={() => changeCounterProduct(1, counter, setCounter)}
                     className="py-2 pr-4"
                   >
                     +
@@ -142,7 +154,13 @@ export default function Home({ product }: { product: productsItem }) {
                 </div>
               </div>
               <div className="flex flex-col sm:flex-row gap-4">
-                <ButtonShop product={product} counter={counter}>Ajouter au panier</ButtonShop>
+                <ButtonShop
+                  product={product}
+                  counter={counter}
+                  shopData={shopData}
+                >
+                  Ajouter au panier
+                </ButtonShop>
               </div>
             </div>
           </div>

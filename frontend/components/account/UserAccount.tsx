@@ -3,10 +3,21 @@ import React, { useEffect, useState } from "react";
 import { URL_GETUSER } from "../../constants/Constants";
 import { User } from "../../types/user";
 import { formatNumberPhone } from "../../utils/user";
+import Historic from "../favoris/Historic";
+import { capitalize } from "../../utils/productUtils";
+import { useDispatch, useSelector } from "react-redux";
+import { removeHistoric } from "../../store/features/slice/historicSlice";
+import { productsItem } from "../../types/product";
 
 const UserAccount = () => {
   const [tab, setTab] = useState<number>(1);
   const [user, setUser] = useState<User>();
+
+  const historicData: productsItem[] = useSelector(
+    (state: any) => state.historic.value
+  );
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     axios
@@ -33,7 +44,7 @@ const UserAccount = () => {
 
   return (
     <div className="flex flex-col lg:flex-row p-5 pb-10 gap-10 ">
-      <div className="lg:min-w-[285px] lg:w-1/4">
+      <div className="lg:min-w-[300px] lg:w-1/4">
         <div className="flex flex-col gap-10 border-2 rounded-md p-5 sticky top-0  justify-between h-full">
           <h1 className="text-3xl">Bienvenue {user && user.name} !</h1>
           <div className="flex flex-col gap-2.5">
@@ -60,18 +71,18 @@ const UserAccount = () => {
       </div>
 
       <div className="grow flex flex-col gap-10 overflow-hidden">
-        <div className="border-2 rounded-md p-5 min-h-[500px] h-full relative">
+        <div className=" min-h-[500px] h-full relative">
           {tab === 1 ? (
-            <>
+            <div className="flex flex-col h-full">
               <h2 className="text-2xl font-bold mb-5">
                 Informations personnelles
               </h2>
-              <div className="flex flex-col gap-2.5">
+              <div className="border text-xl rounded-md p-5 flex flex-col gap-2.5 grow">
                 <p>Email : {user && user.email}</p>
                 <hr />
-                <p>Prénom : {user && user.name}</p>
+                <p>Prénom : {user && capitalize(user.name)}</p>
                 <hr />
-                <p>Nom : {user && user.firstname}</p>
+                <p>Nom : {user && capitalize(user.firstname)}</p>
                 <hr />
                 <p className="flex">
                   Numéro de téléphone : + 33{" "}
@@ -82,23 +93,34 @@ const UserAccount = () => {
                       ))}
                   </span>
                 </p>
-                <hr />
               </div>
-            </>
+            </div>
           ) : tab === 2 ? (
             <>
               <h2 className="text-2xl font-bold mb-5">Commandes</h2>
               <div className="flex flex-col gap-2.5">
-                <p>Historique des commandes :</p>
-                <hr />
+                <h3>Historique des commandes :</h3>
               </div>
             </>
           ) : (
             <>
               <h2 className="text-2xl font-bold mb-5">Navigation</h2>
               <div className="flex flex-col gap-2.5">
-                <p>Historique de navigation :</p>
-                <hr />
+                <h3 className="text-xl">Historique de navigation :</h3>
+                <Historic />
+                {historicData.length > 0 ? (
+                  <>
+                    <h3 className="text-xl">
+                      Vous souhaitez supprimer votre historique ?
+                    </h3>
+                    <button
+                      onClick={() => dispatch(removeHistoric())}
+                      className="w-fit p-2 rounded-md border"
+                    >
+                      Cliquez ici !
+                    </button>
+                  </>
+                ) : null}
               </div>
             </>
           )}

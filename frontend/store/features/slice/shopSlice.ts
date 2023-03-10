@@ -1,8 +1,10 @@
 // 'use client';
 import { createSlice } from "@reduxjs/toolkit";
+import { productsItem } from "../../../types/product";
+import { filterOneItemByName, contains } from '../../../utils/reducerUtils';
 
 export interface ShopState {
-  value: any;
+  value: productsItem[];
 }
 
 const initialState: ShopState = {
@@ -14,22 +16,18 @@ const shopSlice = createSlice({
   initialState,
   reducers: {
     setShopData: (state, action) => {
-      let idAlreadyExists = state.value.some((elem: any) => {
-        return (
-          JSON.stringify(action.payload.name) === JSON.stringify(elem.name)
-        );
-      });
-      if (idAlreadyExists) {
-        console.log("existe déjà");
-        state.value[0] = [state.value[0][0], state.value[0][1] + action.payload[1]];
+      let indexElement = state.value.findIndex(
+        (elem: any) => elem.name === action.payload.name
+      );
+
+      if (contains(state, action)) {
+        state.value[indexElement] = action.payload;
       } else {
         state.value.push(action.payload);
       }
     },
     removeItemShop: (state, action) => {
-      state.value = state.value.filter(
-        (product: any) => product.name !== action.payload.name
-      );
+      filterOneItemByName(state, action);
     },
   },
 });

@@ -26,7 +26,7 @@ import {
   starInArray,
   toggleHeart,
 } from "../../utils/productUtils";
-import ProductCard from "../../components/ProductCard";
+import ProductCard from "../../components/product/ProductCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as fs from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
@@ -79,14 +79,14 @@ export default function Home({ productData }: { productData: productsData }) {
         </h1>
       </div>
 
-      <div className="flex flex-col lg:flex-row overflow-hidden px-5 lg:px-0 border-t ">
+      <div className="flex flex-col lg:flex-row overflow-hidden border-t ">
         <Filter
           toggleFilter={toggleFilter}
           setToggleFilter={setToggleFilter}
           setProducts={setProducts}
           productData={productData}
         />
-        <div className="lg:pr-5 grow pt-5">
+        <div className="grow px-5 pt-5">
           <div className="flex flex-wrap gap-x-10 gap-y-5 flex-row-reverse justify-between">
             <div className="relative ">
               <select

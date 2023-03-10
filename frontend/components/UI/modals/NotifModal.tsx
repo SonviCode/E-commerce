@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as fs from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
-import { setNotif } from "../store/features/slice/notifSlice";
+import { setNotif } from "../../../store/features/slice/notifSlice";
 
 const NotifModal = ({ notifName }: { notifName: string }) => {
   const [load, setLoad] = useState<boolean>(false);

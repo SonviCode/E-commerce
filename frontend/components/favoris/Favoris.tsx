@@ -7,11 +7,12 @@ import * as fs from "@fortawesome/free-solid-svg-icons";
 import * as fr from "@fortawesome/free-regular-svg-icons";
 import Image from "next/image";
 import { ArrayAvg, starInArray } from "../../utils/productUtils";
-import { addToShopCart, removeItem } from "../../utils/shopUtils";
-import ButtonShop from "../UI/ButtonShop";
+import { removeItem } from "../../utils/shopUtils";
+import ButtonShop from "../UI/components/ButtonShop";
 
 const Favoris = () => {
   const favData: productsItem[] = useSelector((state: any) => state.fav.value);
+  const shopData = useSelector((state: any) => state.shop.value);
 
   const dispatch = useDispatch();
 
@@ -27,7 +28,7 @@ const Favoris = () => {
         {favData.length > 0 ? (
           favData.map((fav: productsItem, index: any) => (
             <div className="flex  justify-between flex-wrap gap-10" key={index}>
-              <div className="flex flex-col sm:flex-row gap-10">
+              <div className="flex w-[410px] flex-col xs:flex-row gap-10 justify-between">
                 <div className="overflow-hidden group max-w-[200px] rounded-md bg-gray-200 ">
                   <Image
                     src={fav.url}
@@ -68,7 +69,10 @@ const Favoris = () => {
                       {fav.price},00€
                     </span>
                     <p className="py-3">
-                      Taille :<span className="text-lg ml-2 border-2 rounded-lg p-2">{fav.size}</span>{" "}
+                      Taille :
+                      <span className="text-lg ml-2 border-2 rounded-lg p-2">
+                        {fav.size}
+                      </span>{" "}
                     </p>
                   </div>
                   <Link
@@ -79,18 +83,17 @@ const Favoris = () => {
                   </Link>
                 </div>
               </div>
-              <div className="flex items-center">
-                <ButtonShop product={fav}>Ajouter au panier</ButtonShop>
-              </div>
-              {/* <div>
-                <span>Sport: {fav.sport}</span>
-              </div> */}
-              <div className="flex items-center flex-col sm:flex-row sm:gap-20">
-                <FontAwesomeIcon
-                  icon={fs.faHeartCircleXmark}
-                  className="text-gray-200 cursor-pointer"
-                  onClick={() => removeItem(fav, dispatch)}
-                />
+              <div className="flex items-center justify-between grow flex-wrap gap-y-5 gap-x-10">
+                <div className="flex items-center">
+                  <ButtonShop product={fav} shopData={shopData}>Ajouter au panier</ButtonShop>
+                </div>
+                <div className="flex items-center flex-col sm:flex-row sm:gap-20">
+                  <FontAwesomeIcon
+                    icon={fs.faHeartCircleXmark}
+                    className="text-red-600 text-lg cursor-pointer"
+                    onClick={() => removeItem(fav, dispatch)}
+                  />
+                </div>
               </div>
             </div>
           ))
