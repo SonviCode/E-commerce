@@ -19,7 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ButtonShop from "../../components/UI/components/ButtonShop";
 import { setHistoric } from "../../store/features/slice/historicSlice";
 
-export default function Home({ product }: { product: productsItem }) {
+export default function ProductId({ product }: { product: productsItem }) {
   const [counter, setCounter] = useState<number>(1);
   const [displayDescription, setDisplayDescription] = useState<boolean>(true);
 
@@ -49,7 +49,7 @@ export default function Home({ product }: { product: productsItem }) {
           {COMPANY_NAME} - {product.name}
         </title>
       </Head>
-      <div className="px-5 mb-20">
+      <div className="px-5 mb-20 max-w-screen-2xl mx-auto">
         <div>
           <p className="italic ">
             <Link href="/">{COMPANY_NAME}</Link> -{" "}

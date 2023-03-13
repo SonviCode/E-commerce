@@ -11,9 +11,9 @@ export default function Home() {
         <title>{COMPANY_NAME} - Favoris</title>
       </Head>
 
-      <div className="py-10 px-5 flex flex-col gap-20">
+      <div className="py-10 px-5 flex flex-col gap-20 max-w-screen-2xl mx-auto">
         <Favoris />
-        <Historic/>
+        <Historic />
       </div>
     </>
   );

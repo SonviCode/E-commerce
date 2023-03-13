@@ -1,5 +1,3 @@
-
-
 export const formatNumberPhone = (number: number) => {
   const numberInString = number + "";
 
@@ -8,4 +6,9 @@ export const formatNumberPhone = (number: number) => {
     .split("-");
 
   return formatPhone;
+};
+
+export const logout = (setLoginStatus:any) => {
+  localStorage.clear();
+  setLoginStatus(false);
 };

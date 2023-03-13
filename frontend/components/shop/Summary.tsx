@@ -9,7 +9,7 @@ import visa from "../../public/svg/visa.svg";
 import btc from "../../public/btc.png";
 import { useSelector } from "react-redux";
 import { subtotal } from "../../utils/shopUtils";
-import { indicator } from "./Indicator";
+import { indicator } from "../../types/shop";
 
 const Summary = ({
   numberIndicator,

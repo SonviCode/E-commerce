@@ -1,47 +1,47 @@
 import Head from "next/head";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Filter from "../../components/category/Filter";
 import {
   COMPANY_NAME,
   THE_MOST_POPULAR,
   URL_GET_PRODUCT,
-  URL_GET_PRODUCT_BY_CATEGORY,
 } from "../../constants/Constants";
 import { productsData, productsItem } from "../../types/product";
-import { queryFormat } from "../../utils/fetchData";
 import {
   NO_PRODUCT_FOR_FILTER,
   ASCENDING_PRICE,
   THE_NEWS,
   DECREASING_PRICE,
 } from "../../constants/Constants";
-import {
-  ArrayAvg,
-  ascendingPrice,
-  capitalize,
-  decreasingPrice,
-  starInArray,
-  toggleHeart,
-} from "../../utils/productUtils";
+import { ArrayAvg, capitalize } from "../../utils/productUtils";
 import ProductCard from "../../components/product/ProductCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as fs from "@fortawesome/free-solid-svg-icons";
-import { useDispatch } from "react-redux";
 
-export default function Home({ productData }: { productData: productsData }) {
+export default function CategoryId({
+  productData,
+}: {
+  productData: productsData;
+}) {
   const [products, setProducts] = useState<productsData>(productData);
   const [toggleFilter, setToggleFilter] = useState<Boolean>(false);
   const [sort, setSort] = useState<Boolean>(false);
 
-  // const dispatch = useDispatch();
+  console.log(products);
 
+  const effectRan = useRef(false);
   const router = useRouter();
 
   useEffect(() => {
-    setProducts(productData);
+    if (effectRan.current === true) {
+      setProducts(productData);
+    }
+
+    return () => {
+      effectRan.current = true;
+    };
   }, [productData]);
 
   const handleSort = (name: any) => {

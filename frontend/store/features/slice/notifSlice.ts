@@ -10,7 +10,7 @@ const initialState: notifState = {
 };
 
 const notifSlice = createSlice({
-  name: "shop",
+  name: "notif",
   initialState,
   reducers: {
     setNotif: (state, action) => {

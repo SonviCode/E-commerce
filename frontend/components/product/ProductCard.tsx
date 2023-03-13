@@ -16,7 +16,7 @@ const ProductCard = ({ el }: { el: productsItem }) => {
   const dispatch = useDispatch();
 
   return (
-    <div className="relative min-w-[220px] cursor-pointer border-gray-200 border-2 rounded-md">
+    <div className="relative min-w-[220px] max-w-[350px] cursor-pointer border-gray-200 border-2 rounded-md">
       <div
         onClick={() => toggleHeart(el, favData, dispatch)}
         className="text-sm p-1 rounded-full w-8 h-8 bg-white flex justify-center items-center absolute top-4 right-4 z-10"

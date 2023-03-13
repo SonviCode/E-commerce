@@ -2,7 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { COMPANY_NAME } from "../../constants/Constants";
 
-export default function Home() {
+export default function Category() {
   return (
     <>
       <Head>

@@ -1,52 +1,27 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { URL_GETUSER } from "../../constants/Constants";
+import React, { useState } from "react";
 import { User } from "../../types/user";
-import { formatNumberPhone } from "../../utils/user";
+import { formatNumberPhone, logout } from "../../utils/userUtils";
 import Historic from "../favoris/Historic";
 import { capitalize } from "../../utils/productUtils";
 import { useDispatch, useSelector } from "react-redux";
 import { removeHistoric } from "../../store/features/slice/historicSlice";
 import { productsItem } from "../../types/product";
 
-const UserAccount = () => {
+const UserAccount = ({ setLoginStatus }: { setLoginStatus: any }) => {
   const [tab, setTab] = useState<number>(1);
-  const [user, setUser] = useState<User>();
 
+  const user: User = useSelector((state: any) => state.user.value);
   const historicData: productsItem[] = useSelector(
     (state: any) => state.historic.value
   );
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    axios
-      .get<User>(
-        URL_GETUSER + localStorage.getItem(process.env.NEXT_PUBLIC_USER_ID!),
-        {
-          headers: {
-            Authorization: localStorage.getItem(
-              process.env.NEXT_PUBLIC_USER_TOKEN!
-            ),
-          },
-        }
-      )
-      .then((res) => {
-        delete res.data.password;
-        setUser(res.data),
-          localStorage.setItem(
-            process.env.NEXT_PUBLIC_USER_DATA!,
-            JSON.stringify(res.data)
-          );
-      })
-      .catch((error) => console.log(error));
-  }, []);
-
   return (
     <div className="flex flex-col lg:flex-row p-5 pb-10 gap-10 ">
       <div className="lg:min-w-[300px] lg:w-1/4">
         <div className="flex flex-col gap-10 border-2 rounded-md p-5 sticky top-0  justify-between h-full">
-          <h1 className="text-3xl">Bienvenue {user && user.name} !</h1>
+          <h1 className="text-3xl">Bienvenue {user.name} !</h1>
           <div className="flex flex-col gap-2.5">
             {[
               "Informations personnelles",
@@ -64,7 +39,10 @@ const UserAccount = () => {
               </React.Fragment>
             ))}
           </div>
-          <button className="w-full rounded-md bg-main py-2 ">
+          <button
+            onClick={() => logout(setLoginStatus)}
+            className="w-full rounded-md bg-main py-2 "
+          >
             Se déconnecter
           </button>
         </div>
@@ -78,19 +56,18 @@ const UserAccount = () => {
                 Informations personnelles
               </h2>
               <div className="border text-xl rounded-md p-5 flex flex-col gap-2.5 grow">
-                <p>Email : {user && user.email}</p>
+                <p>Email : {user.email}</p>
                 <hr />
-                <p>Prénom : {user && capitalize(user.name)}</p>
+                <p>Prénom : {capitalize(user.name)}</p>
                 <hr />
-                <p>Nom : {user && capitalize(user.firstname)}</p>
+                <p>Nom : {capitalize(user.firstname)}</p>
                 <hr />
                 <p className="flex">
                   Numéro de téléphone : + 33{" "}
                   <span className="flex gap-2 ml-2">
-                    {user &&
-                      formatNumberPhone(user.phonenumber).map((n, i) => (
-                        <span key={i}>{n}</span>
-                      ))}
+                    {formatNumberPhone(user.phonenumber).map((n, i) => (
+                      <span key={i}>{n}</span>
+                    ))}
                   </span>
                 </p>
               </div>

@@ -7,7 +7,7 @@ import { COMPANY_NAME } from "../../constants/Constants";
 const Footer = () => {
   return (
     <footer className="w-full bg-gray-100 p-5 flex flex-col gap-10">
-      <div className="flex pl-10 md:justify-around  gap-y-10 gap-x-20 flex-wrap max-w-7xl xl:mx-auto">
+      <div className="flex pl-10 md:justify-around  gap-y-10 gap-x-20 flex-wrap max-w-screen-2xl xl:mx-auto">
         <div>
           <Link href="/">
             <div className="flex items-center">

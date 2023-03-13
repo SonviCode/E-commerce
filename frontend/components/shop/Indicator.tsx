@@ -8,6 +8,7 @@ const Indicator = ({
   numberIndicator: indicator[];
   setNumberIndicator: any;
 }) => {
+  
   const rollBack = (el: indicator) => {
     const index = numberIndicator.findIndex((step) => step.name === el.name);
 

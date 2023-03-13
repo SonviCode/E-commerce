@@ -5,7 +5,7 @@ import {
   capitalize,
   // handleChangePrice,
 } from "../../utils/productUtils";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { URL_FILTER } from "../../constants/Constants";
 import { useRouter } from "next/router";
 import { handleChangePrice } from "../../utils/productUtils";
@@ -15,19 +15,29 @@ import * as fs from "@fortawesome/free-solid-svg-icons";
 const Filter = ({
   toggleFilter,
   setToggleFilter,
-  setProduct,
+  setProducts,
   productData,
 }: toggleFilter) => {
   const [dataFilter, setDataFilter] = useState<productFilter>();
   const [arrayFilter, setArrayFilter] = useState<string[]>([]);
 
   const router = useRouter();
+  const effectRan = useRef(false);
 
   useEffect(() => {
-    axios
-      .get<productFilter>(URL_FILTER)
-      .then((res) => setDataFilter(res.data))
-      .catch((error) => console.log(error));
+    if (effectRan.current === true) {
+      axios
+        .get<productFilter>(URL_FILTER)
+        .then((res) => setDataFilter(res.data))
+        .catch((error) => console.log(error));
+        
+        console.log("test use effect");
+        
+    }
+
+    return () => {
+      effectRan.current = true;
+    };
   }, []);
 
   const getFilterProduct = (e: any, params: string, key: string) => {
@@ -47,6 +57,7 @@ const Filter = ({
       pathname: "habits",
       query: arrayFilter.join("&"),
     });
+    console.log("test use effect");
   }, [arrayFilter]);
 
   return (
@@ -114,7 +125,7 @@ const Filter = ({
               defaultValue="50"
               className="w-full"
               onChange={(e) =>
-                handleChangePrice(e.target.value, productData, setProduct)
+                handleChangePrice(e.target.value, productData, setProducts)
               }
             />
             <div className="flex justify-between">

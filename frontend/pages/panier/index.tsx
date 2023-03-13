@@ -11,7 +11,7 @@ import * as fs from "@fortawesome/free-solid-svg-icons";
 import { indicator } from "../../types/shop";
 import { rollBackShop } from "../../utils/shopUtils";
 
-export default function Home() {
+export default function Shop() {
   const [numberIndicator, setNumberIndicator] = useState<indicator[]>([
     {
       actif: true,
@@ -39,7 +39,7 @@ export default function Home() {
         <title>{COMPANY_NAME} - Panier</title>
       </Head>
 
-      <div className="px-5">
+      <div className="px-5 ">
         <Indicator
           numberIndicator={numberIndicator}
           setNumberIndicator={setNumberIndicator}

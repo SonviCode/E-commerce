@@ -120,11 +120,11 @@ export const decreasingPrice = (product: Array<Object>) => {
 export const handleChangePrice = (
   price: any,
   productData: productsData,
-  setProduct: Dispatch<SetStateAction<productsData>>
+  setProducts: Dispatch<SetStateAction<productsData>>
 ) => {
   const percentage: number = 150;
 
   const maxPrice: number = (percentage * price) / 100;
 
-  setProduct([...productData].filter((el) => el.price <= maxPrice));
+  setProducts([...productData].filter((el) => el.price <= maxPrice));
 };

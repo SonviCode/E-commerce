@@ -11,7 +11,7 @@ const initialState: historicState = {
 };
 
 const historicSlice = createSlice({
-  name: "shop",
+  name: "historic",
   initialState,
   reducers: {
     setHistoric: (state, action) => {

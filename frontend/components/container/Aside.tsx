@@ -76,7 +76,7 @@ const Aside = ({ toggleAside, setToggleAside }: Navbar) => {
         )}
       </div>
       <div className="flex flex-col gap-5 py-10">
-        <Link href="/favoris" className="relative">
+        <Link onClick={() => closeAside()} href="/favoris" className="relative">
           <FontAwesomeIcon icon={fr.faHeart} className="mr-2" />
           {favData.length > 0 ? (
             <div className="absolute rounded-full text-xs px-1 flex items-center justify-center bg-red-600 top-3 left-2 text-white">
@@ -87,11 +87,11 @@ const Aside = ({ toggleAside, setToggleAside }: Navbar) => {
           )}
           Favoris
         </Link>
-        <Link href="/account">
+        <Link onClick={() => closeAside()} href="/account">
           <FontAwesomeIcon icon={fr.faUser} className="mr-2" />
           Compte
         </Link>
-        <Link href="/panier" className="relative">
+        <Link onClick={() => closeAside()} href="/panier" className="relative">
           <FontAwesomeIcon icon={fs.faCartShopping} className="mr-2" />
           {shopData.length > 0 ? (
             <div className="absolute rounded-full text-xs flex items-center justify-center bg-red-600 top-3 left-2 text-white px-1">

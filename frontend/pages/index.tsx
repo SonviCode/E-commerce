@@ -23,11 +23,11 @@ export default function Home({
 
       <HeaderHome />
       <ImageHome allCategoryData={allCategoryData} />
-      <div className="px-5 mt-20 mb-20 max-w-7xl mx-auto">
+      <div className="px-5 mt-20 mb-20 max-w-screen-2xl mx-auto">
         <h2 className="uppercase after:block after:absolute after:w-40 after:h-1 after:bg-main after:rounded-md pl-[5%] text-3xl">
           Les dernières nouveautés
         </h2>
-        <div className="flex py-5 gap-5  overflow-hidden">
+        <div className="flex py-5 gap-5 justify-center overflow-hidden">
           {products.map(
             (el: productsItem, index: React.Key | null | undefined) => (
               <ProductCard el={el} key={index} />
