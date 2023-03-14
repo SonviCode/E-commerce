@@ -1,3 +1,7 @@
+import { Dispatch } from "@reduxjs/toolkit";
+import { SetStateAction } from "react";
+import { removeUser } from "../store/features/slice/userSlice";
+
 export const formatNumberPhone = (number: number) => {
   const numberInString = number + "";
 
@@ -8,7 +12,8 @@ export const formatNumberPhone = (number: number) => {
   return formatPhone;
 };
 
-export const logout = (setLoginStatus:any) => {
+export const logout = (setLoginStatus: any, dispatch:any) => {
   localStorage.clear();
+  dispatch(removeUser());
   setLoginStatus(false);
 };

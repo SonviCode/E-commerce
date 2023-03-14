@@ -38,13 +38,13 @@ export default function Account() {
           dispatch(setUser(res.data));
           console.log("test use effect");
         })
-        .catch((error) => console.log(error));
+        .catch(() =>  localStorage.clear());
     }
 
     return () => {
       effectRan.current = true;
     };
-  }, [dispatch]);
+  }, [dispatch, loginStatus]);
 
   return (
     <>
@@ -52,7 +52,7 @@ export default function Account() {
         <title>{COMPANY_NAME} - Compte</title>
       </Head>
 
-      {user ? (
+      {Object.keys(user).length > 0 || loginStatus  ? (
         <UserAccount setLoginStatus={setLoginStatus} />
       ) : (
         <div className="relative h-full flex justify-center items-center py-10 px-5">

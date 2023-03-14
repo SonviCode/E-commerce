@@ -1,8 +1,9 @@
 import axios from "axios";
 import React from "react";
 import { URL_LOGIN } from "../../constants/Constants";
+import { Dispatch, SetStateAction } from 'react';
 
-const Login = ({ setLoginStatus }: any) => {
+const Login = ({ setLoginStatus }:  {setLoginStatus : Dispatch<SetStateAction<Boolean>>}) => {
   const onSubmit = (e: any) => {
     e.preventDefault();
     const email: string = e.target.elements.email.value;
@@ -20,8 +21,6 @@ const Login = ({ setLoginStatus }: any) => {
           password: password,
         })
         .then((res) => {
-          console.log(res);
-
           localStorage.setItem(
             process.env.NEXT_PUBLIC_USER_ID!,
             res.data.userId

@@ -6,8 +6,9 @@ import { capitalize } from "../../utils/productUtils";
 import { useDispatch, useSelector } from "react-redux";
 import { removeHistoric } from "../../store/features/slice/historicSlice";
 import { productsItem } from "../../types/product";
+import { Dispatch, SetStateAction } from 'react';
 
-const UserAccount = ({ setLoginStatus }: { setLoginStatus: any }) => {
+const UserAccount = ({ setLoginStatus }: { setLoginStatus: Dispatch<SetStateAction<Boolean>> }) => {
   const [tab, setTab] = useState<number>(1);
 
   const user: User = useSelector((state: any) => state.user.value);
@@ -40,7 +41,7 @@ const UserAccount = ({ setLoginStatus }: { setLoginStatus: any }) => {
             ))}
           </div>
           <button
-            onClick={() => logout(setLoginStatus)}
+            onClick={() => logout(setLoginStatus, dispatch)}
             className="w-full rounded-md bg-main py-2 "
           >
             Se déconnecter

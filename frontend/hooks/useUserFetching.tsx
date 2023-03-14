@@ -8,7 +8,6 @@ import { setUser } from "../store/features/slice/userSlice";
 
 const useUserFetching = () => {
   const dispatch = useDispatch();
-
   const effectRan = useRef(false);
 
   useEffect(() => {
@@ -27,9 +26,8 @@ const useUserFetching = () => {
         .then((res) => {
           delete res.data.password;
           dispatch(setUser(res.data));
-          console.log("test use effect");
         })
-        .catch((error) => console.log(error));
+        .catch(() => localStorage.clear());
     }
 
     return () => {
