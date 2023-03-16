@@ -8,11 +8,9 @@ import axios from "axios";
 import { User } from "../../types/user";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../store/features/slice/userSlice";
+import ConnectModal from "../../components/account/ConnectModal";
 
 export default function Account() {
-  const [signUp, setSignUp] = useState(true);
-  const [loginStatus, setLoginStatus] = useState<Boolean>(false);
- 
   const user: User = useSelector((state: any) => state.user.value);
 
   const effectRan = useRef(false);
@@ -34,17 +32,16 @@ export default function Account() {
         )
         .then((res) => {
           delete res.data.password;
-          setLoginStatus(true);
           dispatch(setUser(res.data));
           console.log("test use effect");
         })
-        .catch(() =>  localStorage.clear());
+        .catch(() => localStorage.clear());
     }
 
     return () => {
       effectRan.current = true;
     };
-  }, [dispatch, loginStatus]);
+  }, [dispatch]);
 
   return (
     <>
@@ -52,31 +49,11 @@ export default function Account() {
         <title>{COMPANY_NAME} - Compte</title>
       </Head>
 
-      {Object.keys(user).length > 0 || loginStatus  ? (
-        <UserAccount setLoginStatus={setLoginStatus} />
+      {Object.keys(user).length > 0 ? (
+        <UserAccount />
       ) : (
-        <div className="relative h-full flex justify-center items-center py-10 px-5">
-          <div className="border-2 rounded-lg p-5  w-full max-w-[400px]">
-            <div className="flex justify-between">
-              <button
-                className={`underline ${
-                  signUp ? `text-main` : `text-gray-300`
-                }`}
-                onClick={() => setSignUp(true)}
-              >
-                S&apos;inscrire
-              </button>
-              <button
-                className={`underline ${
-                  signUp ? `text-gray-300` : `text-main`
-                }`}
-                onClick={() => setSignUp(false)}
-              >
-                Se connecter
-              </button>
-            </div>
-            {signUp ? <SignUp /> : <Login setLoginStatus={setLoginStatus} />}
-          </div>
+        <div className=" p-10">
+          <ConnectModal />
         </div>
       )}
     </>

@@ -6,9 +6,10 @@ import { capitalize } from "../../utils/productUtils";
 import { useDispatch, useSelector } from "react-redux";
 import { removeHistoric } from "../../store/features/slice/historicSlice";
 import { productsItem } from "../../types/product";
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from "react";
+import UserInfo from "./UserInfo";
 
-const UserAccount = ({ setLoginStatus }: { setLoginStatus: Dispatch<SetStateAction<Boolean>> }) => {
+const UserAccount = () => {
   const [tab, setTab] = useState<number>(1);
 
   const user: User = useSelector((state: any) => state.user.value);
@@ -41,7 +42,7 @@ const UserAccount = ({ setLoginStatus }: { setLoginStatus: Dispatch<SetStateActi
             ))}
           </div>
           <button
-            onClick={() => logout(setLoginStatus, dispatch)}
+            onClick={() => logout(dispatch)}
             className="w-full rounded-md bg-main py-2 "
           >
             Se déconnecter
@@ -52,27 +53,7 @@ const UserAccount = ({ setLoginStatus }: { setLoginStatus: Dispatch<SetStateActi
       <div className="grow flex flex-col gap-10 overflow-hidden">
         <div className=" min-h-[500px] h-full relative">
           {tab === 1 ? (
-            <div className="flex flex-col h-full">
-              <h2 className="text-2xl font-bold mb-5">
-                Informations personnelles
-              </h2>
-              <div className="border text-xl rounded-md p-5 flex flex-col gap-2.5 grow">
-                <p>Email : {user.email}</p>
-                <hr />
-                <p>Prénom : {capitalize(user.name)}</p>
-                <hr />
-                <p>Nom : {capitalize(user.firstname)}</p>
-                <hr />
-                <p className="flex">
-                  Numéro de téléphone : + 33{" "}
-                  <span className="flex gap-2 ml-2">
-                    {formatNumberPhone(user.phonenumber).map((n, i) => (
-                      <span key={i}>{n}</span>
-                    ))}
-                  </span>
-                </p>
-              </div>
-            </div>
+            <UserInfo user={user} />
           ) : tab === 2 ? (
             <>
               <h2 className="text-2xl font-bold mb-5">Commandes</h2>

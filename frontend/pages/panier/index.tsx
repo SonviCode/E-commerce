@@ -5,11 +5,14 @@ import Summary from "../../components/shop/Summary";
 import { COMPANY_NAME } from "../../constants/Constants";
 import { useState } from "react";
 import Indicator from "../../components/shop/Indicator";
-import Login from "../../components/account/Login";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as fs from "@fortawesome/free-solid-svg-icons";
 import { indicator } from "../../types/shop";
-import { rollBackShop } from "../../utils/shopUtils";
+import { prevStepShop } from "../../utils/shopUtils";
+import ConnectModal from "../../components/account/ConnectModal";
+import { useSelector } from "react-redux";
+import { User } from "../../types/user";
+import { capitalize } from "../../utils/productUtils";
 
 export default function Shop() {
   const [numberIndicator, setNumberIndicator] = useState<indicator[]>([
@@ -31,7 +34,7 @@ export default function Shop() {
     },
   ]);
 
-  
+  const user: User = useSelector((state: any) => state.user.value);
 
   return (
     <>
@@ -46,7 +49,7 @@ export default function Shop() {
         />
         {numberIndicator[1].actif ? (
           <button
-            onClick={() => rollBackShop(numberIndicator, setNumberIndicator)}
+            onClick={() => prevStepShop(numberIndicator, setNumberIndicator)}
             className="text-xl flex gap-3 items-center lg:pl-10"
           >
             <FontAwesomeIcon icon={fs.faChevronLeft} />
@@ -56,13 +59,26 @@ export default function Shop() {
           ""
         )}
 
-        <div className="flex flex-col-reverse lg:flex-row  pt-5 pb-10 gap-10 ">
-          <div className="grow flex flex-col gap-10 overflow-hidden">
+        <div
+          className={`${
+            numberIndicator[1].actif ? "flex-col" : "flex-col-reverse"
+          } flex  lg:flex-row  pt-5 pb-10 gap-10 `}
+        >
+          <div className="grow flex flex-col  gap-10 overflow-hidden">
             {numberIndicator[1].actif ? (
-              <div className="relative h-full flex justify-center px-5">
-                <div className="border-2 rounded-lg p-5  w-full max-w-[400px]">
-                  <Login />
-                </div>
+              <div className="grow">
+                {user ? (
+                  <div className="border text-xl rounded-md p-5 flex flex-col gap-2.5 grow py-10">
+                    <h2 className="text-2xl font-bold mb-5">
+                      Bien connecté en tant que {capitalize(user.name)}{" "}
+                      {capitalize(user.firstname)}
+                    </h2>
+                    <p className="italic">{user.email}</p>
+                    
+                  </div>
+                ) : (
+                  <ConnectModal />
+                )}
               </div>
             ) : (
               <ReviewCheckout />

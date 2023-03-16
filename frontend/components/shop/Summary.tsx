@@ -8,7 +8,7 @@ import paypal from "../../public/svg/paypal.svg";
 import visa from "../../public/svg/visa.svg";
 import btc from "../../public/btc.png";
 import { useSelector } from "react-redux";
-import { subtotal } from "../../utils/shopUtils";
+import { nextStepShop, subtotal } from "../../utils/shopUtils";
 import { indicator } from "../../types/shop";
 
 const Summary = ({
@@ -19,12 +19,6 @@ const Summary = ({
   setNumberIndicator: any;
 }) => {
   const shopData = useSelector((state: any) => state.shop.value);
-
-  const nextStep = () => {
-    const newIndicator = [...numberIndicator];
-    newIndicator[1].actif = true;
-    setNumberIndicator(newIndicator);
-  };
 
   return (
     <div className="flex flex-col gap-10 border-2 rounded-md p-5 sticky top-24">
@@ -51,7 +45,11 @@ const Summary = ({
           </div>
         </div>
         <button
-          onClick={() => (shopData.length > 0 ? nextStep() : null)}
+          onClick={() =>
+            shopData.length > 0
+              ? nextStepShop(numberIndicator, setNumberIndicator)
+              : null
+          }
           className={`w-full rounded-md  py-2 ${
             shopData.length > 0 ? `bg-main hover:text-white` : "bg-gray-200"
           }`}

@@ -63,15 +63,32 @@ export const removeItem = (fav: productsItem, dispatch: any) => {
   dispatch(removeItemFav(fav));
 };
 
-export const rollBackShop = (
+export const prevStepShop = (
+  numberIndicator: indicator[],
+  setNumberIndicator: any
+) => {
+  let newIndicator: indicator[] = [...numberIndicator];
+
+  for (let i = 0; i < 3; i++) {
+    if (numberIndicator[i].actif && numberIndicator[i + 1].actif == false) {
+      newIndicator[i].actif = false;
+    } else if (i + 1 == 3) {
+      newIndicator[i + 1].actif = false;
+    }
+  }
+
+  setNumberIndicator(newIndicator);
+};
+
+export const nextStepShop = (
   numberIndicator: indicator[],
   setNumberIndicator: any
 ) => {
   let newIndicator: indicator[] = [...numberIndicator];
 
   for (let i = 3; i > 0; i--) {
-    if (numberIndicator[i].actif) {
-      newIndicator[i].actif = false;
+    if (numberIndicator[i].actif == false && numberIndicator[i - 1].actif) {
+      newIndicator[i].actif = true;
     }
   }
 

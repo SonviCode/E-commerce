@@ -12,8 +12,7 @@ export const formatNumberPhone = (number: number) => {
   return formatPhone;
 };
 
-export const logout = (setLoginStatus: any, dispatch:any) => {
+export const logout = (dispatch: any) => {
   localStorage.clear();
   dispatch(removeUser());
-  setLoginStatus(false);
 };

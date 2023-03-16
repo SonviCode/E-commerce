@@ -34,6 +34,8 @@ const useUserFetching = () => {
       effectRan.current = true;
     };
   }, [dispatch]);
+
+  return console.log("test")
 };
 
 export default useUserFetching;
