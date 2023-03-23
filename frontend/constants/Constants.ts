@@ -11,6 +11,7 @@ const API_NEXT_URL = process.env.NEXT_PUBLIC_API_NEXT_URL;
 
 export const URL_FILTER: string = `${API_NEXT_URL}filtreProduct`;
 export const URL_CATEGORY: string = `${API_NEXT_URL}allCategory`;
+export const URL_SHOP_INDICATOR: string = `${API_NEXT_URL}shopIndicator`;
 
 // HOME
 export const COMPANY_NAME: string = "Montagne Addicte";
@@ -22,3 +23,4 @@ export const ASCENDING_PRICE = "Prix croissants";
 export const DECREASING_PRICE = "Prix décroissants";
 export const THE_NEWS = "Les nouveautés";
 export const THE_MOST_POPULAR = "Les plus populaires";
+export const SHOPPING_CART = "panier";

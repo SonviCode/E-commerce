@@ -1,8 +1,10 @@
+import { SHOPPING_CART } from "../constants/Constants";
 import { removeItemFav } from "../store/features/slice/favorisSlice";
 import { setNotif } from "../store/features/slice/notifSlice";
 import { setShopData } from "../store/features/slice/shopSlice";
 import { productsItem } from "../types/product";
 import { indicator } from "../types/shop";
+import { User } from "../types/user";
 
 export const subtotal = (shopData: any) => {
   const result: number = shopData.reduce(
@@ -29,10 +31,7 @@ export const addToShopCart = (
   if (shopData.some((e) => e.name == product.name)) {
     const i = shopData.findIndex((e) => e.name == product.name);
     newProductObj = { ...shopData[i] };
-    console.log("if");
   } else {
-    console.log("else");
-
     newProductObj = { ...product };
   }
   newProductObj.counterShop += nb;
@@ -40,7 +39,7 @@ export const addToShopCart = (
   console.log(newProductObj);
 
   dispatch(setShopData(newProductObj));
-  dispatch(setNotif("panier"));
+  dispatch(setNotif(SHOPPING_CART));
 };
 
 export const changeCounterShop = (
@@ -93,4 +92,23 @@ export const nextStepShop = (
   }
 
   setNumberIndicator(newIndicator);
+};
+
+export const canGoToNextStep = (
+  numberIndicator: indicator[],
+  shopData: any,
+  user: User,
+  setIsAbleNextStep: any
+) => {
+  switch (true) {
+    case shopData.length > 0 &&
+      numberIndicator[0].actif &&
+      numberIndicator[1].actif == false:
+      setIsAbleNextStep(true);
+    case Object.keys(user).length > 0 && numberIndicator[1].actif:
+      setIsAbleNextStep(true);
+      break;
+    default:
+      setIsAbleNextStep(false);
+  }
 };

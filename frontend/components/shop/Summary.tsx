@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import Image from "next/image";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import cb from "../../public/svg/cb.svg";
 import ae from "../../public/svg/ae.svg";
 import mastercard from "../../public/svg/mastercard.svg";
@@ -8,15 +8,18 @@ import paypal from "../../public/svg/paypal.svg";
 import visa from "../../public/svg/visa.svg";
 import btc from "../../public/btc.png";
 import { useSelector } from "react-redux";
-import { nextStepShop, subtotal } from "../../utils/shopUtils";
+import { canGoToNextStep, nextStepShop, subtotal } from "../../utils/shopUtils";
 import { indicator } from "../../types/shop";
+import { User } from "../../types/user";
 
 const Summary = ({
   numberIndicator,
   setNumberIndicator,
+  isAbleNextStep
 }: {
   numberIndicator: indicator[];
   setNumberIndicator: any;
+  isAbleNextStep:any;
 }) => {
   const shopData = useSelector((state: any) => state.shop.value);
 
@@ -46,12 +49,10 @@ const Summary = ({
         </div>
         <button
           onClick={() =>
-            shopData.length > 0
-              ? nextStepShop(numberIndicator, setNumberIndicator)
-              : null
+            isAbleNextStep && nextStepShop(numberIndicator, setNumberIndicator)
           }
           className={`w-full rounded-md  py-2 ${
-            shopData.length > 0 ? `bg-main hover:text-white` : "bg-gray-200"
+            isAbleNextStep ? `bg-main hover:text-white` : "bg-gray-200"
           }`}
         >
           Poursuivre la commande
