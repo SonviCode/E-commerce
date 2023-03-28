@@ -35,7 +35,7 @@ const Aside = ({ toggleAside, setToggleAside }: Navbar) => {
       <div className="flex items-center justify-between py-2">
         <div className="flex items-center">
           <Image src={logo} width={60} height={60} alt="logo" />
-          <h1 className="text-xl">{COMPANY_NAME}</h1>
+          <h1 className="text-xl uppercase text-gray-700 text-xl font-bold">{COMPANY_NAME}</h1>
         </div>
         <FontAwesomeIcon
           onClick={() => closeAside()}

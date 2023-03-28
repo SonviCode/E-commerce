@@ -1,8 +1,16 @@
 const UserProduct = require("../models/Product");
 
 exports.createProduct = (req, res, next) => {
+  const test = JSON.parse(req.body);
+  console.log(test);
+  console.log(req.body);
+  console.log(req.body.file);
+  console.log(req.body.name);
+  console.log(req.file);
+
   const newProduct = new UserProduct({
     ...req.body,
+    file: `${req.protocol}://${req.get("host")}/images/${req.body}`,
   });
   newProduct
     .save()

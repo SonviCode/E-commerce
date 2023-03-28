@@ -58,7 +58,7 @@ const Nav = () => {
             <Link href="/">
               <div className="flex items-center">
                 <Image src={logo} width={60} height={60} alt="logo" />
-                <h1 className="hidden md:block">{COMPANY_NAME}</h1>
+                <h1 className="hidden md:block uppercase text-gray-700 font-bold">{COMPANY_NAME}</h1>
               </div>
             </Link>
           </div>

@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import axios, { GenericHTMLFormElement } from "axios";
+import { URL_SIGNUP } from "../../constants/Constants";
 
 const dataFormSignUp: {
   id: string;
@@ -14,7 +15,7 @@ const dataFormSignUp: {
   {
     id: "password",
     name: "mot de passe",
-    type: "text",
+    type: "password",
   },
   {
     id: "firstname",
@@ -50,7 +51,7 @@ const SignUp = () => {
     const birthday: Date = e.target.elements.date.value;
     const phonenumber: number = e.target.elements.number.value;
 
-    axios.post("http://localhost:5000/api/auth/signup", {
+    axios.post(URL_SIGNUP, {
       email,
       password,
       name,

@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const cors = require("cors");
+const path = require('path');
 
 // --router--
 const userRoutes = require("./routes/user");
@@ -31,6 +32,7 @@ app.use(express.urlencoded());
 app.use(express.json());
 
 // --router--
+app.use("/images", express.static(path.join(__dirname, "images")));
 app.use("/api/auth", userRoutes);
 app.use("/api/product", productRoutes);
 

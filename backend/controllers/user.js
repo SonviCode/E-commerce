@@ -64,8 +64,11 @@ exports.getUsers = (req, res, next) => {
 };
 
 exports.getUserById = (req, res, next) => {
-  console.log(req.params);
   UserModel.findOne({ _id: req.params.id })
-    .then((user) => res.status(200).json(user))
+    .then((user) => {
+      delete user.password;
+
+      res.status(200).json(user);
+    })
     .catch((error) => res.status(400).json({ error }));
 };

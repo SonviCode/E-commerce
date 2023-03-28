@@ -4,7 +4,6 @@ import { URL_GETUSER, URL_LOGIN } from "../../constants/Constants";
 import { Dispatch, SetStateAction } from "react";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/features/slice/userSlice";
-import useUserFetching from "../../hooks/useUserFetching";
 import { User } from "../../types/user";
 import { capitalize } from "../../utils/productUtils";
 
@@ -12,8 +11,6 @@ const Login = () =>
   // { setLoginStatus }:  {setLoginStatus : Dispatch<SetStateAction<Boolean>>}
   {
     const dispatch = useDispatch();
-
-    const userFetch = useUserFetching();
 
     const onSubmit = (e: any) => {
       e.preventDefault();

@@ -10,9 +10,9 @@ const UserInfo = ({ user }: { user: User }) => {
       <div className="border text-xl rounded-md p-5 flex flex-col gap-2.5 grow">
         <p>Email : {user.email}</p>
         <hr />
-        <p>Prénom : {capitalize(user.name)}</p>
+        <p>Prénom : {capitalize(user.firstname)}</p>
         <hr />
-        <p>Nom : {capitalize(user.firstname)}</p>
+        <p>Nom : {capitalize(user.name)}</p>
         <hr />
         <p className="flex">
           Numéro de téléphone : + 33{" "}

@@ -8,6 +8,7 @@ import { removeHistoric } from "../../store/features/slice/historicSlice";
 import { productsItem } from "../../types/product";
 import { Dispatch, SetStateAction } from "react";
 import UserInfo from "./UserInfo";
+import AdminAccount from "./AdminAccount";
 
 const UserAccount = () => {
   const [tab, setTab] = useState<number>(1);
@@ -19,11 +20,15 @@ const UserAccount = () => {
 
   const dispatch = useDispatch();
 
+  if (process.env.NEXT_PUBLIC_ADMIN) {
+    return <AdminAccount />;
+  }
+
   return (
     <div className="flex flex-col lg:flex-row p-5 pb-10 gap-10 ">
       <div className="lg:min-w-[300px] lg:w-1/4">
         <div className="flex flex-col gap-10 border-2 rounded-md p-5 sticky top-0  justify-between h-full">
-          <h1 className="text-3xl">Bienvenue {user.name} !</h1>
+          <h1 className="text-3xl">Bienvenue {user.firstname} !</h1>
           <div className="flex flex-col gap-2.5">
             {[
               "Informations personnelles",

@@ -12,9 +12,9 @@ const HeaderHome = () => {
         <div className="flex flex-col sm:px-[20%]">
           <div className="flex items-center flex-col md:flex-row mb-10">
             <Image src={logo} width={120} height={120} alt="logo" />
-            <h1 className="uppercase text-5xl sm:text-6xl ">{COMPANY_NAME}</h1>
+            <h1 className="uppercase text-gray-700 text-xl font-bold text-5xl sm:text-6xl ">{COMPANY_NAME}</h1>
           </div>
-          <p className="text-gray-900 text-sm sm:text-xl">{TEXT_HOME}</p>
+          <p className="text-gray-900 text-md sm:text-xl uppercase text-gray-700 text-xl font-bold">{TEXT_HOME}</p>
         </div>
 
         {/* <div className="flex w-max gap-20 absolute bottom-10 -translate-x-1/2 left-1/2">

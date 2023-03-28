@@ -25,19 +25,12 @@ const Filter = ({
   const effectRan = useRef(false);
 
   useEffect(() => {
-    if (effectRan.current === true) {
-      axios
-        .get<productFilter>(URL_FILTER)
-        .then((res) => setDataFilter(res.data))
-        .catch((error) => console.log(error));
-        
-        console.log("test use effect");
-        
-    }
+    axios
+      .get<productFilter>(URL_FILTER)
+      .then((res) => setDataFilter(res.data))
+      .catch((error) => console.log(error));
 
-    return () => {
-      effectRan.current = true;
-    };
+    console.log("test use effect");
   }, []);
 
   const getFilterProduct = (e: any, params: string, key: string) => {

@@ -29,13 +29,13 @@ const useUserFetching = () => {
         })
         .catch(() => localStorage.clear());
     }
+    console.log("test")
 
     return () => {
       effectRan.current = true;
     };
   }, [dispatch]);
 
-  return console.log("test")
 };
 
 export default useUserFetching;

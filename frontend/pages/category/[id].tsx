@@ -29,8 +29,6 @@ export default function CategoryId({
   const [toggleFilter, setToggleFilter] = useState<Boolean>(false);
   const [sort, setSort] = useState<Boolean>(false);
 
-  console.log(products);
-
   const effectRan = useRef(false);
   const router = useRouter();
 

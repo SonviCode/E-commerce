@@ -18,7 +18,7 @@ export default function Account() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (effectRan.current === true) {
+    if (effectRan.current === false) {
       axios
         .get<User>(
           URL_GETUSER + localStorage.getItem(process.env.NEXT_PUBLIC_USER_ID!),
@@ -33,7 +33,6 @@ export default function Account() {
         .then((res) => {
           delete res.data.password;
           dispatch(setUser(res.data));
-          console.log("test use effect");
         })
         .catch(() => localStorage.clear());
     }
