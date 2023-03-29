@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from "react";
 
 export type productsData = {
   name: string;
-  url: string;
+  imageUrl: string;
   _id: string;
   like: boolean;
   price: number;
@@ -21,7 +21,7 @@ export type productsData = {
 export type productsItem = {
   sport: string;
   name: string;
-  url: string;
+  imageUrl: string;
   _id: string;
   price: number;
   like: boolean;

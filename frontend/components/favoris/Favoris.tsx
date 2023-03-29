@@ -31,7 +31,7 @@ const Favoris = () => {
               <div className="flex w-[410px] flex-col xs:flex-row gap-10 justify-between">
                 <div className="overflow-hidden group max-w-[200px] rounded-md bg-gray-200 ">
                   <Image
-                    src={fav.url}
+                    src={fav.imageUrl}
                     width="800"
                     height="800"
                     alt={fav.name}

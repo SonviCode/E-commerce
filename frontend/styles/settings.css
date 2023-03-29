@@ -9,3 +9,9 @@ body,
 #__next {
   height: 100%;
 }
+
+.title {
+  font-weight: bold;
+  color: rgb(55 65 81);
+  text-transform: uppercase;
+}

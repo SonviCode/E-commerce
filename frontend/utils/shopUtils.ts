@@ -101,10 +101,14 @@ export const canGoToNextStep = (
   setIsAbleNextStep: any
 ) => {
   switch (true) {
+    case numberIndicator[2].actif:
+      setIsAbleNextStep(true);
+      break;
     case shopData.length > 0 &&
       numberIndicator[0].actif &&
       numberIndicator[1].actif == false:
       setIsAbleNextStep(true);
+      break;
     case Object.keys(user).length > 0 && numberIndicator[1].actif:
       setIsAbleNextStep(true);
       break;

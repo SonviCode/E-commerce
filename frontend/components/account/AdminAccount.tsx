@@ -54,28 +54,36 @@ const AdminAccount = () => {
   const onSubmit = (e: any) => {
     e.preventDefault();
 
-    const name: String = e.target.elements.name.value;
-    const price: Number = e.target.elements.price.value;
-    const smallDescription: String = e.target.elements.smallDescription.value;
-    const bigDescription: String = e.target.elements.bigDescription.value;
-    const brand: String = e.target.elements.brand.value;
-    const sex: String = e.target.elements.sex.value;
-    const type: String = e.target.elements.type.value;
-    const category: String = e.target.elements.category.value;
-    const sport: String = e.target.elements.sport.value;
-    const size: String = e.target.elements.size.value;
-    const file = e.target.elements.file.files[0];
+    const name: string = e.target.elements.name.value;
+    const price: string = e.target.elements.price.value;
+    const smallDescription: string = e.target.elements.smallDescription.value;
+    const bigDescription: string = e.target.elements.bigDescription.value;
+    const brand: string = e.target.elements.brand.value;
+    const sex: string = e.target.elements.sex.value;
+    const type: string = e.target.elements.type.value;
+    const category: string = e.target.elements.category.value;
+    const sport: string = e.target.elements.sport.value;
+    const size: string = e.target.elements.size.value;
 
-    console.log({ ...file });
+    const dataItem = [
+      { name },
+      { price },
+      { smallDescription },
+      { bigDescription },
+      { brand },
+      { sex },
+      { type },
+      { category },
+      { sport },
+      { size },
+    ];
 
-    const formData = new FormData();
-    formData.append("file", { ...file });
-
-    console.log(FormData);
-    console.log({ ...formData });
-
+    const formData = new FormData(e.target);
+    dataItem.forEach((item: Object) => {
+      formData.append(Object.keys(item)[0], Object.values(item)[0]);
+    });
     axios
-      .post(URL_CREATE_PRODUCT, file, {
+      .post(URL_CREATE_PRODUCT, formData, {
         headers: {
           Authorization: localStorage.getItem(
             process.env.NEXT_PUBLIC_USER_TOKEN!
@@ -88,8 +96,6 @@ const AdminAccount = () => {
       formRef.current.reset();
     }
   };
-
-  console.log(user);
 
   return (
     <div className="p-5 h-full max-w-screen-2xl">
@@ -111,6 +117,7 @@ const AdminAccount = () => {
               ref={formRef}
               onSubmit={(e) => onSubmit(e)}
               id="form"
+              encType="multipart/form-data"
               className="w-full flex flex-col gap-5"
             >
               <div className="w-full flex flex-wrap flex-col sm:flex-row gap-5">
@@ -164,6 +171,7 @@ const AdminAccount = () => {
                 <input
                   className="w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4  leading-tight focus:outline-none focus:bg-white focus:border-gray-500 invalid:border-red-600"
                   type="file"
+                  name="file"
                   id="file"
                   ref={fileRef}
                   required

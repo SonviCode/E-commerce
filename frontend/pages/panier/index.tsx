@@ -15,9 +15,9 @@ import {
 import ConnectModal from "../../components/account/ConnectModal";
 import { useSelector } from "react-redux";
 import { User } from "../../types/user";
-import { capitalize } from "../../utils/productUtils";
 import Delivery from "../../components/shop/Delivery";
 import { GetStaticProps } from "next";
+import UserInfo from "../../components/account/UserInfo";
 
 export default function Shop({
   shopIndicator,
@@ -26,14 +26,15 @@ export default function Shop({
 }) {
   const [numberIndicator, setNumberIndicator] =
     useState<indicator[]>(shopIndicator);
-
   const [isAbleNextStep, setIsAbleNextStep] = useState<boolean>();
+  const [deliveryPrice, setDeliveryPrice] = useState<number>(0);
 
   const user: User = useSelector((state: any) => state.user.value);
   const shopData = useSelector((state: any) => state.shop.value);
 
   useEffect(() => {
     canGoToNextStep(numberIndicator, shopData, user, setIsAbleNextStep);
+    // console.log("test");
   }, [numberIndicator, shopData, user]);
 
   return (
@@ -75,16 +76,15 @@ export default function Shop({
         >
           <div className="grow flex flex-col  gap-10 overflow-hidden">
             {numberIndicator[2].actif ? (
-              <Delivery />
+              <Delivery setDeliveryPrice={setDeliveryPrice} deliveryPrice={deliveryPrice}/>
             ) : numberIndicator[1].actif ? (
               <div className="grow">
                 {user.name ? (
                   <div className="border text-xl rounded-md p-5 flex flex-col gap-2.5 grow py-10">
-                    <h2 className="text-2xl font-bold mb-5">
-                      Bien connecté en tant que {capitalize(user.name)}{" "}
-                      {capitalize(user.firstname)}
+                    <h2 className="text-2xl title mb-5">
+                      Bien connecté <FontAwesomeIcon icon={fs.faCheck} />
                     </h2>
-                    <p className="italic">{user.email}</p>
+                    <UserInfo user={user} />
                   </div>
                 ) : (
                   <ConnectModal />
@@ -99,6 +99,7 @@ export default function Shop({
               numberIndicator={numberIndicator}
               setNumberIndicator={setNumberIndicator}
               isAbleNextStep={isAbleNextStep}
+              deliveryPrice={deliveryPrice}
             />
           </div>
         </div>

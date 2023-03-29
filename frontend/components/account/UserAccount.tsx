@@ -20,7 +20,7 @@ const UserAccount = () => {
 
   const dispatch = useDispatch();
 
-  if (process.env.NEXT_PUBLIC_ADMIN) {
+  if (user.role  == "admin") {
     return <AdminAccount />;
   }
 

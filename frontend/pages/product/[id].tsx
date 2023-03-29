@@ -73,7 +73,7 @@ export default function ProductId({ product }: { product: productsItem }) {
               )}
             </span>
             <Image
-              src={product.url}
+              src={product.imageUrl}
               width="800"
               height="800"
               alt={product.name}
@@ -123,7 +123,7 @@ export default function ProductId({ product }: { product: productsItem }) {
               <div className="flex gap-2">
                 <div className="w-20 rounded-md bg-gray-200 p-2">
                   <Image
-                    src={product.url}
+                    src={product.imageUrl}
                     width="800"
                     height="800"
                     alt={product.name}

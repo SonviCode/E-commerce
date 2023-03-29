@@ -33,7 +33,7 @@ const ReviewCheckout = () => {
         </h2>
         {shopData.length > 0 ? (
           <div className="flex flex-col gap-10 py-10">
-            {shopData.map((el: any, index: any) => (
+            {shopData.map((el: productsItem, index: any) => (
               <React.Fragment key={index}>
                 {confirmNotif ? (
                   <ConfirmModal
@@ -47,7 +47,7 @@ const ReviewCheckout = () => {
                   <div className="flex w-[410px] flex-col xs:flex-row gap-10 justify-between">
                     <div className="overflow-hidden group max-w-[200px] rounded-md bg-gray-200 ">
                       <Image
-                        src={el.url}
+                        src={el.imageUrl}
                         width="800"
                         height="800"
                         alt={el.name}

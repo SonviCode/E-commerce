@@ -14,7 +14,7 @@ const ProductCard = ({ el }: { el: productsItem }) => {
   const shopData = useSelector((state: any) => state.shop.value);
 
   const dispatch = useDispatch();
-
+ 
   return (
     <div className="relative min-w-[220px] max-w-[350px] cursor-pointer border-gray-200 border-2 rounded-md">
       <div
@@ -30,7 +30,7 @@ const ProductCard = ({ el }: { el: productsItem }) => {
       <Link href={`/product/${el.name}`} className="z-0">
         <div className="overflow-hidden group w-fit mx-auto bg-gray-200 ">
           <Image
-            src={el.url}
+            src={el.imageUrl}
             width="800"
             height="800"
             alt={el.name}

@@ -27,7 +27,6 @@ export default function CategoryId({
 }) {
   const [products, setProducts] = useState<productsData>(productData);
   const [toggleFilter, setToggleFilter] = useState<Boolean>(false);
-  const [sort, setSort] = useState<Boolean>(false);
 
   const effectRan = useRef(false);
   const router = useRouter();
@@ -72,7 +71,7 @@ export default function CategoryId({
             <span className="font-bold"> {capitalize(router.query.id)}</span>
           </p>
         </div>
-        <h1 className="text-2xl my-10 text-center font-semibold">
+        <h1 className="text-2xl my-10 text-center title">
           Tous nos produits de la catégorie : {capitalize(router.query.id)}
         </h1>
       </div>
@@ -89,7 +88,6 @@ export default function CategoryId({
             <div className="relative ">
               <select
                 onChange={(e) => handleSort(e.target.value)}
-                onClick={() => setSort(!sort)}
                 className="rounded-md border border-gray-300 appearance-none w-fit bg-white text-gray-700 h-full py-2 px-4 pr-10 leading-tight focus:outline-none focus:border-gray-500 cursor-pointer"
               >
                 {[
@@ -103,9 +101,7 @@ export default function CategoryId({
               </select>
               <FontAwesomeIcon
                 icon={fs.faChevronDown}
-                className={`duration-200 ease absolute pointer-events-none right-4 top-1/2 -translate-y-1/2 ${
-                  sort && "rotate-180"
-                }`}
+                className={`duration-200 ease absolute pointer-events-none right-4 top-1/2 -translate-y-1/2`}
               />
             </div>
 

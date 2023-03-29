@@ -26,3 +26,9 @@ export const DECREASING_PRICE = "Prix décroissants";
 export const THE_NEWS = "Les nouveautés";
 export const THE_MOST_POPULAR = "Les plus populaires";
 export const SHOPPING_CART = "panier";
+export const SHOES_CATEGORY =
+  "Nous sommes fiers de vous offrir une large sélection de chaussures de haute qualité conçues pour répondre aux besoins des randonneurs les plus exigeants. Nous avons des chaussures pour tous les types de randonnées, des sentiers de montagne les plus escarpés aux chemins de terre plus doux. Nos chaussures sont conçues pour offrir un confort maximal et une protection contre les éléments...";
+export const CLOTHES_CATEGORY =
+  " Que vous cherchiez des vêtements légers pour une randonnée estivale ou des tenues chaudes pour l'hiver, vous trouverez tout ce dont vous avez besoin ici. Nos vêtements sont spécialement conçus pour répondre aux besoins des randonneurs et des amoureux de la nature. Ils sont résistants aux intempéries, respirants et confortables pour vous permettre de profiter pleinement de vos activités en plein air.";
+export const ACCESSORY_CATEGORY =
+  "Nous proposons une grande variété d'accessoires essentiels pour la randonnée, tels que des sacs à dos, des bâtons de marche, des lampes frontales, des cartes topographiques, des sacs de couchage et bien d'autres encore. Tous nos équipements sont sélectionnés avec soin pour répondre aux besoins des randonneurs, qu'ils soient débutants ou experts.";

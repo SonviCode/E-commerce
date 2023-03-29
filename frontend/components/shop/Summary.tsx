@@ -15,11 +15,13 @@ import { User } from "../../types/user";
 const Summary = ({
   numberIndicator,
   setNumberIndicator,
-  isAbleNextStep
+  isAbleNextStep,
+  deliveryPrice,
 }: {
   numberIndicator: indicator[];
   setNumberIndicator: any;
-  isAbleNextStep:any;
+  isAbleNextStep: any;
+  deliveryPrice: number;
 }) => {
   const shopData = useSelector((state: any) => state.shop.value);
 
@@ -35,15 +37,19 @@ const Summary = ({
           <hr />
           <div className="flex justify-between items-center">
             <span>Livraison</span>
-            <span className="text-xs text-right">
-              Calculé à l'étape suivante
-            </span>
+            {numberIndicator[2].actif ? (
+              <span>{`${deliveryPrice}€`}</span>
+            ) : (
+              <span className="text-xs text-right">
+                Calculé à l'étape suivante
+              </span>
+            )}
           </div>
           <hr />
           <div className="flex justify-between items-center">
             <span>Total</span>
             <span className="font-bold">
-              {shopData.length > 0 ? `${subtotal(shopData)}€` : "0€"}
+              {shopData.length > 0 ? `${subtotal(shopData) + deliveryPrice}€` : "0€"}
             </span>
           </div>
         </div>
