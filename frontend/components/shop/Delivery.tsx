@@ -1,5 +1,7 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { User } from "../../types/user";
 
 const adressObj: { [key: string | number]: null } = {
   adress: null,
@@ -52,14 +54,28 @@ const Delivery = ({
   deliveryPrice: any;
 }) => {
   const [isEmptyAdress, setIsEmptyAdress] = useState<boolean>(false);
-  console.log(invoice.deliveryPrice);
+
+  const user: User = useSelector((state: any) => state.user.value);
+
+  console.log(user);
+
+  const inputValueDefault = (el: any) => {
+    if (user.location) {
+      Object.keys(user.location).forEach((item: any) => {
+        if (item !== undefined) {
+          item.name = user.location?.adress;
+          return item.name;
+        }
+        return "";
+      });
+    }
+    return "";
+  };
 
   useEffect(() => {
     if (invoice.deliveryPrice !== null && isEmptyAdress == true) {
-      console.log("oui");
       return;
     }
-    console.log("non");
   }, [isEmptyAdress, deliveryPrice]);
 
   const handleDelivery = (el: any) => {
@@ -98,6 +114,7 @@ const Delivery = ({
                 type={el.type}
                 id={el.id}
                 onChange={(e) => handleAdress(e, el)}
+                value={inputValueDefault(el)}
                 required
                 placeholder={`Saisissez votre ${el.name}`}
               />
@@ -118,6 +135,7 @@ const Delivery = ({
                 <input
                   type="radio"
                   id={el.name}
+                  value={el.name}
                   name="delivery"
                   onChange={() => handleDelivery(el)}
                 />

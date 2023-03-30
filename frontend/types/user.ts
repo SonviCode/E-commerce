@@ -7,6 +7,11 @@ export type User = {
   password?: string;
   birthday: Date;
   phonenumber: number;
+  location: {
+    adress: string;
+    city: string;
+    zipcode: number;
+  };
 };
 
 export type userParams = {

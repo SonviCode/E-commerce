@@ -64,18 +64,18 @@ const Login = () =>
         <></>
         {[
           { name: "email", type: "email" },
-          { name: "Mot de passe", type: "password" },
+          { name: "mot de passe", type: "password" },
         ].map((el: any, index: any) => (
           <div key={index}>
-            <label htmlFor={el.type} className="font-semibold">
-              {capitalize(el.name)}
+            <label htmlFor={el.type} className="title text-sm">
+              {el.name} *
             </label>
             <input
               className="w-full border-2 rounded-md p-2"
               type={el.type}
               id={el.type}
               required
-              placeholder={el.name}
+              placeholder={`Saisissez votre ${el.name}`}
             />
           </div>
         ))}

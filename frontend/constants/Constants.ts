@@ -14,6 +14,7 @@ const API_NEXT_URL = process.env.NEXT_PUBLIC_API_NEXT_URL;
 export const URL_FILTER: string = `${API_NEXT_URL}filtreProduct`;
 export const URL_CATEGORY: string = `${API_NEXT_URL}allCategory`;
 export const URL_SHOP_INDICATOR: string = `${API_NEXT_URL}shopIndicator`;
+export const URL_SIGNUP_FORM_DATA: string = `${API_NEXT_URL}dataFormSignUp`;
 
 // HOME
 export const COMPANY_NAME: string = "Montagne Addicte";
@@ -32,3 +33,7 @@ export const CLOTHES_CATEGORY =
   " Que vous cherchiez des vêtements légers pour une randonnée estivale ou des tenues chaudes pour l'hiver, vous trouverez tout ce dont vous avez besoin ici. Nos vêtements sont spécialement conçus pour répondre aux besoins des randonneurs et des amoureux de la nature. Ils sont résistants aux intempéries, respirants et confortables pour vous permettre de profiter pleinement de vos activités en plein air.";
 export const ACCESSORY_CATEGORY =
   "Nous proposons une grande variété d'accessoires essentiels pour la randonnée, tels que des sacs à dos, des bâtons de marche, des lampes frontales, des cartes topographiques, des sacs de couchage et bien d'autres encore. Tous nos équipements sont sélectionnés avec soin pour répondre aux besoins des randonneurs, qu'ils soient débutants ou experts.";
+
+// ACCOUNT
+
+export const DOUBLE_EMAIL_ERROR = "User validation failed: email: Error, expected `email` to be unique. Value: `paul.sonvico@free.fr`"

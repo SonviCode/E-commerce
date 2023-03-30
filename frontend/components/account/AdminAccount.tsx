@@ -154,7 +154,7 @@ const AdminAccount = () => {
                         id={item.id}
                       >
                         {item.data.map((el: string, index: any) => (
-                          <option key={index}>{capitalize(el)}</option>
+                          <option key={index}>{el}</option>
                         ))}
                       </select>
                     </div>

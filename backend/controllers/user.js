@@ -5,16 +5,14 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 exports.signup = (req, res, next) => {
+  console.log(req.body);
   bcrypt
     .hash(req.body.password, 10)
     .then((hash) => {
       const newUser = new UserModel({
-        name: req.body.name,
-        firstname: req.body.firstname,
-        email: req.body.email,
+        ...req.body,
         password: hash,
-        birthday: req.body.birthday,
-        phonenumber: req.body.phonenumber,
+        createdDate: Date.now(),
       });
       newUser
         .save()

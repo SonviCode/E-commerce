@@ -14,7 +14,8 @@ const ProductSchema = mongoose.Schema({
   sport: { type: String, required: false },
   size: { type: String, required: false },
   brand: { type: String, required: false },
-  counterShop: { type: Number, required: false },
+  counterShop: { type: Number, required: true },
+  createdDate: { type: Date, required: true },
 });
 
 module.exports = mongoose.model("Product", ProductSchema);

@@ -9,9 +9,11 @@ exports.createProduct = (req, res, next) => {
   const newProduct = new UserProduct({
     ...req.body,
     price: Number(req.body.price),
+    counterShop: 0,
     imageUrl: `${req.protocol}://${req.get("host")}/images/${
       req.file.filename
     }`,
+    createdDate: Date.now(),
   });
   newProduct
     .save()

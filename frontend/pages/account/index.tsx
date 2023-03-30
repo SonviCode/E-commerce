@@ -1,9 +1,7 @@
 import Head from "next/head";
 import { COMPANY_NAME, URL_GETUSER } from "../../constants/Constants";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import UserAccount from "../../components/account/UserAccount";
-import SignUp from "../../components/account/SignUp";
-import Login from "../../components/account/Login";
 import axios from "axios";
 import { User } from "../../types/user";
 import { useDispatch, useSelector } from "react-redux";
