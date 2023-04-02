@@ -5,12 +5,14 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 exports.signup = (req, res, next) => {
-  console.log(req.body);
   bcrypt
     .hash(req.body.password, 10)
     .then((hash) => {
       const newUser = new UserModel({
         ...req.body,
+        location: {
+          ...req.body,
+        },
         password: hash,
         createdDate: Date.now(),
       });
@@ -27,7 +29,6 @@ exports.login = (req, res, next) => {
     .then((user) => {
       if (user === null) {
         res.status(401).json({ message: "identifiant/mot de passe incorrect" });
-        console.log(user);
       } else {
         bcrypt
           .compare(req.body.password, user.password)

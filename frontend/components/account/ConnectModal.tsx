@@ -6,9 +6,9 @@ const ConnectModal = () => {
     const [signUp, setSignUp] = useState(true);
 
     return (
-        <div className="relative h-full flex justify-center items-center bg-gray-50 max-w-xl mx-auto">
+        <div className="relative h-full flex justify-center items-center bg-gray-50 max-w-4xl mx-auto">
           <div className="border-2 rounded-lg shadow-md p-5  w-full ">
-            <div className="flex justify-between flex-wrap gap-x-10">
+            <div className="flex justify-between flex-wrap gap-x-10 gap-y-4">
               <button
                 className={`underline ${
                   signUp ? `text-main` : `text-gray-300`

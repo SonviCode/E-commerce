@@ -57,3 +57,25 @@ export type toggleFilter = {
   setProducts: Dispatch<SetStateAction<productsData>>;
   productData: productsData;
 };
+
+export type createProductInput = {
+  id: string;
+  name: string;
+  type: string;
+}[];
+
+export type createProductInputItem = {
+  id: string;
+  name: string;
+  type: string;
+};
+
+export type createProductSelect = {
+  id: string;
+  data: string[];
+}[];
+
+export type createProductSelectItem = {
+  id: string;
+  data: string[];
+};

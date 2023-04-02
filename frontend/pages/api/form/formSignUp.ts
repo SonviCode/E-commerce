@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { dataFormSignUp } from "../../types/account";
+import { dataFormSignUp } from "../../../types/account";
 
 export default function handler(
   req: NextApiRequest,
@@ -7,10 +7,17 @@ export default function handler(
 ) {
   res.status(200).json([
     {
-      id: "email",
-      name: "email",
-      example: "john.doe@gmail.com",
-      type: "email",
+      id: "firstname",
+      name: "prénom",
+      example: "John",
+      type: "text",
+      required: true,
+    },
+    {
+      id: "name",
+      name: "nom",
+      example: "Doe",
+      type: "text",
       required: true,
     },
     {
@@ -28,28 +35,21 @@ export default function handler(
       required: true,
     },
     {
-      id: "firstname",
-      name: "prénom",
-      example: "John",
-      type: "text",
+      id: "email",
+      name: "email",
+      example: "john.doe@gmail.com",
+      type: "email",
       required: true,
     },
     {
-      id: "name",
-      name: "nom",
-      example: "Doe",
-      type: "text",
-      required: true,
-    },
-    {
-      id: "date",
+      id: "birthday",
       name: "date de naissance",
       example: "",
       type: "date",
       required: true,
     },
     {
-      id: "number",
+      id: "phonenumber",
       name: "numéro de téléphone",
       example: "06 67 67 67 67",
       type: "number",
@@ -70,7 +70,7 @@ export default function handler(
       required: false,
     },
     {
-      id: "zipcode",
+      id: "zipCode",
       name: "Code postale",
       example: "73 320",
       type: "number",

@@ -6,3 +6,11 @@ export type dataFormSignUp = {
   required: boolean;
 }[];
 
+export type itemFormSignUp = {
+  id: string;
+  name: string;
+  example: string;
+  type: string;
+  required: boolean;
+};
+

@@ -14,7 +14,9 @@ const API_NEXT_URL = process.env.NEXT_PUBLIC_API_NEXT_URL;
 export const URL_FILTER: string = `${API_NEXT_URL}filtreProduct`;
 export const URL_CATEGORY: string = `${API_NEXT_URL}allCategory`;
 export const URL_SHOP_INDICATOR: string = `${API_NEXT_URL}shopIndicator`;
-export const URL_SIGNUP_FORM_DATA: string = `${API_NEXT_URL}dataFormSignUp`;
+export const URL_FORM_SIGNUP: string = `${API_NEXT_URL}form/formSignUp`;
+export const URL_FORM_CREATE_PRODUCT_INPUT: string = `${API_NEXT_URL}form/createProductInput`;
+export const URL_FORM_CREATE_PRODUCT_SELECT: string = `${API_NEXT_URL}form/createProductSelect`;
 
 // HOME
 export const COMPANY_NAME: string = "Montagne Addicte";
@@ -36,4 +38,5 @@ export const ACCESSORY_CATEGORY =
 
 // ACCOUNT
 
-export const DOUBLE_EMAIL_ERROR = "User validation failed: email: Error, expected `email` to be unique. Value: `paul.sonvico@free.fr`"
+export const DOUBLE_EMAIL_ERROR =
+  "User validation failed: email: Error, expected `email` to be unique. Value:";

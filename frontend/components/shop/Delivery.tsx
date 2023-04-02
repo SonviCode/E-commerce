@@ -60,16 +60,19 @@ const Delivery = ({
   console.log(user);
 
   const inputValueDefault = (el: any) => {
-    if (user.location) {
-      Object.keys(user.location).forEach((item: any) => {
-        if (item !== undefined) {
-          item.name = user.location?.adress;
-          return item.name;
-        }
-        return "";
-      });
-    }
-    return "";
+    console.log(el);
+
+    Object.keys(user.location).forEach((item: any) => {
+      console.log(item);
+
+      if (item !== null && item !== "") {
+        item = user.location?.adress;
+        return item;
+      }
+      return "";
+    });
+    
+    return ""
   };
 
   useEffect(() => {
@@ -114,7 +117,7 @@ const Delivery = ({
                 type={el.type}
                 id={el.id}
                 onChange={(e) => handleAdress(e, el)}
-                value={inputValueDefault(el)}
+                defaultValue={inputValueDefault(el)}
                 required
                 placeholder={`Saisissez votre ${el.name}`}
               />

@@ -1,87 +1,60 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState, useRef } from "react";
-import { useSelector } from "react-redux";
-import { User } from "../../types/user";
+import React, { useState, useRef, useEffect } from "react";
 import * as fs from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import { URL_CREATE_PRODUCT } from "../../constants/Constants";
-import { capitalize } from "../../utils/productUtils";
-
-const dataFormCreateProduct = [
-  {
-    id: "name",
-    name: "nom",
-    type: "text",
-  },
-  {
-    id: "price",
-    name: "prix",
-    type: "number",
-  },
-  {
-    id: "smallDescription",
-    name: "petite description",
-    type: "text",
-  },
-  {
-    id: "bigDescription",
-    name: "grande description",
-    type: "text",
-  },
-  {
-    id: "brand",
-    name: "marque",
-    type: "text",
-  },
-];
-
-const dataFormSelect = [
-  { id: "sex", data: ["homme", "femme"] },
-  { id: "type", data: ["veste", "t-shirt", "pantalon", "chaussette"] },
-  { id: "category", data: ["habits", "chaussures", "accessoires"] },
-  { id: "size", data: ["S", "M", "L", "XL"] },
-  { id: "sport", data: ["rando", "alpinisme", "vélo"] },
-];
+import {
+  URL_CREATE_PRODUCT,
+  URL_FORM_CREATE_PRODUCT_INPUT,
+  URL_FORM_CREATE_PRODUCT_SELECT,
+} from "../../constants/Constants";
+import {
+  createProductInput,
+  createProductInputItem,
+  createProductSelect,
+  createProductSelectItem,
+} from "../../types/product";
+import { logout } from "../../utils/userUtils";
+import { useDispatch } from "react-redux";
 
 const AdminAccount = () => {
   const formRef = useRef<HTMLFormElement | null>(null);
-  const fileRef = useRef<HTMLInputElement | null>(null);
-
-  const user: User = useSelector((state: any) => state.user.value);
 
   const [createProduct, setCreateProduct] = useState<boolean>(false);
+  const [dataSelect, setDataSelect] = useState<createProductSelect>();
+  const [dataInput, setDataInput] = useState<createProductInput>();
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    axios
+      .get(URL_FORM_CREATE_PRODUCT_INPUT)
+      .then((res) => setDataInput(res.data))
+      .catch((err) => console.log(err));
+
+    axios
+      .get(URL_FORM_CREATE_PRODUCT_SELECT)
+      .then((res) => setDataSelect(res.data))
+      .catch((err) => console.log(err));
+  }, []);
 
   const onSubmit = (e: any) => {
     e.preventDefault();
 
-    const name: string = e.target.elements.name.value;
-    const price: string = e.target.elements.price.value;
-    const smallDescription: string = e.target.elements.smallDescription.value;
-    const bigDescription: string = e.target.elements.bigDescription.value;
-    const brand: string = e.target.elements.brand.value;
-    const sex: string = e.target.elements.sex.value;
-    const type: string = e.target.elements.type.value;
-    const category: string = e.target.elements.category.value;
-    const sport: string = e.target.elements.sport.value;
-    const size: string = e.target.elements.size.value;
-
-    const dataItem = [
-      { name },
-      { price },
-      { smallDescription },
-      { bigDescription },
-      { brand },
-      { sex },
-      { type },
-      { category },
-      { sport },
-      { size },
-    ];
-
     const formData = new FormData(e.target);
-    dataItem.forEach((item: Object) => {
-      formData.append(Object.keys(item)[0], Object.values(item)[0]);
-    });
+
+    const insertValueFormData = (
+      array: createProductSelect | createProductInput
+    ) => {
+      array.forEach(
+        (item: createProductInputItem | createProductSelectItem) => {
+          formData.append(item.id, e.target.elements[item.id].value);
+        }
+      );
+    };
+
+    insertValueFormData(dataSelect as createProductSelect);
+    insertValueFormData(dataInput as createProductInput);
+
     axios
       .post(URL_CREATE_PRODUCT, formData, {
         headers: {
@@ -122,7 +95,7 @@ const AdminAccount = () => {
             >
               <div className="w-full flex flex-wrap flex-col sm:flex-row gap-5">
                 <div className="sm:basis-1/2">
-                  {dataFormCreateProduct.map((el, index) => (
+                  {dataInput?.map((el: createProductInputItem, index) => (
                     <div key={index}>
                       <label
                         htmlFor={el.id}
@@ -141,7 +114,7 @@ const AdminAccount = () => {
                   ))}
                 </div>
                 <div className="sm:grow">
-                  {dataFormSelect.map((item, index: any) => (
+                  {dataSelect?.map((item: createProductSelectItem, index) => (
                     <div className="w-full" key={index}>
                       <label
                         htmlFor={item.id}
@@ -173,7 +146,6 @@ const AdminAccount = () => {
                   type="file"
                   name="file"
                   id="file"
-                  ref={fileRef}
                   required
                 />
               </div>
@@ -183,12 +155,20 @@ const AdminAccount = () => {
             </form>
           </>
         ) : (
-          <button
-            onClick={() => setCreateProduct(true)}
-            className="p-2 rounded-md bg-main w-fit"
-          >
-            Ajouter un produit
-          </button>
+          <div className="flex flex-col gap-10">
+            <button
+              onClick={() => setCreateProduct(true)}
+              className="p-2 rounded-md bg-main w-fit"
+            >
+              Ajouter un produit
+            </button>
+            <button
+              onClick={() => logout(dispatch)}
+              className="w-fit rounded-md bg-main p-2 "
+            >
+              Se déconnecter
+            </button>
+          </div>
         )}
       </div>
     </div>

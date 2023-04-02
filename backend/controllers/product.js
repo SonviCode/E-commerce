@@ -1,11 +1,6 @@
 const UserProduct = require("../models/Product");
 
 exports.createProduct = (req, res, next) => {
-  console.log(req.body);
-  console.log(req.body);
-  console.log(req.body.name);
-  console.log(req.file);
-
   const newProduct = new UserProduct({
     ...req.body,
     price: Number(req.body.price),
@@ -19,7 +14,6 @@ exports.createProduct = (req, res, next) => {
     .save()
     .then(() => res.status(201).json(newProduct))
     .catch((error) => res.status(400).json({ error }));
-  console.log(newProduct);
 };
 
 exports.getProduct = (req, res, next) => {
