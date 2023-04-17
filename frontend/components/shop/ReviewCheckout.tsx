@@ -116,7 +116,7 @@ const ReviewCheckout = () => {
                       </button>
                     </div>
                     <span className="font-bold w-20 text-center mx-5">
-                      {el.price * el.counterShop},00€
+                      {el.price * el.counterShop}€
                     </span>
                     <FontAwesomeIcon
                       icon={fs.faTrash}

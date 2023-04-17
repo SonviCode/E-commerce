@@ -6,9 +6,10 @@ import { User } from "../../types/user";
 const adressObj: { [key: string | number]: null } = {
   adress: null,
   city: null,
-  postalCode: null,
+  zipCode: null,
 };
 
+//  = futur facture
 const invoice: { [key: string | number]: null } = {
   deliveryPrice: null,
 };
@@ -25,7 +26,7 @@ const dataDelivery = [
     type: "text",
   },
   {
-    id: "postalCode",
+    id: "zipCode",
     name: "code postale",
     type: "number",
   },
@@ -49,37 +50,36 @@ const choiseDelivery = [
 const Delivery = ({
   setDeliveryPrice,
   deliveryPrice,
+  setIsAbleNextStep,
 }: {
   setDeliveryPrice: any;
   deliveryPrice: any;
+  setIsAbleNextStep: any;
 }) => {
   const [isEmptyAdress, setIsEmptyAdress] = useState<boolean>(false);
-
   const user: User = useSelector((state: any) => state.user.value);
 
-  console.log(user);
-
   const inputValueDefault = (el: any) => {
-    console.log(el);
+    let result: any;
 
-    Object.keys(user.location).forEach((item: any) => {
-      console.log(item);
+    Object.entries(user.location).forEach((item: any) => {
+      const [key, value] = item;
 
-      if (item !== null && item !== "") {
-        item = user.location?.adress;
-        return item;
+      if (key == el.id) {
+        result = value;
       }
-      return "";
+      return;
     });
-    
-    return ""
+    return result;
   };
 
   useEffect(() => {
-    if (invoice.deliveryPrice !== null && isEmptyAdress == true) {
-      return;
+    if (deliveryPrice !== 0 && isEmptyAdress == true || user.location ) {
+      setIsAbleNextStep(true);
+    } else {
+      setIsAbleNextStep(false);
     }
-  }, [isEmptyAdress, deliveryPrice]);
+  }, [isEmptyAdress, deliveryPrice, setIsAbleNextStep]);
 
   const handleDelivery = (el: any) => {
     invoice.deliveryPrice = el.price;
@@ -87,6 +87,8 @@ const Delivery = ({
   };
 
   const handleAdress = (e: any, el: any) => {
+    console.log(adressObj);
+
     for (let key in adressObj) {
       if (key == el.id) {
         adressObj[key] = e.target.value;
@@ -99,6 +101,7 @@ const Delivery = ({
         return;
       }
     }
+    console.log(adressObj);
     setIsEmptyAdress(true);
   };
 

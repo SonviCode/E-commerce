@@ -40,7 +40,7 @@ const ProductCard = ({ el }: { el: productsItem }) => {
         <div className="p-2">
           <div className="flex justify-between items-center">
             <h3 className="text-base font-bold">{el.name}</h3>
-            <span className="text-sm font-bold pt-0.5">{el.price},00€</span>
+            <span className="text-sm font-bold pt-0.5">{el.price}€</span>
           </div>
           <div className="text-xs">
             <p>{el.smallDescription}</p>

@@ -120,7 +120,7 @@ export default function CategoryId({
           </div>
 
           {products.length >= 1 ? (
-            <div className="flex py-5 gap-5 pb-20 overflow-hidden">
+            <div className="grid grid-cols-auto-fit py-5 gap-5 pb-20 overflow-hidden">
               {products.map((el: productsItem, index: any) => (
                 <ProductCard el={el} key={index} />
               ))}

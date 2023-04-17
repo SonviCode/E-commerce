@@ -18,6 +18,7 @@ import { User } from "../../types/user";
 import Delivery from "../../components/shop/Delivery";
 import { GetStaticProps } from "next";
 import UserInfo from "../../components/account/UserInfo";
+import Payement from "../../components/shop/Payement";
 
 export default function Shop({
   shopIndicator,
@@ -27,7 +28,7 @@ export default function Shop({
   const [numberIndicator, setNumberIndicator] =
     useState<indicator[]>(shopIndicator);
   const [isAbleNextStep, setIsAbleNextStep] = useState<boolean>();
-  const [deliveryPrice, setDeliveryPrice] = useState<number>(0);
+  const [deliveryPrice, setDeliveryPrice] = useState<number>(2);
 
   const user: User = useSelector((state: any) => state.user.value);
   const shopData = useSelector((state: any) => state.shop.value);
@@ -75,8 +76,14 @@ export default function Shop({
           } flex  lg:flex-row  pt-5 pb-10 gap-10 `}
         >
           <div className="grow flex flex-col  gap-10 overflow-hidden">
-            {numberIndicator[2].actif ? (
-              <Delivery setDeliveryPrice={setDeliveryPrice} deliveryPrice={deliveryPrice}/>
+            {numberIndicator[3].actif ? (
+              <Payement />
+            ) : numberIndicator[2].actif ? (
+              <Delivery
+                setDeliveryPrice={setDeliveryPrice}
+                deliveryPrice={deliveryPrice}
+                setIsAbleNextStep={setIsAbleNextStep}
+              />
             ) : numberIndicator[1].actif ? (
               <div className="grow">
                 {user.name ? (

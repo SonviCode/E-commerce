@@ -49,7 +49,9 @@ const Summary = ({
           <div className="flex justify-between items-center">
             <span>Total</span>
             <span className="font-bold">
-              {shopData.length > 0 ? `${subtotal(shopData) + deliveryPrice}€` : "0€"}
+              {shopData.length > 0
+                ? `${subtotal(shopData) + deliveryPrice}€`
+                : "0€"}
             </span>
           </div>
         </div>
@@ -58,10 +60,10 @@ const Summary = ({
             isAbleNextStep && nextStepShop(numberIndicator, setNumberIndicator)
           }
           className={`w-full rounded-md  py-2 ${
-            isAbleNextStep ? `bg-main hover:text-white` : "bg-gray-200"
+            isAbleNextStep || numberIndicator[3].actif ? `bg-main hover:text-white` : "bg-gray-200"
           }`}
         >
-          Poursuivre la commande
+          {numberIndicator[3].actif ? "Payer la commannde" : "Poursuivre la commande"}
         </button>
       </div>
 

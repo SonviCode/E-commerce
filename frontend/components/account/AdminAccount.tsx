@@ -108,6 +108,7 @@ const AdminAccount = () => {
                         type={el.type}
                         id={el.id}
                         required
+                        step={0.01}
                         placeholder={`Saisissez votre ${el.name}`}
                       />
                     </div>

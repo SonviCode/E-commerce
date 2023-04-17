@@ -14,7 +14,7 @@ module.exports = {
         body: ["Poppins", "sans-serif"],
       },
       gridTemplateColumns: {
-        "auto-fit": "repeat(auto-fit, minmax(100px, 1fr))",
+        "auto-fit": "repeat( auto-fit, minmax(220px, 1fr))",
         "auto-fill": "repeat(auto-fill, minmax(100px, 1fr))",
         footer: "repeat(auto-fit, minmax(200px, 1fr))",
       },

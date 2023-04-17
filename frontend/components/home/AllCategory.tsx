@@ -11,7 +11,7 @@ const AllCategory = ({
 }) => {
   return (
     <div className=" max-w-7xl mx-auto">
-      <h2 className="uppercase after:block after:absolute after:w-40 after:h-1 after:bg-main after:rounded-md pl-[5%] mt-20 text-3xl font-bold text-gray-700 uppercase">
+      <h2 className="uppercase after:block after:absolute after:w-40 after:h-1 after:bg-main after:rounded-md pl-[5%] mt-20 text-3xl font-bold text-gray-700">
         L'essentiel
       </h2>
       <div className="flex flex-wrap lg:flex-nowrap p-5 gap-5  ">

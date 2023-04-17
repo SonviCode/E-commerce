@@ -59,17 +59,6 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* <div className="flex justify-center gap-5 text-3xl">
-        <a href="https://www.linkedin.com/in/tom-sonvico/" target="blank">
-          <i className="fa-brands fa-linkedin"></i>
-        </a>
-        <a href="https://github.com/SonviCode" target="blank">
-          <i className="fa-brands fa-github"></i>
-        </a>
-        <a href="https://twitter.com/SonviCode" target="blank">
-          <i className="fa-brands fa-twitter"></i>
-        </a>
-      </div> */}
       <p className="text-xs text-center">
         Copyright © {new Date().getFullYear()} SonviCode. All rights reserved.
         Any unauthorized reproduction, modification, distribution or use of this

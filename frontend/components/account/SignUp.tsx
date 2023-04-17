@@ -66,7 +66,7 @@ const SignUp = () => {
       onSubmit={(e) => onSubmit(e)}
       className="flex flex-col gap-5 py-10"
     >
-      <div className="flex flex-col gap-2 md:gap-5 md:grid md:grid-cols-2 gap-5">
+      <div className="flex flex-col md:gap-5 md:grid md:grid-cols-2 gap-5">
         {dataForm?.map((el, index) => (
           <div key={index} className="flex flex-col">
             <label htmlFor={el.id} className="title text-xs md:text-sm">

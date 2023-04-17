@@ -6,7 +6,7 @@ import { productsItem } from "../types/product";
 import { indicator } from "../types/shop";
 import { User } from "../types/user";
 
-export const subtotal = (shopData: any) => {
+export const subtotal = (shopData: any): number => {
   const result: number = shopData.reduce(
     (
       sum: number,
@@ -15,7 +15,7 @@ export const subtotal = (shopData: any) => {
     0
   );
 
-  return result;
+  return Number(result.toFixed(2));
 };
 
 export const addToShopCart = (
@@ -35,8 +35,6 @@ export const addToShopCart = (
     newProductObj = { ...product };
   }
   newProductObj.counterShop += nb;
-
-  console.log(newProductObj);
 
   dispatch(setShopData(newProductObj));
   dispatch(setNotif(SHOPPING_CART));
@@ -102,7 +100,7 @@ export const canGoToNextStep = (
 ) => {
   switch (true) {
     case numberIndicator[2].actif:
-      setIsAbleNextStep(true);
+      setIsAbleNextStep(false);
       break;
     case shopData.length > 0 &&
       numberIndicator[0].actif &&
