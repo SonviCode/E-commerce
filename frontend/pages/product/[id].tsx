@@ -114,7 +114,7 @@ export default function ProductId({ product }: { product: productsItem }) {
             <hr />
             <div>
               <span className="text-md font-bold pt-0.5">
-                {product.price},00€
+                {product.price.toFixed(2)}€
               </span>
             </div>
             <hr />
@@ -135,7 +135,7 @@ export default function ProductId({ product }: { product: productsItem }) {
             <hr />
             <div className="flex flex-col gap-4">
               <div>
-                <div className="rounded-lg bg-gray-200 justify-between items-center w-fit flex gap-5 w-[120px] mb-5">
+                <div className="rounded-lg bg-gray-200 justify-between items-center flex gap-5 w-[120px] mb-5">
                   <button
                     onClick={() =>
                       changeCounterProduct(-1, counter, setCounter)
@@ -188,10 +188,12 @@ export default function ProductId({ product }: { product: productsItem }) {
           </div>
           <div className="flex flex-col items-center gap-5 mt-10">
             <h3 className="text-3xl">Avis</h3>
-            <p>
-              Note moyenne :{" "}
-              <span className="text-3xl">{ArrayAvg(product.star)} / 5</span>
-            </p>
+            {product.star.length !== 0 && (
+              <p>
+                Note moyenne :{" "}
+                <span className="text-3xl">{ArrayAvg(product.star)} / 5</span>
+              </p>
+            )}
             <p>Nombre de notes : {product.star.length}</p>
           </div>
           <div className="mt-5">

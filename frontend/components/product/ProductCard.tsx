@@ -14,7 +14,7 @@ const ProductCard = ({ el }: { el: productsItem }) => {
   const shopData = useSelector((state: any) => state.shop.value);
 
   const dispatch = useDispatch();
- 
+
   return (
     <div className="relative min-w-[220px] max-w-[350px] cursor-pointer border-gray-200 border-2 rounded-md">
       <div
@@ -40,7 +40,7 @@ const ProductCard = ({ el }: { el: productsItem }) => {
         <div className="p-2">
           <div className="flex justify-between items-center">
             <h3 className="text-base font-bold">{el.name}</h3>
-            <span className="text-sm font-bold pt-0.5">{el.price}€</span>
+            <span className="text-sm font-bold pt-0.5">{el.price.toFixed(2)}€</span>
           </div>
           <div className="text-xs">
             <p>{el.smallDescription}</p>

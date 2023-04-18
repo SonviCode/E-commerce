@@ -10,7 +10,7 @@ const AllCategory = ({
   allCategoryData: allCategoryData;
 }) => {
   return (
-    <div className=" max-w-7xl mx-auto">
+    <div className=" max-w-screen-2xl  mx-auto">
       <h2 className="uppercase after:block after:absolute after:w-40 after:h-1 after:bg-main after:rounded-md pl-[5%] mt-20 text-3xl font-bold text-gray-700">
         L'essentiel
       </h2>
@@ -42,5 +42,3 @@ const AllCategory = ({
 };
 
 export default AllCategory;
-
-

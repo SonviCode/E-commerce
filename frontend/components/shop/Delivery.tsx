@@ -2,6 +2,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { User } from "../../types/user";
+import { checkProperties } from "../../utils/shopUtils";
 
 const adressObj: { [key: string | number]: null } = {
   adress: null,
@@ -49,12 +50,8 @@ const choiseDelivery = [
 
 const Delivery = ({
   setDeliveryPrice,
-  deliveryPrice,
-  setIsAbleNextStep,
 }: {
   setDeliveryPrice: any;
-  deliveryPrice: any;
-  setIsAbleNextStep: any;
 }) => {
   const [isEmptyAdress, setIsEmptyAdress] = useState<boolean>(false);
   const user: User = useSelector((state: any) => state.user.value);
@@ -73,22 +70,12 @@ const Delivery = ({
     return result;
   };
 
-  useEffect(() => {
-    if (deliveryPrice !== 0 && isEmptyAdress == true || user.location ) {
-      setIsAbleNextStep(true);
-    } else {
-      setIsAbleNextStep(false);
-    }
-  }, [isEmptyAdress, deliveryPrice, setIsAbleNextStep]);
-
   const handleDelivery = (el: any) => {
     invoice.deliveryPrice = el.price;
     setDeliveryPrice(el.price);
   };
 
   const handleAdress = (e: any, el: any) => {
-    console.log(adressObj);
-
     for (let key in adressObj) {
       if (key == el.id) {
         adressObj[key] = e.target.value;
@@ -127,7 +114,7 @@ const Delivery = ({
             </div>
           ))}
         </div>
-        <div className="flex flex-col gap-5 py-10 gap-10">
+        <div className="flex flex-col py-10 gap-10">
           {choiseDelivery.map((el, index) => (
             <div
               key={index}

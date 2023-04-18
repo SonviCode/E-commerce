@@ -96,21 +96,37 @@ export const canGoToNextStep = (
   numberIndicator: indicator[],
   shopData: any,
   user: User,
-  setIsAbleNextStep: any
+  setIsAbleNextStep: any,
+  deliveryPrice: any
 ) => {
   switch (true) {
-    case numberIndicator[2].actif:
+    case numberIndicator[3].actif:
       setIsAbleNextStep(false);
+      break;
+    case numberIndicator[2].actif &&
+      checkProperties(user.location) &&
+      deliveryPrice !== 0:
+      setIsAbleNextStep(true);
+      break;
+    case Object.keys(user).length > 0 &&
+      numberIndicator[1].actif &&
+      !numberIndicator[2].actif:
+      setIsAbleNextStep(true);
       break;
     case shopData.length > 0 &&
       numberIndicator[0].actif &&
-      numberIndicator[1].actif == false:
-      setIsAbleNextStep(true);
-      break;
-    case Object.keys(user).length > 0 && numberIndicator[1].actif:
+      !numberIndicator[1].actif:
       setIsAbleNextStep(true);
       break;
     default:
       setIsAbleNextStep(false);
   }
+};
+
+export const checkProperties = (obj: any) => {
+  for (const key in obj) {
+    if (obj[key] == null && obj[key] == "") return false;
+  }
+
+  return true;
 };

@@ -82,7 +82,7 @@ const ReviewCheckout = () => {
                           <span className="ml-1">({el.star.length})</span>
                         </span>
                         <span className="text-sm font-bold pt-0.5">
-                          {el.price},00€
+                          {el.price.toFixed(2)}€
                         </span>
                         <p className="py-3">
                           Taille :
@@ -116,7 +116,7 @@ const ReviewCheckout = () => {
                       </button>
                     </div>
                     <span className="font-bold w-20 text-center mx-5">
-                      {el.price * el.counterShop}€
+                      {(el.price * el.counterShop).toFixed(2)}€
                     </span>
                     <FontAwesomeIcon
                       icon={fs.faTrash}

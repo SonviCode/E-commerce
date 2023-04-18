@@ -13,12 +13,13 @@ import {
   prevStepShop,
 } from "../../utils/shopUtils";
 import ConnectModal from "../../components/account/ConnectModal";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { User } from "../../types/user";
 import Delivery from "../../components/shop/Delivery";
 import { GetStaticProps } from "next";
 import UserInfo from "../../components/account/UserInfo";
 import Payement from "../../components/shop/Payement";
+import { checkJwtFromLocalStorage } from "../../utils/authUser";
 
 export default function Shop({
   shopIndicator,
@@ -27,16 +28,27 @@ export default function Shop({
 }) {
   const [numberIndicator, setNumberIndicator] =
     useState<indicator[]>(shopIndicator);
-  const [isAbleNextStep, setIsAbleNextStep] = useState<boolean>();
-  const [deliveryPrice, setDeliveryPrice] = useState<number>(2);
+  const [isAbleNextStep, setIsAbleNextStep] = useState<boolean>(false);
+  const [deliveryPrice, setDeliveryPrice] = useState<number>(0);
 
   const user: User = useSelector((state: any) => state.user.value);
   const shopData = useSelector((state: any) => state.shop.value);
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    canGoToNextStep(numberIndicator, shopData, user, setIsAbleNextStep);
-    // console.log("test");
-  }, [numberIndicator, shopData, user]);
+    checkJwtFromLocalStorage(dispatch);
+  }, [dispatch]);
+
+  useEffect(() => {
+    canGoToNextStep(
+      numberIndicator,
+      shopData,
+      user,
+      setIsAbleNextStep,
+      deliveryPrice
+    );
+  }, [numberIndicator, shopData, user, deliveryPrice]);
 
   return (
     <>
@@ -77,13 +89,9 @@ export default function Shop({
         >
           <div className="grow flex flex-col  gap-10 overflow-hidden">
             {numberIndicator[3].actif ? (
-              <Payement />
+              <Payement deliveryPrice={deliveryPrice} />
             ) : numberIndicator[2].actif ? (
-              <Delivery
-                setDeliveryPrice={setDeliveryPrice}
-                deliveryPrice={deliveryPrice}
-                setIsAbleNextStep={setIsAbleNextStep}
-              />
+              <Delivery setDeliveryPrice={setDeliveryPrice} />
             ) : numberIndicator[1].actif ? (
               <div className="grow">
                 {user.name ? (
