@@ -15,6 +15,9 @@ const historicSlice = createSlice({
   initialState,
   reducers: {
     setHistoric: (state, action) => {
+      if (state.value.length > 4) {
+        state.value.pop();
+      }
       if (contains(state, action)) {
         filterOneItemByName(state, action);
       }

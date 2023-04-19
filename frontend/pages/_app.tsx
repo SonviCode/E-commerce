@@ -6,16 +6,23 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import { Provider } from "react-redux";
 import { store } from "../store/store";
+import { useState, useEffect } from "react";
 config.autoAddCss = false;
 
 export default function App({ Component, pageProps }: AppProps) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   return (
-    <>
-      <Provider store={store}>
-        <Container>
-          <Component {...pageProps} />
-        </Container>
-      </Provider>
-    </>
+    mounted && (
+      <>
+        <Provider store={store}>
+          <Container>
+            <Component {...pageProps} />
+          </Container>
+        </Provider>
+      </>
+    )
   );
 }

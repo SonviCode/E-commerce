@@ -43,5 +43,8 @@ export const checkJwtFromLocalStorage = (dispatch: any) => {
       delete res.data.password;
       dispatch(setUser(res.data));
     })
-    .catch(() => localStorage.clear());
+    .catch(() => {
+      localStorage.removeItem(process.env.NEXT_PUBLIC_USER_ID!),
+        localStorage.removeItem(process.env.NEXT_PUBLIC_USER_TOKEN!);
+    });
 };

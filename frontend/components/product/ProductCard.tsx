@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ButtonShop from "../UI/components/ButtonShop";
 
 const ProductCard = ({ el }: { el: productsItem }) => {
-  const favData: productsItem[] = useSelector((state: any) => state.fav.value);
+  const favData: productsItem[] = useSelector((state: any) => state.favoris.value);
   const shopData = useSelector((state: any) => state.shop.value);
 
   const dispatch = useDispatch();

@@ -13,6 +13,7 @@ export const formatNumberPhone = (number: number) => {
 };
 
 export const logout = (dispatch: any) => {
-  localStorage.clear();
+  localStorage.removeItem(process.env.NEXT_PUBLIC_USER_ID!);
+  localStorage.removeItem(process.env.NEXT_PUBLIC_USER_TOKEN!);
   dispatch(removeUser());
 };

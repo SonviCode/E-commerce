@@ -17,7 +17,7 @@ interface Navbar {
 }
 
 const Aside = ({ toggleAside, setToggleAside }: Navbar) => {
-  const favData: productsItem[] = useSelector((state: any) => state.fav.value);
+  const favData: productsItem[] = useSelector((state: any) => state.favoris.value);
   const shopData: productsItem[] = useSelector(
     (state: any) => state.shop.value
   );
@@ -57,7 +57,7 @@ const Aside = ({ toggleAside, setToggleAside }: Navbar) => {
         <Link
           onClick={() => closeAside()}
           href="/category"
-          className="py-1 pr-10 flex justify-between items-center gap-2 text-xl py-4 title"
+          className="pr-10 flex justify-between items-center gap-2 text-xl py-4 title"
         >
           Catégories :
         </Link>
@@ -67,7 +67,7 @@ const Aside = ({ toggleAside, setToggleAside }: Navbar) => {
               onClick={() => closeAside()}
               key={index}
               href={`/category/${el}`}
-              className="py-1 pr-10 flex justify-between items-center gap-2 text-xl py-4 hover:bg-gradient-to-r from-white to-gray-200"
+              className="pr-10 flex justify-between items-center gap-2 text-xl py-4 hover:bg-gradient-to-r from-white to-gray-200"
             >
               {capitalize(el)}
               <i className="fa-solid fa-chevron-right"></i>

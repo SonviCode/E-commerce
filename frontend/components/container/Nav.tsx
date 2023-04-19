@@ -14,7 +14,7 @@ const Nav = () => {
   const [toggleAside, setToggleAside] = useState(false);
   const [toggleResponsive, setToggleResponsive] = useState(true);
 
-  const favData: productsItem[] = useSelector((state: any) => state.fav.value);
+  const favData: productsItem[] = useSelector((state: any) => state.favoris.value);
   const shopData: productsItem[] = useSelector(
     (state: any) => state.shop.value
   );
@@ -46,7 +46,7 @@ const Nav = () => {
 
   return (
     <header>
-      <nav className="px-[5%] py-5 fixed z-10 w-full bg-white top-0 z-40 shadow-md">
+      <nav className="px-[5%] py-5 fixed w-full bg-white top-0 z-40 shadow-md">
         <div className="max-w-screen-2xl flex justify-between items-center mx-auto gap-10">
           <Aside toggleAside={toggleAside} setToggleAside={setToggleAside} />
           <div className="flex items-center gap-5">

@@ -23,7 +23,9 @@ export default function ProductId({ product }: { product: productsItem }) {
   const [counter, setCounter] = useState<number>(1);
   const [displayDescription, setDisplayDescription] = useState<boolean>(true);
 
-  const favData: productsItem[] = useSelector((state: any) => state.fav.value);
+  const favData: productsItem[] = useSelector(
+    (state: any) => state.favoris.value
+  );
   const shopData: productsItem[] = useSelector(
     (state: any) => state.shop.value
   );
@@ -33,13 +35,7 @@ export default function ProductId({ product }: { product: productsItem }) {
   const effectRan = useRef(false);
 
   useEffect(() => {
-    if (effectRan.current === true) {
-      dispatch(setHistoric(product));
-    }
-
-    return () => {
-      effectRan.current = true;
-    };
+    dispatch(setHistoric(product));
   }, [dispatch, product]);
 
   return (

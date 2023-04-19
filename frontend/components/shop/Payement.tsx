@@ -1,12 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { subtotal } from "../../utils/shopUtils";
 
-const Payement = ({ deliveryPrice }: { deliveryPrice: any }) => {
+const initialValues = {
+  name: "",
+  card: "",
+  date: "",
+  cvv: "",
+};
+
+const Payement = ({ deliveryPrice }: { deliveryPrice: number }) => {
+  const [values, setValues] = useState(initialValues);
   const shopData = useSelector((state: any) => state.shop.value);
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const { name, value } = e.target;
+    let formatValue: string | string[] = value;
+    if (name == "cvv" || name == "card") {
+      formatValue = value.replace(/[^\d]+/g, "");
+    }
+
+    if (name == "date") {
+      formatValue = value.replace(/[^\d]+/g, "");
+
+      // formatValue.splice(2, 0, "/");
+
+      console.log(formatValue);
+    }
+
+    setValues({
+      ...values,
+      [name]: formatValue,
+    });
   };
 
   return (
@@ -14,7 +43,7 @@ const Payement = ({ deliveryPrice }: { deliveryPrice: any }) => {
       <div className="flex justify-center items-center">
         <form
           onSubmit={(e) => handleSubmit(e)}
-          className="w-100 bg-gray-100 shadow-md p-5 rounded-lg"
+          className="w-100 bg-gray-50 shadow-md p-5 rounded-lg"
         >
           <p className="text-xl title">Détailes de paiement </p>
           <div className="input_text mt-6 relative">
@@ -23,8 +52,11 @@ const Payement = ({ deliveryPrice }: { deliveryPrice: any }) => {
             </label>
             <input
               required
+              value={values.name}
+              onChange={handleInputChange}
               type="text"
               id="name"
+              name="name"
               className="h-12 pl-7 outline-none px-2 focus:border-blue-900 transition-all w-full border-b rounded-lg"
               placeholder="John Row"
             />
@@ -40,9 +72,10 @@ const Payement = ({ deliveryPrice }: { deliveryPrice: any }) => {
               id="number"
               className="h-12 pl-7 outline-none px-2 focus:border-blue-900 transition-all w-full border-b rounded-lg"
               placeholder="0000 0000 0000 0000"
-              data-slots="0"
-              data-accept="\d"
-              size={19}
+              maxLength={16}
+              name="card"
+              value={values.card}
+              onChange={handleInputChange}
             />
             <i className="absolute left-2 top-[14px] text-gray-400 text-sm fa fa-credit-card"></i>
           </div>
@@ -55,9 +88,12 @@ const Payement = ({ deliveryPrice }: { deliveryPrice: any }) => {
                 required
                 type="text"
                 id="expiration"
+                name="date"
                 className="h-12 pl-7 outline-none px-2 focus:border-blue-900 transition-all w-full border-b rounded-lg"
                 placeholder="mm/yyyy"
-                data-slots="my"
+                maxLength={6}
+                value={values.date}
+                onChange={handleInputChange}
               />
               <i className="absolute left-2 top-4 text-gray-400 fa fa-calendar-o"></i>
             </div>
@@ -67,13 +103,14 @@ const Payement = ({ deliveryPrice }: { deliveryPrice: any }) => {
               </label>
               <input
                 required
-                type="number"
+                value={values.cvv}
+                onChange={handleInputChange}
+                type="text"
                 id="CVV"
+                name="cvv"
                 className="h-12 pl-7 outline-none px-2 focus:border-blue-900 transition-all w-full border-b rounded-lg"
                 placeholder="000"
-                data-slots="0"
-                data-accept="\d*"
-                max={3}
+                maxLength={3}
               />
               <i className="absolute left-2 top-4 text-gray-400 fa fa-lock"></i>
             </div>
