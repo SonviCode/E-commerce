@@ -19,17 +19,17 @@ const dataDelivery = [
   {
     id: "adress",
     name: "adresse",
-    type: "text",
+    placeholder:"20 rue des Alpes"
   },
   {
     id: "city",
     name: "ville",
-    type: "text",
+    placeholder:"Tignes"
   },
   {
     id: "zipCode",
     name: "code postale",
-    type: "number",
+    placeholder:"73 320"
   },
 ];
 
@@ -48,11 +48,7 @@ const choiseDelivery = [
   },
 ];
 
-const Delivery = ({
-  setDeliveryPrice,
-}: {
-  setDeliveryPrice: any;
-}) => {
+const Delivery = ({ setDeliveryPrice }: { setDeliveryPrice: any }) => {
   const [isEmptyAdress, setIsEmptyAdress] = useState<boolean>(false);
   const user: User = useSelector((state: any) => state.user.value);
 
@@ -94,7 +90,7 @@ const Delivery = ({
 
   return (
     <div className="grow">
-      <div className="border  rounded-md p-5 flex flex-col gap-2.5 grow py-10 h-full">
+      <div className="border shadow-md rounded-md p-5 flex flex-col gap-2.5 grow  h-full">
         <h1 className="title text-2xl">Livraison</h1>
         <div className="flex flex-col md:flex-row gap-5">
           {dataDelivery.map((el, index) => (
@@ -104,12 +100,13 @@ const Delivery = ({
               </label>
               <input
                 className="w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 text-sm leading-tight focus:outline-none focus:bg-white focus:border-gray-500 peer invalid:border-red-600"
-                type={el.type}
+                type="text"
                 id={el.id}
                 onChange={(e) => handleAdress(e, el)}
                 defaultValue={inputValueDefault(el)}
                 required
-                placeholder={`Saisissez votre ${el.name}`}
+                placeholder={el.placeholder}
+                maxLength={el.id == "zipCode" ? 5 : 50}
               />
             </div>
           ))}

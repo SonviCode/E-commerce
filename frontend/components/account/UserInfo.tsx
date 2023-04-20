@@ -1,28 +1,44 @@
 import React from "react";
 import { User } from "../../types/user";
 import { capitalize } from "../../utils/productUtils";
-import { formatNumberPhone } from "../../utils/userUtils";
+import { formatNumberPhone, logout } from "../../utils/userUtils";
+import { useDispatch } from "react-redux";
 
 const UserInfo = ({ user }: { user: User }) => {
+  const dispatch = useDispatch();
+
   return (
-    <div className="flex flex-col h-full">
-      <h2 className="text-2xl font-bold mb-5">Informations personnelles</h2>
-      <div className="border text-xl rounded-md p-5 flex flex-col gap-2.5 grow">
-        <p>Email : {user.email}</p>
-        <hr />
-        <p>Prénom : {capitalize(user.firstname)}</p>
-        <hr />
-        <p>Nom : {capitalize(user.name)}</p>
-        <hr />
-        <p className="flex">
-          Numéro de téléphone : + 33{" "}
-          <span className="flex gap-2 ml-2">
+    <div className="flex flex-col justify-between h-full">
+      <ul className="flex flex-col  gap-2">
+        <li className="flex gap-5">
+          <span className="title">Email :</span>{" "}
+          <span className="italic">{user.email}</span>
+        </li>
+        <li className="flex gap-5">
+          <span className="title">Prénom :</span>{" "}
+          <span className="italic">{user.firstname}</span>
+        </li>
+        <li className="flex gap-5">
+          <span className="title">Nom :</span>{" "}
+          <span className="italic">{user.name}</span>
+        </li>
+        <li className="flex gap-5">
+          <span className="flex gap-2 title">Numéro de téléphone :</span>
+          <span className="flex gap-2 italic">
+            + 33
             {formatNumberPhone(user.phonenumber).map((n, i) => (
               <span key={i}>{n}</span>
             ))}
           </span>
-        </p>
-      </div>
+        </li>
+      </ul>
+
+      <button
+        onClick={() => logout(dispatch)}
+        className="w-fit text-sm rounded-md bg-gray-50 shadow-md p-2 "
+      >
+        Se déconnecter
+      </button>
     </div>
   );
 };

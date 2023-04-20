@@ -87,7 +87,7 @@ export default function Shop({
             numberIndicator[1].actif ? "flex-col" : "flex-col-reverse"
           } flex  lg:flex-row  pt-5 pb-10 gap-10 `}
         >
-          <div className="grow flex flex-col  gap-10 overflow-hidden">
+          <div className="grow flex flex-col  gap-10 ">
             {numberIndicator[3].actif ? (
               <Payement deliveryPrice={deliveryPrice} />
             ) : numberIndicator[2].actif ? (
@@ -95,7 +95,7 @@ export default function Shop({
             ) : numberIndicator[1].actif ? (
               <div className="grow">
                 {user.name ? (
-                  <div className="border text-xl rounded-md p-5 flex flex-col gap-2.5 grow py-10">
+                  <div className="border shadow-md h-full text-xl rounded-md p-5 flex flex-col gap-2.5 grow ">
                     <h2 className="text-2xl title mb-5">
                       Bien connecté <FontAwesomeIcon icon={fs.faCheck} />
                     </h2>

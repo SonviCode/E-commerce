@@ -26,7 +26,7 @@ const Summary = ({
   const shopData = useSelector((state: any) => state.shop.value);
 
   return (
-    <div className="flex flex-col gap-10 border-2 rounded-md p-5 sticky top-24">
+    <div className="flex flex-col gap-10 border shadow-md rounded-md p-5 sticky top-24">
       <div className="flex flex-col gap-5">
         <h2 className="title text-xl">Récapitulatif</h2>
         <div className="flex flex-col gap-2.5">
