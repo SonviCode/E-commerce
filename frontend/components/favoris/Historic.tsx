@@ -11,7 +11,7 @@ const Historic = () => {
   );
 
   return (
-    <div className="border-2 rounded-md px-5 py-10 overflow-hidden">
+    <div className="border shadow-md  rounded-md px-5 py-10 overflow-hidden">
       <h2 className="text-2xl font-bold mb-5">Historique</h2>
       {historicData.length > 0 ? (
         <div className="flex gap-10 px-10 items-center">

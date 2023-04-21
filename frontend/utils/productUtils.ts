@@ -6,12 +6,19 @@ import {
 } from "../store/features/slice/favorisSlice";
 import { setNotif } from "../store/features/slice/notifSlice";
 
-export const ArrayAvg = (myArray: number[]) => {
+export const ArrayAvg = (myArray: number[]): number => {
+  const result = 0;
+
+  if (isNaN(myArray[0])) {
+    return result;
+  }
+
   let i = 0,
     summ = 0;
   while (i < myArray.length) {
     summ = summ + myArray[i++];
   }
+
   return parseFloat((summ / myArray.length).toFixed(1));
 };
 

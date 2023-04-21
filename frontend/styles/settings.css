@@ -1,3 +1,6 @@
+@import "product.css";
+@import "home.css";
+
 /* THIS CSS IS SO THAT THE FOOTER DISPLAY IS ALWAYS AT THE BOTTOM */
 #__next {
   display: flex;
@@ -8,10 +11,4 @@ html,
 body,
 #__next {
   height: 100%;
-}
-
-.title {
-  font-weight: bold;
-  color: rgb(55 65 81);
-  text-transform: uppercase;
 }

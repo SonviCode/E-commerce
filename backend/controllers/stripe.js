@@ -12,10 +12,12 @@ exports.stripeConfig = (req, res) => {
 };
 
 exports.createPayement = async (req, res) => {
+  const formatAmount = Number(req.body.amount.toString().replace(".", ""));
+
   try {
     const paymentIntent = await stripe.paymentIntents.create({
       currency: "EUR",
-      amount: 1999,
+      amount: formatAmount,
       automatic_payment_methods: { enabled: true },
     });
 

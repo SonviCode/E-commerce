@@ -80,7 +80,7 @@ const Filter = ({
                 />
               </div>
 
-              <ul className="peer-checked:flex flex flex-col hidden gap-2 py-2 z-20">
+              <ul className="peer-checked:flex flex-col hidden gap-2 py-2 z-20">
                 {key.filterData.map((el: string, index) => (
                   <li className="flex" key={index}>
                     <input

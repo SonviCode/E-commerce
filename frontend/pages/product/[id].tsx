@@ -2,7 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { COMPANY_NAME, URL_GET_PRODUCT } from "../../constants/Constants";
 import { productsItem } from "../../types/product";
 import { handleDate, changeCounterProduct } from "../../utils/productUtils";
@@ -18,6 +18,7 @@ import * as fr from "@fortawesome/free-regular-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import ButtonShop from "../../components/UI/components/ButtonShop";
 import { setHistoric } from "../../store/features/slice/historicSlice";
+import StarProduct from "../../components/UI/components/StarProduct";
 
 export default function ProductId({ product }: { product: productsItem }) {
   const [counter, setCounter] = useState<number>(1);
@@ -32,7 +33,6 @@ export default function ProductId({ product }: { product: productsItem }) {
 
   const router = useRouter();
   const dispatch = useDispatch();
-  const effectRan = useRef(false);
 
   useEffect(() => {
     dispatch(setHistoric(product));
@@ -81,30 +81,7 @@ export default function ProductId({ product }: { product: productsItem }) {
             <div>
               <h1 className="text-3xl">{product.name}</h1>
               <p>{product.smallDescription}</p>
-              <span>
-                <>
-                  {starInArray(ArrayAvg(product.star)).map((nb, i) => (
-                    <span key={i}>
-                      {nb == 1 ? (
-                        <FontAwesomeIcon
-                          icon={fs.faStar}
-                          className="text-yellow-300"
-                        />
-                      ) : nb == 5 ? (
-                        <FontAwesomeIcon
-                          icon={fs.faStarHalfStroke}
-                          className="text-yellow-300"
-                        />
-                      ) : (
-                        <FontAwesomeIcon
-                          icon={fs.faStar}
-                          className="text-gray-200"
-                        />
-                      )}
-                    </span>
-                  ))}
-                </>
-              </span>
+              <StarProduct star={product.star} />
               <span>({product.star.length})</span>
             </div>
             <hr />
@@ -178,7 +155,9 @@ export default function ProductId({ product }: { product: productsItem }) {
             <hr />
             {displayDescription ? (
               <p className="text-sm md:text-base mb-10 pt-2 duration-300 ease">
-                {product.bigDescription}
+                {product.bigDescription
+                  ? product.bigDescription
+                  : "Aucune description disponible"}
               </p>
             ) : null}
           </div>
@@ -201,30 +180,11 @@ export default function ProductId({ product }: { product: productsItem }) {
                     {capitalize(el.firstname)} {capitalize(el.name)}
                   </h2>
                   <p className="mb-5 italic">{handleDate(el.date)}</p>
+
                   <span>
-                    <>
-                      {starInArray(ArrayAvg([el.star])).map((nb, i) => (
-                        <span key={i}>
-                          {nb == 1 ? (
-                            <FontAwesomeIcon
-                              icon={fs.faStar}
-                              className="text-yellow-300"
-                            />
-                          ) : nb == 5 ? (
-                            <FontAwesomeIcon
-                              icon={fs.faStarHalfStroke}
-                              className="text-yellow-300"
-                            />
-                          ) : (
-                            <FontAwesomeIcon
-                              icon={fs.faStar}
-                              className="text-gray-200"
-                            />
-                          )}
-                        </span>
-                      ))}
-                    </>
+                    <StarProduct star={[el.star]} />
                   </span>
+
                   <p className="font-bold">{el.title}</p>
                   <p>{el.description}</p>
                 </div>
@@ -242,8 +202,6 @@ export async function getStaticProps(context: any) {
 
   const res = await fetch(URL_GET_PRODUCT + "/" + id);
   const product = await res.json();
-
-  console.log(res);
 
   return {
     props: {

@@ -5,6 +5,7 @@
 import { PaymentElement } from "@stripe/react-stripe-js";
 import { useState } from "react";
 import { useStripe, useElements } from "@stripe/react-stripe-js";
+import { UNEXPECTED_ERROR } from "../../constants/Constants";
 
 // const initialValues = {
 //   name: "",
@@ -31,57 +32,34 @@ const CheckoutForm = () => {
 
     setIsProcessing(true);
 
-    const { error } = await stripe.confirmPayment({
+    const { error, paymentIntent } = await stripe.confirmPayment({
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: `${window.location.origin}/completion`,
+        return_url: `${window.location.origin}/`,
       },
+      redirect: "if_required",
     });
 
-    if (error.type === "card_error" || error.type === "validation_error") {
+    if (error) {
+      console.log(error);
+
       setMessage(error.message!);
+    } else if (paymentIntent && paymentIntent.status === "succeeded") {
+      console.log(paymentIntent);
+
+      setMessage("Payement réussi");
     } else {
-      setMessage("An unexpected error occured.");
+      setMessage(UNEXPECTED_ERROR);
     }
 
     setIsProcessing(false);
   };
 
-  //   const [values, setValues] = useState(initialValues);
-  //   const shopData = useSelector((state: any) => state.shop.value);
-
-  //   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
-  //     e.preventDefault();
-  //   };
-
-  //   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-  //     const { name, value } = e.target;
-  //     let formatValue: string | string[] = value;
-  //     if (name == "cvv" || name == "card") {
-  //       formatValue = value.replace(/[^\d]+/g, "");
-  //     }
-
-  //     if (name == "date") {
-  //       formatValue = value.replace(/[^\d]+/g, "").split("");
-
-  //       formatValue.splice(2, 0, "/");
-  //       formatValue.join("").replace(",", "");
-
-  //       console.log(formatValue);
-  //     }
-  //     console.log(formatValue.toString().replace(",", ""));
-
-  //     setValues({
-  //       ...values,
-  //       [name]: formatValue,
-  //     });
-  //   };
-
   return (
     <form
       className=" h-full min-h-[350px] border shadow-md p-5 rounded-md "
-      onSubmit={handleSubmit}
+      onSubmit={(e) => handleSubmit(e)}
     >
       <PaymentElement id="payment-element" />
       <button

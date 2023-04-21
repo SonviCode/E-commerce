@@ -18,7 +18,15 @@
     border-radius: 100vh;
     border: 3px solid #f6f7ed;
   }
+
+  .title {
+    font-weight: bold;
+    color: rgb(55 65 81);
+    text-transform: uppercase;
+  }
 }
+
+
 
 @tailwind base;
 @tailwind components;

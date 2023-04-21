@@ -45,7 +45,7 @@ export default function Category({
                   </p>
                   <Link
                     href={`/category/chaussures`}
-                    className="w-fit rounded-md bg-main p-2 "
+                    className="w-fit rounded-md bg-main p-2 shadow-md"
                   >
                     Voir tout les produits
                   </Link>
@@ -57,7 +57,7 @@ export default function Category({
                     // width={"0"}
                     // height={"0"}
                     alt="une image random d'outdoor"
-                    className=" cursor-pointer rounded-md object-cover"
+                    className=" cursor-pointer rounded-md object-cover shadow-md"
                   />
                 </div>
               </div>

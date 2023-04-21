@@ -8,8 +8,8 @@ const UserInfo = ({ user }: { user: User }) => {
   const dispatch = useDispatch();
 
   return (
-    <div className="flex flex-col justify-between h-full">
-      <ul className="flex flex-col  gap-2">
+    <div className="flex flex-col justify-between h-full gap-20">
+      <ul className="flex flex-col  gap-2 text-sm md:text-lg">
         <li className="flex gap-5">
           <span className="title">Email :</span>{" "}
           <span className="italic">{user.email}</span>
@@ -22,7 +22,7 @@ const UserInfo = ({ user }: { user: User }) => {
           <span className="title">Nom :</span>{" "}
           <span className="italic">{user.name}</span>
         </li>
-        <li className="flex gap-5">
+        <li className="flex gap-x-5 flex-wrap">
           <span className="flex gap-2 title">Numéro de téléphone :</span>
           <span className="flex gap-2 italic">
             + 33

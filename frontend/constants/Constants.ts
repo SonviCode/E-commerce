@@ -7,7 +7,8 @@ export const URL_GETUSER: string = `${API_NODE_URL}auth/user/`;
 export const URL_GET_PRODUCT: string = `${API_NODE_URL}product`;
 export const URL_GET_PRODUCT_BY_CATEGORY: string = `${API_NODE_URL}product/category/`;
 export const URL_CREATE_PRODUCT: string = `${API_NODE_URL}product`;
-export const URL_STRIPE: string = `${API_NODE_URL}stripe`;
+export const URL_STRIPE_CONFIG: string = `${API_NODE_URL}stripe/config`;
+export const URL_STRIPE_PAYMENT: string = `${API_NODE_URL}stripe/create-payment-intent`;
 
 // API FROM NEXT JS
 const API_NEXT_URL = process.env.NEXT_PUBLIC_API_NEXT_URL;
@@ -38,6 +39,8 @@ export const ACCESSORY_CATEGORY =
   "Nous proposons une grande variété d'accessoires essentiels pour la randonnée, tels que des sacs à dos, des bâtons de marche, des lampes frontales, des cartes topographiques, des sacs de couchage et bien d'autres encore. Tous nos équipements sont sélectionnés avec soin pour répondre aux besoins des randonneurs, qu'ils soient débutants ou experts.";
 
 // ACCOUNT
-
 export const DOUBLE_EMAIL_ERROR =
   "User validation failed: email: Error, expected `email` to be unique. Value:";
+
+// ERROR MSG
+export const UNEXPECTED_ERROR = "An unexpected error occured.";

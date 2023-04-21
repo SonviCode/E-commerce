@@ -9,10 +9,10 @@ const HeaderHome = () => {
   return (
     <div className=" w-full h-screen max-h-[600px]">
       <div className="relative pt-20 sm:pt-40 z-10 px-5 max-w-7xl mx-auto h-full">
-        <div className="flex flex-col sm:px-[20%]">
+        <div className="flex flex-col sm:px-[10%]">
           <div className="flex items-center flex-col md:flex-row mb-10">
             <Image src={logo} width={120} height={120} alt="logo" />
-            <h1 className="text-xl title text-5xl sm:text-6xl ">{COMPANY_NAME}</h1>
+            <h1 className="title text-5xl sm:text-6xl ">{COMPANY_NAME}</h1>
           </div>
           <p className="text-gray-900 text-md sm:text-xl title text-xl ">{TEXT_HOME}</p>
         </div>

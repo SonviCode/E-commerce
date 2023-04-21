@@ -10,6 +10,8 @@ import {
   localStorageGetItem,
 } from "./features/middleware/localStorageMiddleware";
 
+export type RootState = ReturnType<typeof store.getState> 
+
 export const store = configureStore({
   reducer: {
     shop: shopReducer,

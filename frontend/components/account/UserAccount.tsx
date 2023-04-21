@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { User } from "../../types/user";
-import { formatNumberPhone, logout } from "../../utils/userUtils";
+import { logout } from "../../utils/userUtils";
 import Historic from "../favoris/Historic";
-import { capitalize } from "../../utils/productUtils";
 import { useDispatch, useSelector } from "react-redux";
 import { removeHistoric } from "../../store/features/slice/historicSlice";
 import { productsItem } from "../../types/product";
-import { Dispatch, SetStateAction } from "react";
 import UserInfo from "./UserInfo";
 import AdminAccount from "./AdminAccount";
 

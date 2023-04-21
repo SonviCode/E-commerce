@@ -17,7 +17,7 @@ const Favoris = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className="border-2 rounded-md px-5 py-10">
+    <div className="border shadow-md rounded-md px-5 py-10">
       <h2 className="text-2xl font-bold mb-5">
         <Link href="/favoris">
           <FontAwesomeIcon icon={fr.faHeart} className="mr-2" />

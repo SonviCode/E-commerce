@@ -15,10 +15,11 @@ import {
   THE_NEWS,
   DECREASING_PRICE,
 } from "../../constants/Constants";
-import { ArrayAvg, capitalize } from "../../utils/productUtils";
+import { capitalize } from "../../utils/productUtils";
 import ProductCard from "../../components/product/ProductCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as fs from "@fortawesome/free-solid-svg-icons";
+import { handleSortCategory } from "../../utils/categoryUtils";
 
 export default function CategoryId({
   productData,
@@ -40,22 +41,6 @@ export default function CategoryId({
       effectRan.current = true;
     };
   }, [productData]);
-
-  const handleSort = (name: any) => {
-    if (name == ASCENDING_PRICE) {
-      setProducts([...products].sort((a: any, b: any) => a.price - b.price));
-    } else if (name == THE_NEWS) {
-      console.log("created by most recent (add date)");
-    } else if (name == DECREASING_PRICE) {
-      setProducts([...products].sort((a: any, b: any) => b.price - a.price));
-    } else if (name == THE_MOST_POPULAR) {
-      setProducts(
-        [...products].sort(
-          (a: any, b: any) => ArrayAvg(b.star) - ArrayAvg(a.star)
-        )
-      );
-    }
-  };
 
   return (
     <>
@@ -83,11 +68,13 @@ export default function CategoryId({
           setProducts={setProducts}
           productData={productData}
         />
-        <div className="grow px-5 pt-5">
+        <div className="grow pt-5">
           <div className="flex flex-wrap gap-x-10 gap-y-5 flex-row-reverse justify-between">
             <div className="relative ">
               <select
-                onChange={(e) => handleSort(e.target.value)}
+                onChange={(e) =>
+                  handleSortCategory(e.target.value, setProducts, products)
+                }
                 className="rounded-md border border-gray-300 appearance-none w-fit bg-white text-gray-700 h-full py-2 px-4 pr-10 leading-tight focus:outline-none focus:border-gray-500 cursor-pointer"
               >
                 {[
@@ -120,7 +107,7 @@ export default function CategoryId({
           </div>
 
           {products.length >= 1 ? (
-            <div className="grid grid-cols-auto-fit py-5 gap-5 pb-20 overflow-hidden">
+            <div className="containerProducts">
               {products.map((el: productsItem, index: any) => (
                 <ProductCard el={el} key={index} />
               ))}

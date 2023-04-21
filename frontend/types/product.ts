@@ -16,6 +16,7 @@ export type productsData = {
   sport: string;
   size: string;
   counterShop: number;
+  createdDate: Date;
 }[];
 
 export type productsItem = {
@@ -34,6 +35,7 @@ export type productsItem = {
   comments: string[];
   size: string;
   counterShop: number;
+  createdDate: Date;
 };
 
 export type productComment = {

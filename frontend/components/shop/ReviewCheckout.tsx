@@ -26,7 +26,7 @@ const ReviewCheckout = () => {
 
   return (
     <>
-      <div className="border-2 rounded-md p-5 min-h-[424.22px] relative">
+      <div className="border rounded-md shadow-md p-5 min-h-[424.22px] relative">
         <h2 className="text-2xl font-bold">
           <i className="fa-solid fa-cart-shopping cursor-pointer mr-5"></i>
           Panier

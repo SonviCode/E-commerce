@@ -16,7 +16,7 @@ exports.createProduct = (req, res, next) => {
     .catch((error) => res.status(400).json({ error }));
 };
 
-exports.getProduct = (req, res, next) => {
+exports.getProducts = (req, res, next) => {
   UserProduct.find()
     .then((product) => res.status(200).json(product))
     .catch((error) => res.status(400).json({ error }));
