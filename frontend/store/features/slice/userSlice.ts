@@ -1,12 +1,13 @@
 // 'use client';
 import { createSlice } from "@reduxjs/toolkit";
+import { User } from "../../../types/user";
 
 export interface userState {
-  value: {};
+  value: User ;
 }
 
 const initialState: userState = {
-  value: {},
+  value: undefined,
 };
 
 const userSlice = createSlice({

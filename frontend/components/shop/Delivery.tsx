@@ -1,8 +1,7 @@
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { User } from "../../types/user";
-import { checkProperties } from "../../utils/shopUtils";
 
 const adressObj: { [key: string | number]: null } = {
   adress: null,
@@ -55,7 +54,7 @@ const Delivery = ({ setDeliveryPrice }: { setDeliveryPrice: any }) => {
   const inputValueDefault = (el: any) => {
     let result: any;
 
-    Object.entries(user.location).forEach((item: any) => {
+    Object.entries(user?.location!).forEach((item: any) => {
       const [key, value] = item;
 
       if (key == el.id) {

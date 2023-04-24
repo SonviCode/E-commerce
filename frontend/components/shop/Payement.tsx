@@ -25,7 +25,6 @@ const Payement = ({ deliveryPrice }: { deliveryPrice: number }) => {
     fetch(URL_STRIPE_CONFIG)
       .then(async (res) => {
         const { publishableKey } = await res.json();
-        console.log(publishableKey);
         if (loadStripe !== null) {
           setStripePromise(loadStripe(publishableKey));
         }

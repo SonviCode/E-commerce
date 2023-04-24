@@ -20,6 +20,8 @@ import { GetStaticProps } from "next";
 import UserInfo from "../../components/account/UserInfo";
 import Payement from "../../components/shop/Payement";
 import { checkJwtFromLocalStorage } from "../../utils/authUser";
+import { RootState } from "../../store/store";
+import { productsData } from "../../types/product";
 
 export default function Shop({
   shopIndicator,
@@ -31,8 +33,10 @@ export default function Shop({
   const [isAbleNextStep, setIsAbleNextStep] = useState<boolean>(false);
   const [deliveryPrice, setDeliveryPrice] = useState<number>(0);
 
-  const user: User = useSelector((state: any) => state.user.value);
-  const shopData = useSelector((state: any) => state.shop.value);
+  const user: User = useSelector((state: RootState) => state.user.value);
+  const shopData: productsData = useSelector(
+    (state: RootState) => state.shop.value
+  );
 
   const dispatch = useDispatch();
 
@@ -94,7 +98,7 @@ export default function Shop({
               <Delivery setDeliveryPrice={setDeliveryPrice} />
             ) : numberIndicator[1].actif ? (
               <div className="grow">
-                {user.name ? (
+                {user?.name ? (
                   <div className="border shadow-md h-full text-xl rounded-md p-5 flex flex-col gap-2.5 grow ">
                     <h2 className="text-2xl title mb-5">
                       Bien connecté <FontAwesomeIcon icon={fs.faCheck} />
@@ -127,7 +131,7 @@ export const getStaticProps: GetStaticProps<{
   shopIndicator: indicator[];
 }> = async () => {
   const res = await fetch(URL_SHOP_INDICATOR);
-  const shopIndicator = await res.json();
+  const shopIndicator: indicator[] = await res.json();
 
   return {
     props: {

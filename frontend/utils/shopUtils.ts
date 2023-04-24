@@ -2,9 +2,10 @@ import { SHOPPING_CART } from "../constants/Constants";
 import { removeItemFav } from "../store/features/slice/favorisSlice";
 import { setNotif } from "../store/features/slice/notifSlice";
 import { setShopData } from "../store/features/slice/shopSlice";
-import { productsItem } from "../types/product";
+import { productsItem, productsData } from "../types/product";
 import { indicator } from "../types/shop";
-import { User } from "../types/user";
+import { User, userAdress } from "../types/user";
+import { Dispatch, SetStateAction } from "react";
 
 export const subtotal = (shopData: any): number => {
   const result: number = shopData.reduce(
@@ -94,21 +95,21 @@ export const nextStepShop = (
 
 export const canGoToNextStep = (
   numberIndicator: indicator[],
-  shopData: any,
+  shopData: productsData,
   user: User,
-  setIsAbleNextStep: any,
-  deliveryPrice: any
+  setIsAbleNextStep: Dispatch<SetStateAction<boolean>>,
+  deliveryPrice: number
 ) => {
   switch (true) {
     case numberIndicator[3].actif:
       setIsAbleNextStep(false);
       break;
     case numberIndicator[2].actif &&
-      checkProperties(user.location) &&
+      checkProperties(user?.location!) &&
       deliveryPrice !== 0:
       setIsAbleNextStep(true);
       break;
-    case Object.keys(user).length > 0 &&
+    case user && Object.keys(user!).length > 0 &&
       numberIndicator[1].actif &&
       !numberIndicator[2].actif:
       setIsAbleNextStep(true);
@@ -123,9 +124,11 @@ export const canGoToNextStep = (
   }
 };
 
-export const checkProperties = (obj: any) => {
+export const checkProperties = (obj: any): boolean => {
   for (const key in obj) {
-    if (obj[key] == null && obj[key] == "") return false;
+    console.log(key);
+
+    if (obj[key] == null || obj[key] == "") return false;
   }
 
   return true;

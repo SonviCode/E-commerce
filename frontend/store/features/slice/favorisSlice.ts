@@ -1,9 +1,10 @@
 // 'use client';
 import { createSlice } from "@reduxjs/toolkit";
 import { filterOneItemByName } from "../../../utils/reducerUtils";
+import { productsData } from "../../../types/product";
 
 export interface FavState {
-  value: any;
+  value: productsData;
 }
 
 const initialState: FavState = {

@@ -4,14 +4,13 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { COMPANY_NAME, URL_GET_PRODUCT } from "../../constants/Constants";
-import { productsItem } from "../../types/product";
-import { handleDate, changeCounterProduct } from "../../utils/productUtils";
 import {
-  ArrayAvg,
-  capitalize,
-  starInArray,
-  toggleHeart,
-} from "../../utils/productUtils";
+  productComment,
+  productsData,
+  productsItem,
+} from "../../types/product";
+import { handleDate, changeCounterProduct } from "../../utils/productUtils";
+import { ArrayAvg, capitalize, toggleHeart } from "../../utils/productUtils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as fs from "@fortawesome/free-solid-svg-icons";
 import * as fr from "@fortawesome/free-regular-svg-icons";
@@ -19,16 +18,18 @@ import { useDispatch, useSelector } from "react-redux";
 import ButtonShop from "../../components/UI/components/ButtonShop";
 import { setHistoric } from "../../store/features/slice/historicSlice";
 import StarProduct from "../../components/UI/components/StarProduct";
+import { RootState } from "../../store/store";
+import { GetStaticPaths, GetStaticProps } from "next";
 
 export default function ProductId({ product }: { product: productsItem }) {
   const [counter, setCounter] = useState<number>(1);
   const [displayDescription, setDisplayDescription] = useState<boolean>(true);
 
-  const favData: productsItem[] = useSelector(
-    (state: any) => state.favoris.value
+  const favData: productsData = useSelector(
+    (state: RootState) => state.favoris.value
   );
-  const shopData: productsItem[] = useSelector(
-    (state: any) => state.shop.value
+  const shopData: productsData = useSelector(
+    (state: RootState) => state.shop.value
   );
 
   const router = useRouter();
@@ -62,7 +63,7 @@ export default function ProductId({ product }: { product: productsItem }) {
               onClick={() => toggleHeart(product, favData, dispatch)}
               className="text-sm p-1 rounded-full w-8 h-8 bg-white flex justify-center items-center absolute cursor-pointer top-4 right-4 z-10"
             >
-              {favData.some((fav: any) => fav.name == product.name) ? (
+              {favData.some((fav: productsItem) => fav.name == product.name) ? (
                 <FontAwesomeIcon icon={fs.faHeart} className="text-red-500" />
               ) : (
                 <FontAwesomeIcon icon={fr.faHeart} />
@@ -173,13 +174,15 @@ export default function ProductId({ product }: { product: productsItem }) {
           </div>
           <div className="mt-5">
             {product.comments.map(
-              (el: any, index: React.Key | null | undefined) => (
+              (el: productComment, index: React.Key | null | undefined) => (
                 <div key={index} className="flex flex-col py-5">
                   <hr />
                   <h2 className="mt-5 font-medium">
                     {capitalize(el.firstname)} {capitalize(el.name)}
                   </h2>
-                  <p className="mb-5 italic">{handleDate(el.date)}</p>
+                  <p className="mb-5 italic">
+                    {handleDate(el.date.toString())}
+                  </p>
 
                   <span>
                     <StarProduct star={[el.star]} />
@@ -197,28 +200,30 @@ export default function ProductId({ product }: { product: productsItem }) {
   );
 }
 
-export async function getStaticProps(context: any) {
-  const id = await context.params.id;
+export const getStaticProps: GetStaticProps<{ product: productsItem }> = async (
+  context
+) => {
+  const id = context.params!.id;
 
   const res = await fetch(URL_GET_PRODUCT + "/" + id);
-  const product = await res.json();
+  const product: productsItem = await res.json();
 
   return {
     props: {
       product,
     },
   };
-}
+};
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   const res = await fetch(URL_GET_PRODUCT);
-  const product = await res.json();
+  const products: productsData = await res.json();
 
-  const ids = product.map((product: any) => product.name);
+  const ids = products.map((product: productsItem) => product.name);
   const paths = ids.map((id: string) => ({ params: { id: id.toString() } }));
 
   return {
     paths,
     fallback: false,
   };
-}
+};

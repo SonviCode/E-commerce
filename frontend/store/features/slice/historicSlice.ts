@@ -1,9 +1,10 @@
 // 'use client';
 import { createSlice } from "@reduxjs/toolkit";
 import { contains, filterOneItemByName } from "../../../utils/reducerUtils";
+import { productsData } from "../../../types/product";
 
 export interface historicState {
-  value: any[];
+  value: productsData;
 }
 
 const initialState: historicState = {

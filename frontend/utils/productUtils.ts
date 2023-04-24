@@ -76,9 +76,9 @@ export const toggleHeart = (
 export const capitalize = (s: string | string[] | undefined) =>
   s && s[0].toUpperCase() + s.slice(1);
 
-export const handleDate = (dateFromDb: string) => {
-  const date = new Date(dateFromDb);
-  const formattedDate = date.toLocaleDateString("fr-FR", {
+export const handleDate = (date: string) => {
+  const newDate = new Date(date);
+  const formattedDate = newDate.toLocaleDateString("fr-FR", {
     day: "numeric",
     month: "long",
     year: "numeric",

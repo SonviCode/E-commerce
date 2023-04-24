@@ -14,6 +14,8 @@ exports.stripeConfig = (req, res) => {
 exports.createPayement = async (req, res) => {
   const formatAmount = Number(req.body.amount.toString().replace(".", ""));
 
+  console.log(req.body);
+
   try {
     const paymentIntent = await stripe.paymentIntents.create({
       currency: "EUR",

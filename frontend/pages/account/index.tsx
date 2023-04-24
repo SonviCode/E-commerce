@@ -22,7 +22,7 @@ export default function Account() {
         <title>{COMPANY_NAME} - Compte</title>
       </Head>
 
-      {Object.keys(user).length > 0 ? (
+      {user && Object.keys(user!).length > 0 ? (
         <UserAccount />
       ) : (
         <div className="pb-10 px-5">

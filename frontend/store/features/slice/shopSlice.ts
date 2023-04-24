@@ -1,10 +1,10 @@
 // 'use client';
 import { createSlice } from "@reduxjs/toolkit";
-import { productsItem } from "../../../types/product";
+import { productsData } from "../../../types/product";
 import { filterOneItemByName, contains } from '../../../utils/reducerUtils';
 
 export interface ShopState {
-  value: productsItem[];
+  value: productsData;
 }
 
 const initialState: ShopState = {

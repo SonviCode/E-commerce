@@ -1,25 +1,15 @@
-// import React, { useState } from "react";
-// import { useSelector } from "react-redux";
-// import { subtotal } from "../../utils/shopUtils";
-// import { PaymentElement, Elements  } from "@stripe/react-stripe-js";
 import { PaymentElement } from "@stripe/react-stripe-js";
 import { useState } from "react";
 import { useStripe, useElements } from "@stripe/react-stripe-js";
 import { UNEXPECTED_ERROR } from "../../constants/Constants";
 
-// const initialValues = {
-//   name: "",
-//   card: "",
-//   date: "",
-//   cvv: "",
-// };
-// { deliveryPrice }: { deliveryPrice: number }
 const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
 
-  const [message, setMessage] = useState("");
-  const [isProcessing, setIsProcessing] = useState(false);
+  const [message, setMessage] = useState<string>("");
+  const [isProcessing, setIsProcessing] = useState<boolean>(false);
+  // const [toggleModalError, setToggleModalError] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,33 +22,28 @@ const CheckoutForm = () => {
 
     setIsProcessing(true);
 
-    const { error, paymentIntent } = await stripe.confirmPayment({
+    const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: `${window.location.origin}/`,
+        return_url: `${window.location.origin}/panier/completion`,
       },
-      redirect: "if_required",
     });
 
-    if (error) {
+    if (error.type === "card_error" || error.type === "validation_error") {
       console.log(error);
 
       setMessage(error.message!);
-    } else if (paymentIntent && paymentIntent.status === "succeeded") {
-      console.log(paymentIntent);
-
-      setMessage("Payement réussi");
     } else {
       setMessage(UNEXPECTED_ERROR);
     }
-
+    // setToggleModalError(true);
     setIsProcessing(false);
   };
 
   return (
     <form
-      className=" h-full min-h-[350px] border shadow-md p-5 rounded-md "
+      className={`${message && "border-red-600"} h-full min-h-[350px] border shadow-md p-5 rounded-md `}
       onSubmit={(e) => handleSubmit(e)}
     >
       <PaymentElement id="payment-element" />
@@ -71,102 +56,36 @@ const CheckoutForm = () => {
           {isProcessing ? "Processing ... " : "Pay now"}
         </span>
       </button>
-      {/* Show any error or success messages */}
-      {message && <div id="payment-message">{message}</div>}
+      {/* {toggleModalError && (
+        <PayementErrorModal
+          errorMsg={message}
+          setToggleModalError={setToggleModalError}
+        />
+      )} */}
+      <div className="italic text-xl text-center text-red-600">{message}</div>
     </form>
-    // <div>
-    //   <div className="flex justify-center items-center">
-    //     <Elements stripe={null} >
-    //       <PaymentElement id="payment-element" />
-    //     </Elements>
-    /* <form
-          onSubmit={(e) => handleSubmit(e)}
-          className="w-100 bg-gray-50 shadow-md p-5 rounded-lg"
-        >
-          <p className="text-xl title">Détailes de paiement </p>
-          <div className="input_text mt-6 relative">
-            <label htmlFor="name" className="text-sm ">
-              Nom du propriétire
-            </label>
-            <input
-              required
-              value={values.name}
-              onChange={handleInputChange}
-              type="text"
-              id="name"
-              name="name"
-              className="h-12 pl-7 outline-none px-2 focus:border-blue-900 transition-all w-full border-b rounded-lg"
-              placeholder="John Row"
-            />
-            <i className="absolute left-2 top-4 text-gray-400 fa fa-user"></i>
-          </div>
-          <div className="input_text mt-4 relative">
-            <label htmlFor="number" className="text-sm">
-              Numéro de carte
-            </label>
-            <input
-              required
-              type="text"
-              id="number"
-              className="h-12 pl-7 outline-none px-2 focus:border-blue-900 transition-all w-full border-b rounded-lg"
-              placeholder="0000 0000 0000 0000"
-              maxLength={16}
-              name="card"
-              value={values.card}
-              onChange={handleInputChange}
-            />
-            <i className="absolute left-2 top-[14px] text-gray-400 text-sm fa fa-credit-card"></i>
-          </div>
-          <div className="mt-4 flex gap-5 ">
-            <div className="input_text relative w-full">
-              <label htmlFor="expiration" className="text-sm ">
-                Date d&apos;expiration
-              </label>
-              <input
-                required
-                type="text"
-                id="expiration"
-                name="date"
-                className="h-12 pl-7 outline-none px-2 focus:border-blue-900 transition-all w-full border-b rounded-lg"
-                placeholder="mm/yyyy"
-                maxLength={6}
-                value={values.date}
-                onChange={handleInputChange}
-              />
-              <i className="absolute left-2 top-4 text-gray-400 fa fa-calendar-o"></i>
-            </div>
-            <div className="input_text relative w-full">
-              <label htmlFor="CVV" className="text-sm ">
-                CVV
-              </label>
-              <input
-                required
-                value={values.cvv}
-                onChange={handleInputChange}
-                type="text"
-                id="CVV"
-                name="cvv"
-                className="h-12 pl-7 outline-none px-2 focus:border-blue-900 transition-all w-full border-b rounded-lg"
-                placeholder="000"
-                maxLength={3}
-              />
-              <i className="absolute left-2 top-4 text-gray-400 fa fa-lock"></i>
-            </div>
-          </div>
-          <div className="flex justify-between gap-10 py-5">
-            <p className="text-lg text-center mt-4 text-gray-600 font-semibold">
-              <span>{`${(subtotal(shopData) + deliveryPrice).toFixed(
-                2
-              )}€`}</span>
-            </p>
-            <button className="rounded-lg border-main border-2 items-center py-2 px-4 bg-main hover:text-white w-40 ">
-              Payer
-            </button>
-          </div>
-        </form> */
-    //   </div>
-    // </div>
   );
 };
 
 export default CheckoutForm;
+
+// const { error, paymentIntent } = await stripe.confirmPayment({
+//   elements,
+//   confirmParams: {
+//     // Make sure to change this to your payment completion page
+//     return_url: `${window.location.origin}/`,
+//   },
+//   redirect: "if_required",
+// });
+
+// if (error) {
+//   console.log(error);
+
+//   setMessage(error.message!);
+// } else if (paymentIntent && paymentIntent.status === "succeeded") {
+//   console.log(paymentIntent);
+
+//   setMessage("Payement réussi");
+// } else {
+//   setMessage(UNEXPECTED_ERROR);
+// }

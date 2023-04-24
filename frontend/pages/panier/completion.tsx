@@ -6,7 +6,11 @@ const Completion = () => {
 
   console.log(router);
 
-  return <div>test</div>;
+  return (
+    <div>
+      <h1>Félicitation, le payement est réussi !</h1>
+    </div>
+  );
 };
 
 export default Completion;

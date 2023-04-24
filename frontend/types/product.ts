@@ -12,7 +12,7 @@ export type productsData = {
   bigDescription: string;
   type: string;
   star: number[];
-  comments: string[];
+  comments: productComment[];
   sport: string;
   size: string;
   counterShop: number;
@@ -32,7 +32,7 @@ export type productsItem = {
   bigDescription: string;
   type: string;
   star: number[];
-  comments: string[];
+  comments: productComment[];
   size: string;
   counterShop: number;
   createdDate: Date;
