@@ -2,6 +2,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { User } from "../../types/user";
+import { RootState } from '../../store/store';
 
 const adressObj: { [key: string | number]: null } = {
   adress: null,
@@ -49,7 +50,7 @@ const choiseDelivery = [
 
 const Delivery = ({ setDeliveryPrice }: { setDeliveryPrice: any }) => {
   const [isEmptyAdress, setIsEmptyAdress] = useState<boolean>(false);
-  const user: User = useSelector((state: any) => state.user.value);
+  const user: User = useSelector((state: RootState) => state.user.value);
 
   const inputValueDefault = (el: any) => {
     let result: any;

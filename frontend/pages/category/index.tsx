@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   COMPANY_NAME,
-  SHOES_CATEGORY,
   URL_CATEGORY,
 } from "../../constants/Constants";
 import { allCategoryData, allCategoryItem } from "../../types/home";

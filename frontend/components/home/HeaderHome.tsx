@@ -3,7 +3,6 @@ import React from "react";
 import bg from "../../public/bg.jpg";
 import logo from "../../public/logo.png";
 import { COMPANY_NAME, TEXT_HOME } from "../../constants/Constants";
-import Link from "next/link";
 
 const HeaderHome = () => {
   return (

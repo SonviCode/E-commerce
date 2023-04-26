@@ -1,6 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
 import Image from "next/image";
-import React, { useState, useEffect } from "react";
 import cb from "../../public/svg/cb.svg";
 import ae from "../../public/svg/ae.svg";
 import mastercard from "../../public/svg/mastercard.svg";
@@ -8,22 +7,17 @@ import paypal from "../../public/svg/paypal.svg";
 import visa from "../../public/svg/visa.svg";
 import btc from "../../public/btc.png";
 import { useSelector } from "react-redux";
-import { canGoToNextStep, nextStepShop, subtotal } from "../../utils/shopUtils";
-import { indicator } from "../../types/shop";
-import { User } from "../../types/user";
+import { nextStepShop, subtotal } from "../../utils/shopUtils";
+import { SummaryProps } from "../../types/shop";
+import { RootState } from "../../store/store";
 
 const Summary = ({
   numberIndicator,
   setNumberIndicator,
   isAbleNextStep,
   deliveryPrice,
-}: {
-  numberIndicator: indicator[];
-  setNumberIndicator: any;
-  isAbleNextStep: any;
-  deliveryPrice: number;
-}) => {
-  const shopData = useSelector((state: any) => state.shop.value);
+}: SummaryProps) => {
+  const shopData = useSelector((state: RootState) => state.shop.value);
 
   return (
     <div className="flex flex-col gap-10 border shadow-md rounded-md p-5 sticky top-24">

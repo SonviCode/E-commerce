@@ -20,6 +20,7 @@ import ProductCard from "../../components/product/ProductCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as fs from "@fortawesome/free-solid-svg-icons";
 import { handleSortCategory } from "../../utils/categoryUtils";
+import { GetServerSideProps } from "next";
 
 export default function CategoryId({
   productData,
@@ -123,7 +124,7 @@ export default function CategoryId({
   );
 }
 
-export async function getServerSideProps(context: any) {
+export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const url: string = context.resolvedUrl;
 
   const res = await fetch(URL_GET_PRODUCT + url);
@@ -134,4 +135,4 @@ export async function getServerSideProps(context: any) {
       productData,
     },
   };
-}
+};

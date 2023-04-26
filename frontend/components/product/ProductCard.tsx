@@ -2,19 +2,20 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import { starInArray, toggleHeart, ArrayAvg } from "../../utils/productUtils";
-import { productsItem } from "../../types/product";
+import { productsItem, productsData } from "../../types/product";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as fs from "@fortawesome/free-solid-svg-icons";
 import * as fr from "@fortawesome/free-regular-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import ButtonShop from "../UI/components/ButtonShop";
 import StarProduct from "../UI/components/StarProduct";
+import { RootState } from "../../store/store";
 
 const ProductCard = ({ el }: { el: productsItem }) => {
-  const favData: productsItem[] = useSelector(
-    (state: any) => state.favoris.value
+  const favData: productsData = useSelector(
+    (state: RootState) => state.favoris.value
   );
-  const shopData = useSelector((state: any) => state.shop.value);
+  const shopData = useSelector((state: RootState) => state.shop.value);
   const dispatch = useDispatch();
 
   return (
@@ -23,7 +24,7 @@ const ProductCard = ({ el }: { el: productsItem }) => {
         onClick={() => toggleHeart(el, favData, dispatch)}
         className="favProduct"
       >
-        {favData.some((fav: any) => fav.name == el.name) ? (
+        {favData.some((fav: productsItem) => fav.name == el.name) ? (
           <FontAwesomeIcon icon={fs.faHeart} className="text-red-500" />
         ) : (
           <FontAwesomeIcon icon={fr.faHeart} />

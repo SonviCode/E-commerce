@@ -29,8 +29,6 @@ exports.getProductById = (req, res, next) => {
 };
 
 exports.getProductByCategory = (req, res, next) => {
-  console.log(req.params);
-  console.log(req.query);
   UserProduct.find({
     category: req.params.category,
     sex: req.query.sex ? req.query.sex : /.*/,

@@ -4,10 +4,11 @@ import { productsItem } from "../../types/product";
 import ProductCard from "../product/ProductCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as fs from "@fortawesome/free-solid-svg-icons";
+import { RootState } from "../../store/store";
 
 const Historic = () => {
   const historicData: productsItem[] = useSelector(
-    (state: any) => state.historic.value
+    (state: RootState) => state.historic.value
   );
 
   return (
@@ -15,9 +16,9 @@ const Historic = () => {
       <h2 className="text-2xl font-bold mb-5">Historique</h2>
       {historicData.length > 0 ? (
         <div className="flex gap-10 px-10 items-center">
-            <FontAwesomeIcon icon={fs.faChevronLeft} />
-          {historicData.map((historic: productsItem, index: any) => (
-              <div key={index}>
+          <FontAwesomeIcon icon={fs.faChevronLeft} />
+          {historicData.map((historic: productsItem, index: React.Key) => (
+            <div key={index}>
               <ProductCard el={historic} />
             </div>
           ))}

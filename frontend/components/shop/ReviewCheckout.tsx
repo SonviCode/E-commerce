@@ -11,9 +11,10 @@ import { ArrayAvg, starInArray } from "../../utils/productUtils";
 import ConfirmModal from "../UI/modals/ConfirmModal";
 import { changeCounterShop } from "../../utils/shopUtils";
 import Historic from "../favoris/Historic";
+import { RootState } from "../../store/store";
 
 const ReviewCheckout = () => {
-  const shopData = useSelector((state: any) => state.shop.value);
+  const shopData = useSelector((state: RootState) => state.shop.value);
   const [confirmNotif, setConfirmNotif] = useState<boolean>(false);
   const [deleteProduct, setDeleteProduct] = useState<productsItem>();
 
@@ -142,7 +143,7 @@ const ReviewCheckout = () => {
       </div>
 
       <Favoris />
-      <Historic/>
+      <Historic />
     </>
   );
 };

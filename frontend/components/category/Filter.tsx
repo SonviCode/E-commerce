@@ -1,11 +1,8 @@
 import axios from "axios";
-import React from "react";
-import { productFilter, productsData, toggleFilter } from "../../types/product";
-import {
-  capitalize,
-  // handleChangePrice,
-} from "../../utils/productUtils";
-import { useEffect, useState, useRef } from "react";
+import React, { MouseEvent } from "react";
+import { productFilter, toggleFilter } from "../../types/product";
+import { capitalize } from "../../utils/productUtils";
+import { useEffect, useState } from "react";
 import { URL_FILTER } from "../../constants/Constants";
 import { useRouter } from "next/router";
 import { handleChangePrice } from "../../utils/productUtils";
@@ -21,37 +18,35 @@ const Filter = ({
   const [dataFilter, setDataFilter] = useState<productFilter>();
   const [arrayFilter, setArrayFilter] = useState<string[]>([]);
 
+  console.log(arrayFilter);
+
   const router = useRouter();
-  const effectRan = useRef(false);
 
   useEffect(() => {
     axios
       .get<productFilter>(URL_FILTER)
       .then((res) => setDataFilter(res.data))
       .catch((error) => console.log(error));
-
-    console.log("test use effect");
   }, []);
-
-  const getFilterProduct = (e: any, params: string, key: string) => {
-    const checked = e.target.checked;
-
-    let filteredArray = arrayFilter.filter(
-      (item) => item !== `${key}=${params}`
-    );
-
-    checked
-      ? setArrayFilter((curr) => [...curr, `${key}=${params}`])
-      : setArrayFilter(filteredArray);
-  };
 
   useEffect(() => {
     router.push({
       pathname: "habits",
       query: arrayFilter.join("&"),
     });
-    console.log("test use effect");
   }, [arrayFilter]);
+
+  const getFilterProduct = (e: MouseEvent, params: string, key: string) => {
+    const checked = e.target as HTMLInputElement;
+
+    let filteredArray = arrayFilter.filter(
+      (item) => item !== `${key}=${params}`
+    );
+
+    checked.checked
+      ? setArrayFilter((curr) => [...curr, `${key}=${params}`])
+      : setArrayFilter(filteredArray);
+  };
 
   return (
     <div

@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { useState } from "react";
 import logo from "../../public/logo.png";
 import { COMPANY_NAME } from "../../constants/Constants";
 import Link from "next/link";
@@ -9,17 +8,19 @@ import * as fs from "@fortawesome/free-solid-svg-icons";
 import * as fr from "@fortawesome/free-regular-svg-icons";
 import { productsItem } from "../../types/product";
 import { useSelector } from "react-redux";
-import Favoris from "../favoris/Favoris";
+import { RootState } from "../../store/store";
 
 interface Navbar {
   toggleAside: boolean;
-  setToggleAside: any;
+  setToggleAside: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Aside = ({ toggleAside, setToggleAside }: Navbar) => {
-  const favData: productsItem[] = useSelector((state: any) => state.favoris.value);
+  const favData: productsItem[] = useSelector(
+    (state: RootState) => state.favoris.value
+  );
   const shopData: productsItem[] = useSelector(
-    (state: any) => state.shop.value
+    (state: RootState) => state.shop.value
   );
 
   const closeAside = () => {

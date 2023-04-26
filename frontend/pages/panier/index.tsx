@@ -61,10 +61,7 @@ export default function Shop({
       </Head>
 
       <div className="px-5 ">
-        <Indicator
-          numberIndicator={numberIndicator}
-          setNumberIndicator={setNumberIndicator}
-        />
+        <Indicator numberIndicator={numberIndicator} />
         <div className=" w-full lg:px-10 relative h-6">
           {numberIndicator[1].actif && (
             <button

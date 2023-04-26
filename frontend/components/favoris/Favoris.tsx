@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { productsItem } from "../../types/product";
+import { productsItem, productsData } from "../../types/product";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as fs from "@fortawesome/free-solid-svg-icons";
 import * as fr from "@fortawesome/free-regular-svg-icons";
@@ -9,10 +9,13 @@ import Image from "next/image";
 import { ArrayAvg, starInArray } from "../../utils/productUtils";
 import { removeItem } from "../../utils/shopUtils";
 import ButtonShop from "../UI/components/ButtonShop";
+import { RootState } from "../../store/store";
 
 const Favoris = () => {
-  const favData: productsItem[] = useSelector((state: any) => state.favoris.value);
-  const shopData = useSelector((state: any) => state.shop.value);
+  const favData: productsData = useSelector(
+    (state: RootState) => state.favoris.value
+  );
+  const shopData = useSelector((state: RootState) => state.shop.value);
 
   const dispatch = useDispatch();
 
@@ -26,7 +29,7 @@ const Favoris = () => {
       </h2>
       <div className="flex flex-col gap-10">
         {favData.length > 0 ? (
-          favData.map((fav: productsItem, index: any) => (
+          favData.map((fav: productsItem, index: React.Key) => (
             <div className="flex  justify-between flex-wrap gap-10" key={index}>
               <div className="flex w-[410px] flex-col xs:flex-row gap-10 justify-between">
                 <div className="overflow-hidden group max-w-[200px] rounded-md bg-gray-200 ">
@@ -85,7 +88,9 @@ const Favoris = () => {
               </div>
               <div className="flex items-center justify-between grow flex-wrap gap-y-5 gap-x-10">
                 <div className="flex items-center">
-                  <ButtonShop product={fav} shopData={shopData}>Ajouter au panier</ButtonShop>
+                  <ButtonShop product={fav} shopData={shopData}>
+                    Ajouter au panier
+                  </ButtonShop>
                 </div>
                 <div className="flex items-center flex-col sm:flex-row sm:gap-20">
                   <FontAwesomeIcon

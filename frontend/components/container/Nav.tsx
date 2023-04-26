@@ -8,15 +8,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as fs from "@fortawesome/free-solid-svg-icons";
 import * as fr from "@fortawesome/free-regular-svg-icons";
 import { useSelector } from "react-redux";
-import { productsItem } from "../../types/product";
+import { productsItem, productsData } from "../../types/product";
+import { RootState } from "../../store/store";
 
 const Nav = () => {
   const [toggleAside, setToggleAside] = useState(false);
   const [toggleResponsive, setToggleResponsive] = useState(true);
 
-  const favData: productsItem[] = useSelector((state: any) => state.favoris.value);
-  const shopData: productsItem[] = useSelector(
-    (state: any) => state.shop.value
+  const favData: productsData = useSelector(
+    (state: RootState) => state.favoris.value
+  );
+  const shopData: productsData = useSelector(
+    (state: RootState) => state.shop.value
   );
 
   useEffect(() => {

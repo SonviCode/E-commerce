@@ -6,9 +6,10 @@ import { User } from "../../types/user";
 import { useDispatch, useSelector } from "react-redux";
 import ConnectModal from "../../components/account/ConnectModal";
 import { checkJwtFromLocalStorage } from "../../utils/authUser";
+import { RootState } from "../../store/store";
 
 export default function Account() {
-  const user: User = useSelector((state: any) => state.user.value);
+  const user: User = useSelector((state: RootState) => state.user.value);
 
   const dispatch = useDispatch();
 
