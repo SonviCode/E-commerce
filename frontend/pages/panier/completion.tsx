@@ -1,10 +1,20 @@
+import axios from "axios";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect } from "react";
+import { URL_STRIPE_GET_PAYMENT } from "../../constants/Constants";
 
 const Completion = () => {
   const router = useRouter();
 
-  console.log(router);
+  useEffect(() => {
+    router.query.payment_intent &&
+      axios
+        .get(URL_STRIPE_GET_PAYMENT + router.query.payment_intent)
+        .then(async (res) => {
+          console.log(await res.data);
+        })
+        .catch((err) => console.log(err));
+  }, [router.query.payment_intent]);
 
   return (
     <div>

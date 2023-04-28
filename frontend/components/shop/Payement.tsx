@@ -4,13 +4,14 @@ import CheckoutForm from "./CheckoutForm";
 import { loadStripe, Stripe } from "@stripe/stripe-js";
 import {
   URL_STRIPE_CONFIG,
-  URL_STRIPE_PAYMENT,
+  URL_STRIPE_CREATE_PAYMENT,
 } from "../../constants/Constants";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { subtotal } from "../../utils/shopUtils";
 import { RootState } from "../../store/store";
 import { productsData } from "../../types/product";
+import { User } from "../../types/user";
 
 const Payement = ({ deliveryPrice }: { deliveryPrice: number }) => {
   const [stripePromise, setStripePromise] = useState<Promise<Stripe | null>>();
@@ -19,6 +20,7 @@ const Payement = ({ deliveryPrice }: { deliveryPrice: number }) => {
   const shopData: productsData = useSelector(
     (state: RootState) => state.shop.value
   );
+  const user: User = useSelector((state: RootState) => state.user.value);
   const totalPayement = (subtotal(shopData) + deliveryPrice).toFixed(2);
 
   useEffect(() => {
@@ -34,15 +36,16 @@ const Payement = ({ deliveryPrice }: { deliveryPrice: number }) => {
 
   useEffect(() => {
     axios
-      .post(URL_STRIPE_PAYMENT, {
+      .post(URL_STRIPE_CREATE_PAYMENT, {
         amount: totalPayement,
+        userEmail: user?.email,
       })
       .then(async (res) => {
         const { clientSecret } = await res.data;
         setClientSecret(clientSecret);
       })
       .catch((err) => console.log(err));
-  }, [totalPayement]);
+  }, [totalPayement, user?.email]);
 
   return (
     <>

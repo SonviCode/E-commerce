@@ -8,7 +8,8 @@ export const URL_GET_PRODUCT: string = `${API_NODE_URL}product`;
 export const URL_GET_PRODUCT_BY_CATEGORY: string = `${API_NODE_URL}product/category/`;
 export const URL_CREATE_PRODUCT: string = `${API_NODE_URL}product`;
 export const URL_STRIPE_CONFIG: string = `${API_NODE_URL}stripe/config`;
-export const URL_STRIPE_PAYMENT: string = `${API_NODE_URL}stripe/create-payment-intent`;
+export const URL_STRIPE_CREATE_PAYMENT: string = `${API_NODE_URL}stripe/create-payment-intent`;
+export const URL_STRIPE_GET_PAYMENT: string = `${API_NODE_URL}stripe/get-payment/`;
 
 // API FROM NEXT JS
 const API_NEXT_URL = process.env.NEXT_PUBLIC_API_NEXT_URL;
