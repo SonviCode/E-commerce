@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { CustomForm } from "../../types/account";
 import { UserFetching } from "../../utils/authUser";
 
 const Login = () => {
   const [errorRes, SetErrorRes] = useState<string>("");
   const dispatch = useDispatch();
 
-  const onSubmit = (e: any) => {
+  const onSubmit = (e: React.FormEvent<CustomForm>) => {
     e.preventDefault();
-    const email: string = e.target.elements.email.value;
-    const password: string = e.target.elements.password.value;
+
+    const target = e.currentTarget.elements;
+    const email: string = target.email.value;
+    const password: string = target.password.value;
 
     if (
       email != null &&
@@ -22,11 +25,14 @@ const Login = () => {
   };
 
   return (
-    <form onSubmit={(e) => onSubmit(e)} className="flex flex-col gap-5 py-10">
+    <form
+      onSubmit={(e: React.FormEvent<CustomForm>) => onSubmit(e)}
+      className="flex flex-col gap-5 py-10"
+    >
       {[
         { name: "email", type: "email" },
         { name: "mot de passe", type: "password" },
-      ].map((el: any, index: any) => (
+      ].map((el: any, index: React.Key) => (
         <div key={index}>
           <label htmlFor={el.type} className="title text-sm">
             {el.name} <span className="text-main">*</span>

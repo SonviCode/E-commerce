@@ -2,12 +2,14 @@ import axios from "axios";
 import { User } from "../types/user";
 import { URL_GETUSER, URL_LOGIN } from "../constants/Constants";
 import { setUser } from "../store/features/slice/userSlice";
+import { Dispatch } from "react";
+import { AnyAction } from "@reduxjs/toolkit";
 
 export const UserFetching = (
-  email: any,
-  password: any,
-  SetErrorRes: any,
-  dispatch: any
+  email: String,
+  password: String,
+  SetErrorRes: React.Dispatch<React.SetStateAction<string>>,
+  dispatch: Dispatch<AnyAction>
 ) => {
   axios
     .post(URL_LOGIN, {
@@ -27,7 +29,7 @@ export const UserFetching = (
   return;
 };
 
-export const checkJwtFromLocalStorage = (dispatch: any) => {
+export const checkJwtFromLocalStorage = (dispatch: Dispatch<AnyAction>) => {
   axios
     .get<User>(
       URL_GETUSER + localStorage.getItem(process.env.NEXT_PUBLIC_USER_ID!),
@@ -40,7 +42,7 @@ export const checkJwtFromLocalStorage = (dispatch: any) => {
       }
     )
     .then((res) => {
-      delete res.data.password;
+      delete res?.data?.password;
       dispatch(setUser(res.data));
     })
     .catch(() => {

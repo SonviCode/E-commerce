@@ -29,6 +29,9 @@ const CheckoutForm = () => {
       },
     });
 
+    console.log("test");
+    
+
     if (error.type === "card_error" || error.type === "validation_error") {
       setMessage(error.message!);
     } else {

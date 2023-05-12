@@ -1,13 +1,11 @@
 const mongoose = require("mongoose");
+const ProductModel = require("../models/Product").model("Product").schema;
+// const userModel = require("../models/User").model("User").schema;
 
 const OrderSchema = mongoose.Schema({
-  price: { type: Number, required: false },
-  delivery: {
-    name: { type: String, required: false },
-    text: { type: String, required: false },
-    price: { type: Number, required: false },
-  },
-  products: { type: Array, required: false },
+  user: { type: Object, required: true },
+  payment: { type: Object, required: true },
+  products: [ProductModel],
   createdDate: { type: Date, required: true },
 });
 

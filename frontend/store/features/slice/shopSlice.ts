@@ -1,7 +1,7 @@
 // 'use client';
 import { createSlice } from "@reduxjs/toolkit";
 import { productsData } from "../../../types/product";
-import { filterOneItemByName, contains } from '../../../utils/reducerUtils';
+import { filterOneItemByName, contains } from "../../../utils/reducerUtils";
 
 export interface ShopState {
   value: productsData;
@@ -28,6 +28,9 @@ const shopSlice = createSlice({
     },
     removeItemShop: (state, action) => {
       filterOneItemByName(state, action);
+    },
+    removeAllItemShop: (state, action) => {
+      state.value.length = 0;
     },
   },
 });

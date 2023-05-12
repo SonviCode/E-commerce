@@ -12,6 +12,7 @@ import ConfirmModal from "../UI/modals/ConfirmModal";
 import { changeCounterShop } from "../../utils/shopUtils";
 import Historic from "../favoris/Historic";
 import { RootState } from "../../store/store";
+import StarProduct from "../UI/components/StarProduct";
 
 const ReviewCheckout = () => {
   const shopData = useSelector((state: RootState) => state.shop.value);
@@ -34,7 +35,7 @@ const ReviewCheckout = () => {
         </h2>
         {shopData.length > 0 ? (
           <div className="flex flex-col gap-10 py-10">
-            {shopData.map((el: productsItem, index: any) => (
+            {shopData.map((el: productsItem, index: React.Key) => (
               <React.Fragment key={index}>
                 {confirmNotif ? (
                   <ConfirmModal
@@ -60,26 +61,7 @@ const ReviewCheckout = () => {
                         <h3 className="text-base font-bold">{el.name}</h3>
                         <p>{el.smallDescription}</p>
                         <span className="flex flex-row my-2">
-                          {starInArray(ArrayAvg(el.star)).map((nb, i) => (
-                            <span key={i}>
-                              {nb == 1 ? (
-                                <FontAwesomeIcon
-                                  icon={fs.faStar}
-                                  className="text-yellow-300"
-                                />
-                              ) : nb == 5 ? (
-                                <FontAwesomeIcon
-                                  icon={fs.faStarHalfStroke}
-                                  className="text-yellow-300"
-                                />
-                              ) : (
-                                <FontAwesomeIcon
-                                  icon={fs.faStar}
-                                  className="text-gray-200"
-                                />
-                              )}
-                            </span>
-                          ))}
+                          <StarProduct star={el.star} />
                           <span className="ml-1">({el.star.length})</span>
                         </span>
                         <span className="text-sm font-bold pt-0.5">

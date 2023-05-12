@@ -1,7 +1,7 @@
-const UserProduct = require("../models/Product");
+const ProductModel = require("../models/Product");
 
 exports.createProduct = (req, res, next) => {
-  const newProduct = new UserProduct({
+  const productModel = new ProductModel({
     ...req.body,
     price: Number(req.body.price),
     counterShop: 0,
@@ -10,26 +10,26 @@ exports.createProduct = (req, res, next) => {
     }`,
     createdDate: Date.now(),
   });
-  newProduct
+  productModel
     .save()
-    .then(() => res.status(201).json(newProduct))
+    .then(() => res.status(201).json(productModel))
     .catch((error) => res.status(400).json({ error }));
 };
 
 exports.getProducts = (req, res, next) => {
-  UserProduct.find()
+  ProductModel.find()
     .then((product) => res.status(200).json(product))
     .catch((error) => res.status(400).json({ error }));
 };
 
 exports.getProductById = (req, res, next) => {
-  UserProduct.findOne({ name: req.params.id })
+  ProductModel.findOne({ name: req.params.id })
     .then((product) => res.status(200).json(product))
     .catch((error) => res.status(400).json({ error }));
 };
 
 exports.getProductByCategory = (req, res, next) => {
-  UserProduct.find({
+  ProductModel.find({
     category: req.params.category,
     sex: req.query.sex ? req.query.sex : /.*/,
     brand: req.query.brand ? req.query.brand : /.*/,

@@ -7,6 +7,7 @@ const path = require('path');
 // --router--
 const userRoutes = require("./routes/user");
 const productRoutes = require("./routes/product");
+const orderRoutes = require("./routes/order");
 const stripeRoutes = require("./routes/stripe");
 
 // if (process.env.NODE_ENV === "development") {
@@ -36,6 +37,7 @@ app.use(express.json());
 app.use("/images", express.static(path.join(__dirname, "images")));
 app.use("/api/auth", userRoutes);
 app.use("/api/product", productRoutes);
+app.use("/api/order", orderRoutes);
 app.use("/api/stripe", stripeRoutes);
 
 module.exports = app;

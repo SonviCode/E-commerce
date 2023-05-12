@@ -14,4 +14,11 @@ export type itemFormSignUp = {
   required: boolean;
 };
 
+interface CustomElements extends HTMLFormControlsCollection {
+  email: HTMLInputElement;
+  password: HTMLInputElement;
+}
 
+export interface CustomForm extends HTMLFormElement {
+  readonly elements: CustomElements;
+}

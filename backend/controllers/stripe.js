@@ -14,8 +14,6 @@ exports.stripeConfig = (req, res) => {
 exports.createPayement = async (req, res) => {
   const formatAmount = Number(req.body.amount.toString().replace(".", ""));
 
-  console.log(req.body);
-
   try {
     const paymentIntent = await stripe.paymentIntents.create({
       currency: "EUR",
@@ -38,12 +36,9 @@ exports.createPayement = async (req, res) => {
 };
 
 exports.getPayement = async (req, res) => {
-  console.log(req.params);
 
   try {
     const paymentIntent = await stripe.paymentIntents.retrieve(req.params.id);
-
-    console.log(paymentIntent);
 
     // Send PaymentIntent details to client
     res.send({

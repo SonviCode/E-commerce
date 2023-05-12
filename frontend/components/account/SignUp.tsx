@@ -9,7 +9,6 @@ import { dataFormSignUp, itemFormSignUp } from "../../types/account";
 import { useDispatch } from "react-redux";
 import { UserFetching } from "../../utils/authUser";
 import { capitalize } from "../../utils/productUtils";
-import { contains } from "../../utils/reducerUtils";
 
 const SignUp = () => {
   const formRef = useRef<HTMLFormElement | null>(null);
