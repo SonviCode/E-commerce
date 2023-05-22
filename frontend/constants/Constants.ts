@@ -11,7 +11,6 @@ export const URL_STRIPE_CONFIG: string = `${API_NODE_URL}stripe/config`;
 export const URL_STRIPE_CREATE_PAYMENT: string = `${API_NODE_URL}stripe/create-payment-intent`;
 export const URL_STRIPE_GET_PAYMENT: string = `${API_NODE_URL}stripe/get-payment/`;
 export const URL_GET_ORDER: string = `${API_NODE_URL}order`;
-export const URL_GET_ALL_ORDER: string = `${API_NODE_URL}order`;
 export const URL_CREATE_ORDER: string = `${API_NODE_URL}order`;
 
 // API FROM NEXT JS

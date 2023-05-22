@@ -36,6 +36,7 @@ exports.createPayement = async (req, res) => {
 };
 
 exports.getPayement = async (req, res) => {
+  console.log(req.params.id);
 
   try {
     const paymentIntent = await stripe.paymentIntents.retrieve(req.params.id);

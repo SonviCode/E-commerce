@@ -1,14 +1,26 @@
 import { AddressElement, PaymentElement } from "@stripe/react-stripe-js";
 import { useState } from "react";
 import { useStripe, useElements } from "@stripe/react-stripe-js";
-import { UNEXPECTED_ERROR } from "../../constants/Constants";
+import { UNEXPECTED_ERROR, URL_CREATE_ORDER } from "../../constants/Constants";
+import axios from "axios";
+import { useRouter } from "next/router";
+import { User } from "../../types/user";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import { productsData } from "../../types/product";
 
 const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
+  const router = useRouter();
 
   const [message, setMessage] = useState<string>("");
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
+
+  const user: User = useSelector((state: RootState) => state.user.value);
+  const shopData: productsData = useSelector(
+    (state: RootState) => state.shop.value
+  );
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -21,21 +33,39 @@ const CheckoutForm = () => {
 
     setIsProcessing(true);
 
-    const { error } = await stripe.confirmPayment({
+    const { error, paymentIntent } = await stripe.confirmPayment({
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
         return_url: `${window.location.origin}/panier/completion`,
       },
+      redirect: "if_required",
     });
 
-    console.log("test");
-    
-
-    if (error.type === "card_error" || error.type === "validation_error") {
-      setMessage(error.message!);
-    } else {
+    if (error) {
+      if (error.type === "card_error" || error.type === "validation_error") {
+        setMessage(error.message!);
+      }
       setMessage(UNEXPECTED_ERROR);
+    } else {
+      axios
+        .post(
+          URL_CREATE_ORDER,
+          { user, payment: paymentIntent, products: shopData },
+          {
+            headers: {
+              Authorization: localStorage.getItem(
+                process.env.NEXT_PUBLIC_USER_TOKEN!
+              ),
+            },
+          }
+        )
+        .then((res) =>
+          router.push({
+            pathname: "panier/" + paymentIntent.id,
+          })
+        )
+        .catch((err) => console.log(err));
     }
 
     setIsProcessing(false);
@@ -43,11 +73,15 @@ const CheckoutForm = () => {
 
   return (
     <form
-      className={`${message && "border-red-600"} h-full min-h-[350px] border shadow-md p-5 rounded-md `}
+      className={`${
+        message && "border-red-600"
+      } h-full min-h-[350px] border shadow-md p-5 rounded-md `}
       onSubmit={(e) => handleSubmit(e)}
     >
       <PaymentElement id="payment-element" />
-      <AddressElement options={{mode: 'shipping', allowedCountries: ['FR']}} />
+      <AddressElement
+        options={{ mode: "shipping", allowedCountries: ["FR"] }}
+      />
       <button
         className="bg-main shadow-md rounded-md p-2 text-white font-semibold mt-5 transition-all ease duration-200  active:scale-90 disabled:opacity-50 disabled:cursor-none"
         disabled={isProcessing || !stripe || !elements}

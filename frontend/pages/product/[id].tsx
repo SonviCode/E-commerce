@@ -20,6 +20,7 @@ import { setHistoric } from "../../store/features/slice/historicSlice";
 import StarProduct from "../../components/UI/components/StarProduct";
 import { RootState } from "../../store/store";
 import { GetStaticPaths, GetStaticProps } from "next";
+import { log } from "console";
 
 export default function ProductId({ product }: { product: productsItem }) {
   const [counter, setCounter] = useState<number>(1);
@@ -211,7 +212,7 @@ export const getStaticProps: GetStaticProps<{ product: productsItem }> = async (
   return {
     props: {
       product,
-    },
+    }, 
   };
 };
 
