@@ -7,18 +7,20 @@ import { removeHistoric } from "../../store/features/slice/historicSlice";
 import { productsItem } from "../../types/product";
 import UserInfo from "./UserInfo";
 import AdminAccount from "./AdminAccount";
+import UserOrders from "./UserOrders";
+import { RootState } from "../../store/store";
 
 const UserAccount = () => {
   const [tab, setTab] = useState<number>(1);
 
-  const user: User = useSelector((state: any) => state.user.value);
+  const user: User = useSelector((state: RootState) => state.user.value);
   const historicData: productsItem[] = useSelector(
-    (state: any) => state.historic.value
+    (state: RootState) => state.historic.value
   );
 
   const dispatch = useDispatch();
 
-  if (user.role  == "admin") {
+  if (user!.role == "admin") {
     return <AdminAccount />;
   }
 
@@ -26,7 +28,7 @@ const UserAccount = () => {
     <div className="flex flex-col lg:flex-row p-5 pb-10 gap-10 ">
       <div className="lg:min-w-[300px] lg:w-1/4">
         <div className="flex flex-col gap-10 border-2 rounded-md p-5 sticky top-0  justify-between h-full">
-          <h1 className="text-3xl">Bienvenue {user.firstname} !</h1>
+          <h1 className="text-3xl">Bienvenue {user!.firstname} !</h1>
           <div className="flex flex-col gap-2.5">
             {[
               "Informations personnelles",
@@ -58,12 +60,7 @@ const UserAccount = () => {
           {tab === 1 ? (
             <UserInfo user={user} />
           ) : tab === 2 ? (
-            <>
-              <h2 className="text-2xl font-bold mb-5">Commandes</h2>
-              <div className="flex flex-col gap-2.5">
-                <h3>Historique des commandes :</h3>
-              </div>
-            </>
+            <UserOrders />
           ) : (
             <>
               <h2 className="text-2xl font-bold mb-5">Navigation</h2>

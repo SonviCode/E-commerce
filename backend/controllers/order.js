@@ -13,8 +13,11 @@ exports.createOrder = (req, res, next) => {
     .catch((error) => res.status(400).json({ error }));
 };
 
-exports.getAllOrderByEmail = (req, res, next) => {
-  OrderModel.find()
+exports.getOrdersByEmail = (req, res, next) => {
+  console.log(req.body);
+  OrderModel.find({
+    ...req.body,
+  })
     .then((order) => res.status(200).json(order))
     .catch((error) => res.status(400).json({ error }));
 };

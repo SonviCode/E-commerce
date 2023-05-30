@@ -10,7 +10,6 @@ import { RootState } from "../../store/store";
 
 export default function Account() {
   const user: User = useSelector((state: RootState) => state.user.value);
-
   const dispatch = useDispatch();
 
   useEffect(() => {

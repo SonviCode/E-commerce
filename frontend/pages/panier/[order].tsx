@@ -1,38 +1,29 @@
-import axios from "axios";
-import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  URL_STRIPE_GET_PAYMENT,
-  URL_CREATE_ORDER,
-  URL_GET_ORDER,
-} from "../../constants/Constants";
-import { RootState } from "../../store/store";
-import { productsData, productsItem } from "../../types/product";
+import { URL_GET_ORDER } from "../../constants/Constants";
+import { productsItem } from "../../types/product";
 import Image from "next/image";
 import StarProduct from "../../components/UI/components/StarProduct";
 import { amountPayement } from "../../utils/paymentUtils";
-import { User } from "../../types/user";
-import { checkJwtFromLocalStorage } from "../../utils/authUser";
 import { removeAllItemShop } from "../../store/features/slice/shopSlice";
 import { GetStaticPaths, GetStaticProps } from "next";
-import { log } from "console";
+import { User } from "../../types/user";
+import { RootState } from "../../store/store";
+import { formatNumberPhone } from "../../utils/userUtils";
 
 const Completion = ({ order }: any) => {
-  const router = useRouter();
-
+  const user: User = useSelector((state: RootState) => state.user.value);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(removeAllItemShop(""))
-  }, [])
-  
+    dispatch(removeAllItemShop(""));
+  }, []);
 
   return (
     <div className="p-2 md:p-10">
       <div className="shadow-md p-4 md:p-10 rounded-md border max-w-5xl mx-auto">
         <h1 className="title mb-10">Félicitation, le payement est réussi !</h1>
-        {order ? (
+        {order && user ? (
           <>
             <p className="flex flex-col xs:flex-row justify-between">
               Prix de la commande :{" "}
@@ -41,26 +32,22 @@ const Completion = ({ order }: any) => {
               </span>
             </p>
             <p className="flex flex-col xs:flex-row justify-between">
-              Nom :{" "}
-              <span className="italic font-bold">
-                {order.payment.shipping.name}
-              </span>
+              Nom : <span className="italic font-bold">{user.name}</span>
             </p>
             <p className="flex flex-col xs:flex-row justify-between">
               Numéro :{" "}
-              <span className="italic font-bold">
-                {order.payment.shipping.phone
-                  ? order.payment.shipping.phone
-                  : "Pas de numéro renseigné"}
+              <span className="flex gap-2 italic font-bold">
+                + 33
+                {formatNumberPhone(user.phonenumber).map((n, i) => (
+                  <span key={i}>{n}</span>
+                ))}
               </span>
             </p>
             <p className="flex flex-col xs:flex-row justify-between">
               Adresse :{" "}
               <span className="italic font-bold">
-                {order.payment.shipping.address.country} :{" "}
-                {order.payment.shipping.address.city} -{" "}
-                {order.payment.shipping.address.line1} -{" "}
-                {order.payment.shipping.address.postal_code}
+                {user.location.adress} : {user.location.zipcode} -{" "}
+                {user.location.city}
               </span>
             </p>
             <div className="flex flex-col gap-10 py-10">

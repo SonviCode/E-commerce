@@ -1,6 +1,6 @@
 const express = require("express");
 const {
-  getAllOrderByEmail,
+  getOrdersByEmail,
   getOrderById,
   createOrder,
   getOrders,
@@ -9,6 +9,7 @@ const auth = require("../middleware/auth");
 const router = express.Router();
 
 router.get("/:id", getOrderById);
+router.get("/email/:email", auth, getOrdersByEmail);
 router.get("/", getOrders);
 router.post("/", createOrder);
 

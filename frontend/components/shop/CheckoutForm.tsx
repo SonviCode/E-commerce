@@ -79,9 +79,6 @@ const CheckoutForm = () => {
       onSubmit={(e) => handleSubmit(e)}
     >
       <PaymentElement id="payment-element" />
-      <AddressElement
-        options={{ mode: "shipping", allowedCountries: ["FR"] }}
-      />
       <button
         className="bg-main shadow-md rounded-md p-2 text-white font-semibold mt-5 transition-all ease duration-200  active:scale-90 disabled:opacity-50 disabled:cursor-none"
         disabled={isProcessing || !stripe || !elements}
