@@ -8,9 +8,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as fs from "@fortawesome/free-solid-svg-icons";
 import { indicator } from "../../types/shop";
 import {
-  canGoToNextStep,
   nextStepShop,
   prevStepShop,
+  useGanGoToNextStep,
 } from "../../utils/shopUtils";
 import ConnectModal from "../../components/account/ConnectModal";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,7 +21,6 @@ import UserInfo from "../../components/account/UserInfo";
 import Payement from "../../components/shop/Payement";
 import { checkJwtFromLocalStorage } from "../../utils/authUser";
 import { RootState } from "../../store/store";
-import { productsData } from "../../types/product";
 
 export default function Shop({
   shopIndicator,
@@ -31,12 +30,8 @@ export default function Shop({
   const [numberIndicator, setNumberIndicator] =
     useState<indicator[]>(shopIndicator);
   const [isAbleNextStep, setIsAbleNextStep] = useState<boolean>(false);
-  const [deliveryPrice, setDeliveryPrice] = useState<number>(0);
 
   const user: User = useSelector((state: RootState) => state.user.value);
-  const shopData: productsData = useSelector(
-    (state: RootState) => state.shop.value
-  );
 
   const dispatch = useDispatch();
 
@@ -44,15 +39,7 @@ export default function Shop({
     checkJwtFromLocalStorage(dispatch);
   }, [dispatch]);
 
-  useEffect(() => {
-    canGoToNextStep(
-      numberIndicator,
-      shopData,
-      user,
-      setIsAbleNextStep,
-      deliveryPrice
-    );
-  }, [numberIndicator, shopData, user, deliveryPrice]);
+  useGanGoToNextStep(numberIndicator, setIsAbleNextStep);
 
   return (
     <>
@@ -90,9 +77,9 @@ export default function Shop({
         >
           <div className="grow flex flex-col  gap-10 ">
             {numberIndicator[3].actif ? (
-              <Payement deliveryPrice={deliveryPrice} />
+              <Payement />
             ) : numberIndicator[2].actif ? (
-              <Delivery setDeliveryPrice={setDeliveryPrice} />
+              <Delivery />
             ) : numberIndicator[1].actif ? (
               <div className="grow">
                 {user?.name ? (
@@ -115,7 +102,6 @@ export default function Shop({
               numberIndicator={numberIndicator}
               setNumberIndicator={setNumberIndicator}
               isAbleNextStep={isAbleNextStep}
-              deliveryPrice={deliveryPrice}
             />
           </div>
         </div>

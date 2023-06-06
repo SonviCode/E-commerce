@@ -45,11 +45,43 @@ const Completion = ({ order }: any) => {
             </p>
             <p className="flex flex-col xs:flex-row justify-between">
               Adresse :{" "}
-              <span className="italic font-bold">
-                {user.location.adress} : {user.location.zipcode} -{" "}
-                {user.location.city}
-              </span>
+              <div className="flex flex-col italic font-bold xs:text-end">
+                <span>{user.location.adress}</span>
+                <span>{user.location.city}</span>
+                <span>{user.location.zipCode}</span>
+              </div>
             </p>
+            <div className="pt-10">
+              <h2 className="title">Livraison</h2>
+              <div className="flex flex-col sm:flex-row gap-y-5 justify-between py-5">
+                <div className="flex flex-col">
+                  <span>Adresse de livraison</span>
+                  <div className="flex flex-col">
+                    <span className="italic font-bold">
+                      {order.delivery.location.adress}
+                    </span>
+                    <span className="italic font-bold">
+                      {order.delivery.location.city}
+                    </span>
+                    <span className="italic font-bold">
+                      {order.delivery.location.zipCode}
+                    </span>
+                  </div>
+                </div>
+                <div className="flex flex-col">
+                  <span>Type de livraison</span>
+                  <span className="italic font-bold">
+                    {order.delivery.deliveryName}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span>Prix de livraison</span>
+                  <span className="italic font-bold">
+                    {order.delivery.deliveryPrice} €
+                  </span>
+                </div>
+              </div>
+            </div>
             <div className="flex flex-col gap-10 py-10">
               {order.products.map((el: productsItem, index: React.Key) => (
                 <React.Fragment key={index}>

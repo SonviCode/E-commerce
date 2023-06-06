@@ -12,8 +12,9 @@ import { subtotal } from "../../utils/shopUtils";
 import { RootState } from "../../store/store";
 import { productsData } from "../../types/product";
 import { User } from "../../types/user";
+import { Delivery } from "../../types/shop";
 
-const Payement = ({ deliveryPrice }: { deliveryPrice: number }) => {
+const Payement = () => {
   const [stripePromise, setStripePromise] = useState<Promise<Stripe | null>>();
   const [clientSecret, setClientSecret] = useState("");
 
@@ -21,7 +22,11 @@ const Payement = ({ deliveryPrice }: { deliveryPrice: number }) => {
     (state: RootState) => state.shop.value
   );
   const user: User = useSelector((state: RootState) => state.user.value);
-  const totalPayement = (subtotal(shopData) + deliveryPrice).toFixed(2);
+  const delivery: Delivery = useSelector((state: RootState) => state.delivery);
+
+  const totalPayement = (
+    subtotal(shopData) + delivery.value.deliveryPrice
+  ).toFixed(2);
 
   useEffect(() => {
     fetch(URL_STRIPE_CONFIG)

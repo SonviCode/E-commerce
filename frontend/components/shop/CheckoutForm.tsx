@@ -8,6 +8,7 @@ import { User } from "../../types/user";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { productsData } from "../../types/product";
+import { Delivery } from "../../types/shop";
 
 const CheckoutForm = () => {
   const stripe = useStripe();
@@ -21,6 +22,7 @@ const CheckoutForm = () => {
   const shopData: productsData = useSelector(
     (state: RootState) => state.shop.value
   );
+  const delivery: Delivery = useSelector((state: RootState) => state.delivery);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -51,7 +53,12 @@ const CheckoutForm = () => {
       axios
         .post(
           URL_CREATE_ORDER,
-          { user, payment: paymentIntent, products: shopData },
+          {
+            user,
+            payment: paymentIntent,
+            products: shopData,
+            delivery: delivery.value,
+          },
           {
             headers: {
               Authorization: localStorage.getItem(

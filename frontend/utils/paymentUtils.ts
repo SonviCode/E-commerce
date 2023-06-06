@@ -3,5 +3,5 @@ export const amountPayement = (payment: number) => {
     .toString()
     .split("")
     .slice(-2)
-    .join("")}€`;
+    .join("")} €`;
 };

@@ -5,6 +5,7 @@ exports.createOrder = (req, res, next) => {
     user: req.body.user,
     payment: req.body.payment,
     products: req.body.products,
+    delivery: req.body.delivery,
     createdDate: Date.now(),
   });
   newOrder

@@ -70,7 +70,7 @@ export default function handler(
       required: false,
     },
     {
-      id: "zipCode",
+      id: "zipcode",
       name: "Code postale",
       example: "73 320",
       type: "number",

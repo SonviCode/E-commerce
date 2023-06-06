@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { User } from "./user";
+import { User, userAdress } from "./user";
 import { productsData } from "./product";
 
 export type indicator = {
@@ -11,7 +11,6 @@ export type SummaryProps = {
   numberIndicator: indicator[];
   setNumberIndicator: Dispatch<SetStateAction<indicator[]>>;
   isAbleNextStep: boolean;
-  deliveryPrice: number;
 };
 
 export type Order = {
@@ -20,4 +19,12 @@ export type Order = {
   user: User;
   products: productsData;
   _id: string;
+};
+
+export type Delivery = {
+  value: {
+    deliveryName: string;
+    deliveryPrice: number;
+    location: userAdress;
+  } ;
 };

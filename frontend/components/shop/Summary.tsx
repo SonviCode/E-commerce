@@ -8,16 +8,21 @@ import visa from "../../public/svg/visa.svg";
 import btc from "../../public/btc.png";
 import { useSelector } from "react-redux";
 import { nextStepShop, subtotal } from "../../utils/shopUtils";
-import { SummaryProps } from "../../types/shop";
+import { Delivery, SummaryProps } from "../../types/shop";
 import { RootState } from "../../store/store";
+import { productsData } from "../../types/product";
 
 const Summary = ({
   numberIndicator,
   setNumberIndicator,
   isAbleNextStep,
-  deliveryPrice,
 }: SummaryProps) => {
-  const shopData = useSelector((state: RootState) => state.shop.value);
+  const shopData: productsData = useSelector(
+    (state: RootState) => state.shop.value
+  );
+  const delivery: Delivery = useSelector((state: RootState) => state.delivery);
+
+  const deliveryPrice = delivery.value.deliveryPrice;
 
   return (
     <div className="flex flex-col gap-10 border shadow-md rounded-md p-5 sticky top-24">

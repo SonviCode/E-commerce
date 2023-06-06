@@ -5,6 +5,7 @@ import favReducer from "./features/slice/favorisSlice";
 import notifReducer from "./features/slice/notifSlice";
 import historicReducer from "./features/slice/historicSlice";
 import userReducer from "./features/slice/userSlice";
+import deliveryReducer from "./features/slice/deliverySlice";
 import {
   localStorageSetItem,
   localStorageGetItem,
@@ -19,6 +20,7 @@ export const store = configureStore({
     notif: notifReducer,
     historic: historicReducer,
     user: userReducer,
+    delivery: deliveryReducer,
   },
   preloadedState: localStorageGetItem(),
   middleware: (getDefaultMiddleware) =>
