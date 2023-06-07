@@ -7,20 +7,17 @@ import Indicator from "../../components/shop/Indicator";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as fs from "@fortawesome/free-solid-svg-icons";
 import { indicator } from "../../types/shop";
-import {
-  nextStepShop,
-  prevStepShop,
-  useGanGoToNextStep,
-} from "../../utils/shopUtils";
+import { nextStepShop, prevStepShop } from "../../utils/shopUtils";
 import ConnectModal from "../../components/account/ConnectModal";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { User } from "../../types/user";
 import Delivery from "../../components/shop/Delivery";
 import { GetStaticProps } from "next";
 import UserInfo from "../../components/account/UserInfo";
 import Payement from "../../components/shop/Payement";
-import { checkJwtFromLocalStorage } from "../../utils/authUser";
 import { RootState } from "../../store/store";
+import useCheckJwt from "../../hooks/useCheckJwt";
+import useShopStep from "../../hooks/useShopStep";
 
 export default function Shop({
   shopIndicator,
@@ -33,13 +30,9 @@ export default function Shop({
 
   const user: User = useSelector((state: RootState) => state.user.value);
 
-  const dispatch = useDispatch();
+  useCheckJwt();
 
-  useEffect(() => {
-    checkJwtFromLocalStorage(dispatch);
-  }, [dispatch]);
-
-  useGanGoToNextStep(numberIndicator, setIsAbleNextStep);
+  useShopStep({ numberIndicator, setIsAbleNextStep });
 
   return (
     <>
@@ -73,9 +66,9 @@ export default function Shop({
         <div
           className={`${
             numberIndicator[1].actif ? "flex-col" : "flex-col-reverse"
-          } flex  lg:flex-row  pt-5 pb-10 gap-10 `}
+          } flex lg:flex-row pt-5 pb-10 gap-10 max-w-full`}
         >
-          <div className="grow flex flex-col  gap-10 ">
+          <div className="grow flex flex-col gap-10 ">
             {numberIndicator[3].actif ? (
               <Payement />
             ) : numberIndicator[2].actif ? (
@@ -83,7 +76,7 @@ export default function Shop({
             ) : numberIndicator[1].actif ? (
               <div className="grow">
                 {user?.name ? (
-                  <div className="border shadow-md h-full text-xl rounded-md p-5 flex flex-col gap-2.5 grow ">
+                  <div className="border shadow-md h-full text-xl rounded-md p-5 flex flex-col gap-2.5">
                     <h2 className="text-2xl title mb-5">
                       Bien connecté <FontAwesomeIcon icon={fs.faCheck} />
                     </h2>
@@ -97,7 +90,7 @@ export default function Shop({
               <ReviewCheckout />
             )}
           </div>
-          <div className="lg:min-w-[285px] lg:w-1/4">
+          <div className="lg:min-w-[285px] lg:w-1/4 w-full ">
             <Summary
               numberIndicator={numberIndicator}
               setNumberIndicator={setNumberIndicator}

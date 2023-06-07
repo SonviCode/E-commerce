@@ -19,8 +19,6 @@ const deliverySlice = createSlice({
   initialState,
   reducers: {
     setDelivery: (state, action) => {
-      console.log(action);
-      
       state.value = action.payload;
     },
     removeDelivery: (state, action) => {

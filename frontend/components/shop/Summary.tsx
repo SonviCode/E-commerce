@@ -24,6 +24,8 @@ const Summary = ({
 
   const deliveryPrice = delivery.value.deliveryPrice;
 
+  console.log(delivery);
+
   return (
     <div className="flex flex-col gap-10 border shadow-md rounded-md p-5 sticky top-24">
       <div className="flex flex-col gap-5">

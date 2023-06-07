@@ -1,20 +1,16 @@
 import Head from "next/head";
 import { COMPANY_NAME } from "../../constants/Constants";
-import { useEffect } from "react";
 import UserAccount from "../../components/account/UserAccount";
 import { User } from "../../types/user";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import ConnectModal from "../../components/account/ConnectModal";
-import { checkJwtFromLocalStorage } from "../../utils/authUser";
 import { RootState } from "../../store/store";
+import useCheckJwt from "../../hooks/useCheckJwt";
 
 export default function Account() {
   const user: User = useSelector((state: RootState) => state.user.value);
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    checkJwtFromLocalStorage(dispatch);
-  }, [dispatch]);
+  useCheckJwt();
 
   return (
     <>

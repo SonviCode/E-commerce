@@ -3,14 +3,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import { COMPANY_NAME, URL_GET_PRODUCT } from "../../constants/Constants";
 import {
-  productComment,
-  productsData,
-  productsItem,
-} from "../../types/product";
-import { handleDate, changeCounterProduct } from "../../utils/productUtils";
-import { ArrayAvg, capitalize, toggleHeart } from "../../utils/productUtils";
+  COMPANY_NAME,
+  URL_GET_ORDERS_BY_EMAIL,
+  URL_GET_PRODUCT,
+} from "../../constants/Constants";
+import { productsData, productsItem } from "../../types/product";
+import { changeCounterProduct } from "../../utils/productUtils";
+import { capitalize, toggleHeart } from "../../utils/productUtils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as fs from "@fortawesome/free-solid-svg-icons";
 import * as fr from "@fortawesome/free-regular-svg-icons";
@@ -20,10 +20,16 @@ import { setHistoric } from "../../store/features/slice/historicSlice";
 import StarProduct from "../../components/UI/components/StarProduct";
 import { RootState } from "../../store/store";
 import { GetStaticPaths, GetStaticProps } from "next";
-import { log } from "console";
+import { User } from "../../types/user";
+import useCheckJwt from "../../hooks/useCheckJwt";
+import axios from "axios";
+import { Order } from "../../types/shop";
+import ProductComment from "../../components/product/ProductComment";
 
 export default function ProductId({ product }: { product: productsItem }) {
   const [counter, setCounter] = useState<number>(1);
+  const [orders, setOrders] = useState<Order[]>();
+  const [canComment, setCanComment] = useState<boolean>(false);
   const [displayDescription, setDisplayDescription] = useState<boolean>(true);
 
   const favData: productsData = useSelector(
@@ -32,9 +38,45 @@ export default function ProductId({ product }: { product: productsItem }) {
   const shopData: productsData = useSelector(
     (state: RootState) => state.shop.value
   );
+  const user: User = useSelector((state: RootState) => state.user.value);
 
   const router = useRouter();
   const dispatch = useDispatch();
+
+  useCheckJwt();
+
+  useEffect(() => {
+    axios
+      .get<Order[]>(URL_GET_ORDERS_BY_EMAIL + user?.email, {
+        headers: {
+          Authorization: localStorage.getItem(
+            process.env.NEXT_PUBLIC_USER_TOKEN!
+          ),
+        },
+      })
+      .then((res) => setOrders(res.data))
+      .catch((error) => console.log(error));
+  }, [user?.email]);
+
+  useEffect(() => {
+    if (orders && orders.length > 0) {
+      const allProductsOrdered: productsItem[] = [];
+
+      orders.forEach((order) =>
+        order.products.forEach((product) => allProductsOrdered.push(product))
+      );
+
+      if (
+        allProductsOrdered.find(
+          (productOrder) => productOrder._id === product._id
+        ) !== undefined &&
+        product.comments.find((comment) => comment.email === user?.email) ==
+          undefined
+      ) {
+        setCanComment(true);
+      }
+    }
+  }, [orders, product._id, product.comments, user?.email]);
 
   useEffect(() => {
     dispatch(setHistoric(product));
@@ -81,7 +123,7 @@ export default function ProductId({ product }: { product: productsItem }) {
 
           <div className="flex-1 flex flex-col gap-5">
             <div>
-              <h1 className="text-3xl">{product.name}</h1>
+              <h1 className="text-3xl title">{product.name}</h1>
               <p>{product.smallDescription}</p>
               <StarProduct star={product.star} />
               <span>({product.star.length})</span>
@@ -147,7 +189,7 @@ export default function ProductId({ product }: { product: productsItem }) {
               onClick={() => setDisplayDescription(!displayDescription)}
               className="flex justify-between items-center cursor-pointer"
             >
-              <h3 className="py-2 font-semibold text-xl">Description</h3>{" "}
+              <h3 className="py-2 text-xl title">Description</h3>{" "}
               {displayDescription ? (
                 <FontAwesomeIcon icon={fs.faChevronDown} className="mr-2" />
               ) : (
@@ -163,38 +205,12 @@ export default function ProductId({ product }: { product: productsItem }) {
               </p>
             ) : null}
           </div>
-          <div className="flex flex-col items-center gap-5 mt-10">
-            <h3 className="text-3xl">Avis</h3>
-            {product.star.length !== 0 && (
-              <p>
-                Note moyenne :{" "}
-                <span className="text-3xl">{ArrayAvg(product.star)} / 5</span>
-              </p>
-            )}
-            <p>Nombre de notes : {product.star.length}</p>
-          </div>
-          <div className="mt-5">
-            {product.comments.map(
-              (el: productComment, index: React.Key | null | undefined) => (
-                <div key={index} className="flex flex-col py-5">
-                  <hr />
-                  <h2 className="mt-5 font-medium">
-                    {capitalize(el.firstname)} {capitalize(el.name)}
-                  </h2>
-                  <p className="mb-5 italic">
-                    {handleDate(el.date.toString())}
-                  </p>
-
-                  <span>
-                    <StarProduct star={[el.star]} />
-                  </span>
-
-                  <p className="font-bold">{el.title}</p>
-                  <p>{el.description}</p>
-                </div>
-              )
-            )}
-          </div>
+          <ProductComment
+            product={product}
+            canComment={canComment}
+            setCanComment={setCanComment}
+            user={user}
+          />
         </div>
       </div>
     </>
@@ -212,7 +228,7 @@ export const getStaticProps: GetStaticProps<{ product: productsItem }> = async (
   return {
     props: {
       product,
-    }, 
+    },
   };
 };
 

@@ -2,16 +2,18 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { URL_GET_ORDER } from "../../constants/Constants";
 import { productsItem } from "../../types/product";
-import Image from "next/image";
-import StarProduct from "../../components/UI/components/StarProduct";
 import { amountPayement } from "../../utils/paymentUtils";
 import { removeAllItemShop } from "../../store/features/slice/shopSlice";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { User } from "../../types/user";
 import { RootState } from "../../store/store";
 import { formatNumberPhone } from "../../utils/userUtils";
+import { handleDate } from "../../utils/productUtils";
+import { addDays } from "../../utils/shopUtils";
+import { Order } from "../../types/shop";
+import OrderListContent from "../../components/account/OrderListContent";
 
-const Completion = ({ order }: any) => {
+const Completion = ({ order }: { order: Order }) => {
   const user: User = useSelector((state: RootState) => state.user.value);
   const dispatch = useDispatch();
 
@@ -19,12 +21,25 @@ const Completion = ({ order }: any) => {
     dispatch(removeAllItemShop(""));
   }, []);
 
+  const nbArticle = order.products.length > 1 && "s";
+
+  console.log(addDays(order.createdDate, 5));
+
   return (
     <div className="p-2 md:p-10">
       <div className="shadow-md p-4 md:p-10 rounded-md border max-w-5xl mx-auto">
-        <h1 className="title mb-10">Félicitation, le payement est réussi !</h1>
+        <h1 className="title text-3xl mb-10 text-center">
+          Félicitation, le payement est réussi !
+        </h1>
         {order && user ? (
           <>
+            <h2 className="title mb-5 underline">Informations générales :</h2>
+            <p className="flex flex-col xs:flex-row justify-between">
+              Jour de la commande :{" "}
+              <span className="italic font-bold">
+                {handleDate(order.createdDate.toString())}
+              </span>
+            </p>
             <p className="flex flex-col xs:flex-row justify-between">
               Prix de la commande :{" "}
               <span className="italic font-bold">
@@ -32,7 +47,10 @@ const Completion = ({ order }: any) => {
               </span>
             </p>
             <p className="flex flex-col xs:flex-row justify-between">
-              Nom : <span className="italic font-bold">{user.name}</span>
+              Nom :{" "}
+              <span className="italic font-bold">
+                {user.name}&nbsp;{user.firstname}
+              </span>
             </p>
             <p className="flex flex-col xs:flex-row justify-between">
               Numéro :{" "}
@@ -46,86 +64,66 @@ const Completion = ({ order }: any) => {
             <p className="flex flex-col xs:flex-row justify-between">
               Adresse :{" "}
               <div className="flex flex-col italic font-bold xs:text-end">
-                <span>{user.location.adress}</span>
-                <span>{user.location.city}</span>
-                <span>{user.location.zipCode}</span>
+                {user.location.adress} - {user.location.city} -&nbsp;
+                {user.location.zipCode}
               </div>
             </p>
             <div className="pt-10">
-              <h2 className="title">Livraison</h2>
+              <h2 className="title underline">Livraison :</h2>
               <div className="flex flex-col sm:flex-row gap-y-5 justify-between py-5">
                 <div className="flex flex-col">
                   <span>Adresse de livraison</span>
                   <div className="flex flex-col">
                     <span className="italic font-bold">
-                      {order.delivery.location.adress}
+                      {order.delivery.value.location.adress}
                     </span>
                     <span className="italic font-bold">
-                      {order.delivery.location.city}
+                      {order.delivery.value.location.city}
                     </span>
                     <span className="italic font-bold">
-                      {order.delivery.location.zipCode}
+                      {order.delivery.value.location.zipCode}
                     </span>
                   </div>
                 </div>
                 <div className="flex flex-col">
                   <span>Type de livraison</span>
                   <span className="italic font-bold">
-                    {order.delivery.deliveryName}
+                    {order.delivery.value.deliveryName}
                   </span>
                 </div>
                 <div className="flex flex-col">
                   <span>Prix de livraison</span>
                   <span className="italic font-bold">
-                    {order.delivery.deliveryPrice} €
+                    {order.delivery.value.deliveryPrice} €
                   </span>
                 </div>
               </div>
+              {order.delivery.value.deliveryName === "standard" ? (
+                <p>
+                  Date de livraison éstimée entre le{" "}
+                  <span className="italic font-bold">
+                    {handleDate(addDays(order.createdDate, 2).toString())}&nbsp;
+                  </span>
+                  et le&nbsp;
+                  <span className="italic font-bold">
+                    {handleDate(addDays(order.createdDate, 3).toString())}
+                  </span>
+                </p>
+              ) : (
+                <p>
+                  Date de livraison éstimée le{" "}
+                  <span className="italic font-bold">
+                    {handleDate(addDays(order.createdDate, 1).toString())}&nbsp;
+                  </span>
+                </p>
+              )}
             </div>
             <div className="flex flex-col gap-10 py-10">
+              <h2 className="title underline">
+                Article{nbArticle} commandé{nbArticle} :
+              </h2>
               {order.products.map((el: productsItem, index: React.Key) => (
-                <React.Fragment key={index}>
-                  <div className="flex justify-between flex-wrap gap-10">
-                    <div className="overflow-hidden h-fit group max-w-[100px] rounded-md bg-gray-200 ">
-                      <Image
-                        src={el.imageUrl}
-                        width="800"
-                        height="800"
-                        alt={el.name}
-                        className=" object-center rounded-md p-2"
-                      />
-                    </div>
-                    <div className="flex gap-10 items-center">
-                      <div className="flex flex-col justify-between w-[138px]">
-                        <div>
-                          <h3 className="text-sm font-bold ">{el.name}</h3>
-                          <p className="text-sm truncate">
-                            {el.smallDescription}
-                          </p>
-                          <span className="flex flex-row my-2">
-                            <StarProduct star={el.star} />
-                            <span className="ml-1">({el.star.length})</span>
-                          </span>
-                          <div className="flex gap-4 items-center">
-                            <span className="text-xs font-bold ">
-                              {el.price.toFixed(2)}€
-                            </span>
-                            <p className="text-xs">
-                              Taille :<span className="ml-2">{el.size}</span>{" "}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <span>X {el.counterShop}</span>
-                    </div>
-                    <div className="flex items-center">
-                      <span className=" w-20 text-center mx-5">
-                        {(el.price * el.counterShop).toFixed(2)}€
-                      </span>
-                    </div>
-                  </div>
-                  <hr />
-                </React.Fragment>
+                <OrderListContent el={el} key={index} />
               ))}
             </div>
           </>

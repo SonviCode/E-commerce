@@ -7,8 +7,7 @@ import { RootState } from "../../store/store";
 import { Order } from "../../types/shop";
 import { amountPayement } from "../../utils/paymentUtils";
 import { handleDate } from "../../utils/productUtils";
-import StarProduct from "../UI/components/StarProduct";
-import Image from "next/image";
+import OrderListContent from "./OrderListContent";
 import { productsItem } from "../../types/product";
 
 const UserOrders = () => {
@@ -81,42 +80,7 @@ const UserOrders = () => {
                     Contenu de la commande :
                   </h2>
                   {order.products.map((el: productsItem, index: React.Key) => (
-                    <React.Fragment key={index}>
-                      <div className="flex justify-around flex-wrap gap-10 items-center">
-                        <div className="overflow-hidden h-fit group max-w-[100px] rounded-md bg-gray-200 ">
-                          <Image
-                            src={el.imageUrl}
-                            width="800"
-                            height="800"
-                            alt={el.name}
-                            className=" object-center rounded-md p-2"
-                          />
-                        </div>
-                        <div>
-                          <h3 className="text-sm font-bold ">{el.name}</h3>
-                          <p className="text-sm truncate">
-                            {el.smallDescription}
-                          </p>
-                          <p className="text-sm">
-                            Taille :<span className="ml-2">{el.size}</span>{" "}
-                          </p>
-                          {el.star.length == 0 ? (
-                            <span className="text-xs">Aucun avis</span>
-                          ) : (
-                            <div>
-                              <span className="flex flex-row my-2">
-                                <StarProduct star={el.star} />
-                                <span className="ml-1">({el.star.length})</span>
-                              </span>
-                            </div>
-                          )}
-                        </div>
-                        <div className="flex gap-10 items-center">
-                          <span>X {el.counterShop}</span>
-                        </div>
-                      </div>
-                      <hr />
-                    </React.Fragment>
+                    <OrderListContent el={el} key={index} />
                   ))}
                 </div>
               )}

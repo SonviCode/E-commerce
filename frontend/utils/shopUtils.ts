@@ -1,14 +1,9 @@
-import { useSelector } from "react-redux";
 import { SHOPPING_CART } from "../constants/Constants";
 import { removeItemFav } from "../store/features/slice/favorisSlice";
 import { setNotif } from "../store/features/slice/notifSlice";
 import { setShopData } from "../store/features/slice/shopSlice";
-import { productsItem, productsData } from "../types/product";
-import { Delivery, indicator } from "../types/shop";
-import { User, userAdress } from "../types/user";
-import { Dispatch, SetStateAction } from "react";
-import { RootState } from "../store/store";
-import { useEffect } from "react";
+import { productsItem } from "../types/product";
+import { indicator } from "../types/shop";
 
 export const subtotal = (shopData: any): number => {
   const result: number = shopData.reduce(
@@ -106,40 +101,8 @@ export const checkProperties = (obj: any): boolean => {
   return true;
 };
 
-// CUSTOM HOOKS FOR THE STEP MANAGEMENT
-export const useGanGoToNextStep = (
-  numberIndicator: indicator[],
-  setIsAbleNextStep: Dispatch<SetStateAction<boolean>>
-) => {
-  const delivery: Delivery = useSelector((state: RootState) => state.delivery);
-  const user: User = useSelector((state: RootState) => state.user.value);
-  const shopData: productsData = useSelector(
-    (state: RootState) => state.shop.value
-  );
-
-  useEffect(() => {
-    switch (true) {
-      case numberIndicator[3].actif:
-        setIsAbleNextStep(false);
-        break;
-      case numberIndicator[2].actif &&
-        checkProperties(user?.location!) &&
-        delivery.value.deliveryName !== "":
-        setIsAbleNextStep(true);
-        break;
-      case user &&
-        Object.keys(user!).length > 0 &&
-        numberIndicator[1].actif &&
-        !numberIndicator[2].actif:
-        setIsAbleNextStep(true);
-        break;
-      case shopData.length > 0 &&
-        numberIndicator[0].actif &&
-        !numberIndicator[1].actif:
-        setIsAbleNextStep(true);
-        break;
-      default:
-        setIsAbleNextStep(false);
-    }
-  }, [numberIndicator, shopData, user, setIsAbleNextStep, delivery.value]);
+export const addDays = (date: Date, days: number) => {
+  var result = new Date(date);
+  result.setDate(result.getDate() + days);
+  return result;
 };

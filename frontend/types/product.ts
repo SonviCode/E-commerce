@@ -41,6 +41,7 @@ export type productsItem = {
 export type productComment = {
   name: string;
   firstname: string;
+  email: string;
   date: Date;
   description: string;
   title: string;

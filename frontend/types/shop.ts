@@ -17,6 +17,7 @@ export type Order = {
   createdDate: Date;
   payment: any;
   user: User;
+  delivery: Delivery;
   products: productsData;
   _id: string;
 };
