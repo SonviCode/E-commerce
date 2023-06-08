@@ -41,22 +41,15 @@ exports.getProductByCategory = (req, res, next) => {
     .catch((error) => res.status(400).json({ error }));
 };
 
-exports.updateProduct = (req, res, next) => {
+exports.addComment = (req, res, next) => {
   ProductModel.findOne({ _id: req.params.id })
     .then((product) => {
-      console.log(product);
       product.comments.push({
         ...req.body,
-        date: Date.now(),
+        createdDate: new Date(Date.now()),
       });
       product.save();
-      console.log(product);
       res.status(200).json({ message: "Commentaire ajouté" });
     })
     .catch((error) => res.status(400).json({ error }));
-
-  // product
-  //   .findOneAndUpdate({ _id: req.params.id })
-  //   .then((product) => res.status(200).json({ message: "Commentaire ajouté" }))
-  //   .catch((error) => res.status(400).json({ error }));
 };

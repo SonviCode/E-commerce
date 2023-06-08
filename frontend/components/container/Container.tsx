@@ -3,14 +3,15 @@ import { useSelector } from "react-redux";
 import NotifModal from "../UI/modals/NotifModal";
 import Footer from "./Footer";
 import Nav from "./Nav";
+import { RootState } from "../../store/store";
 
 const Container = (props: any) => {
-  const notifData: any = useSelector((state: any) => state.notif.value);
+  const notifMessage: string = useSelector((state: RootState) => state.notif.value);
 
   return (
     <>
       <Nav />
-      {notifData !== "" ? <NotifModal notifName={notifData} /> : ""}
+      {notifMessage !== "" ? <NotifModal notifMessage={notifMessage} /> : ""}
       <main className="grow pt-24 ">{props.children}</main>
       <Footer />
     </>

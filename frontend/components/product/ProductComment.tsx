@@ -6,21 +6,30 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as fs from "@fortawesome/free-solid-svg-icons";
 import { User } from "../../types/user";
 import axios from "axios";
-import { URL_UPDATE_PRODUCT } from "../../constants/Constants";
+import {
+  NOTIF_COMMENT_ADDED,
+  URL_UPDATE_PRODUCT,
+} from "../../constants/Constants";
+import { useDispatch } from "react-redux";
+import { setNotif } from "../../store/features/slice/notifSlice";
+import { NextRouter } from "next/router";
 
 const ProductComment = ({
   product,
   canComment,
   setCanComment,
   user,
+  router,
 }: {
   product: productsItem;
   canComment: boolean;
   setCanComment: Dispatch<SetStateAction<boolean>>;
   user: User;
+  router: NextRouter;
 }) => {
-  console.log(canComment);
   const [indexStar, setIndexStar] = useState<number>(5);
+
+  const dispatch = useDispatch();
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -47,8 +56,10 @@ const ProductComment = ({
           },
         }
       )
-      .then((res) => {
-        console.log(res);
+      .then(() => {
+        setCanComment(false);
+        dispatch(setNotif(NOTIF_COMMENT_ADDED));
+        router.replace(router.asPath);
       })
       .catch((error) => {
         console.log(error);
@@ -134,7 +145,9 @@ const ProductComment = ({
               <h2 className="mt-5 font-medium">
                 {capitalize(el.firstname)} {capitalize(el.name)}
               </h2>
-              <p className="mb-5 italic">{handleDate(el.date.toString())}</p>
+              <p className="mb-5 italic">
+                {handleDate(el.createdDate.toString())}
+              </p>
 
               <span>
                 <StarProduct star={[el.star]} />

@@ -10,6 +10,7 @@ import {
 import { allCategoryData } from "../types/home";
 import { productsData, productsItem } from "../types/product";
 import ProductCard from "../components/product/ProductCard";
+import SliderHome from "../components/home/SliderHome";
 
 export default function Home({
   allCategoryData,
@@ -22,12 +23,13 @@ export default function Home({
       </Head>
 
       <HeaderHome />
+      <SliderHome products={products}/>
       <CategoryHome allCategoryData={allCategoryData} />
       <div className="my-20 max-w-screen-2xl mx-auto">
         <h2 className="titleHome">Les dernières nouveautés</h2>
         <div className="containerProducts">
           {products.map(
-            (el: productsItem, index: React.Key | null | undefined) => (
+            (el: productsItem, index: React.Key) => (
               <ProductCard el={el} key={index} />
             )
           )}

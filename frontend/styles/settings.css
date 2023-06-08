@@ -12,3 +12,9 @@ body,
 #__next {
   height: 100%;
 }
+
+/* SWIPER PAGINATION */
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  color: #000 !important;
+}

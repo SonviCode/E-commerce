@@ -2,12 +2,12 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { productsItem } from "../../types/product";
 import ProductCard from "../product/ProductCard";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import * as fs from "@fortawesome/free-solid-svg-icons";
 import { RootState } from "../../store/store";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
 import { Navigation, A11y } from "swiper";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css";
 
 const Historic = () => {
   const historicData: productsItem[] = useSelector(
@@ -17,12 +17,9 @@ const Historic = () => {
   return (
     <div className="border shadow-md  rounded-md px-5 py-10 flex flex-col">
       <h2 className="text-2xl font-bold mb-5">Historique</h2>
-      <div className="md:flex md:justify-center xl:justify-between items-center overflow-hidden w-full">
+      <div className="md:flex md:justify-center items-center overflow-hidden w-full">
         {historicData.length > 0 ? (
           <>
-            <span className="hidden xl:block">
-              <FontAwesomeIcon icon={fs.faChevronLeft} />
-            </span>
             <div className="max-w-[700px] [1100px]:max-w-[100px] lg:max-w-[615px] xl:max-w[875px] 2xl:max-w-[1130px] md:px-10 lg:px-0">
               <Swiper
                 modules={[Navigation, A11y]}
@@ -32,7 +29,7 @@ const Historic = () => {
                 loop={true}
                 navigation
                 breakpoints={{
-                  350: {
+                  400: {
                     slidesPerView: 2,
                     spaceBetween: 20,
                   },
@@ -61,9 +58,6 @@ const Historic = () => {
                 )}
               </Swiper>
             </div>
-            <span className="hidden xl:block">
-              <FontAwesomeIcon icon={fs.faChevronRight} />
-            </span>
           </>
         ) : (
           <div>

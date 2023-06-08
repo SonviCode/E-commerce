@@ -1,4 +1,4 @@
-import { SHOPPING_CART } from "../constants/Constants";
+import { NOTIF_PRODUCT_ADDED } from "../constants/Constants";
 import { removeItemFav } from "../store/features/slice/favorisSlice";
 import { setNotif } from "../store/features/slice/notifSlice";
 import { setShopData } from "../store/features/slice/shopSlice";
@@ -36,7 +36,7 @@ export const addToShopCart = (
   newProductObj.counterShop += nb;
 
   dispatch(setShopData(newProductObj));
-  dispatch(setNotif(SHOPPING_CART));
+  dispatch(setNotif(NOTIF_PRODUCT_ADDED));
 };
 
 export const changeCounterShop = (

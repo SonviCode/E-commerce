@@ -96,7 +96,7 @@ export default function ProductId({ product }: { product: productsItem }) {
             <Link href={`/category/${product.category}`}>
               {capitalize(product.category)}
             </Link>{" "}
-            -<span className="font-bold"> {capitalize(router.query.id)}</span>
+            -<span className="font-bold"> {capitalize(product.name)}</span>
           </p>
         </div>
 
@@ -210,6 +210,7 @@ export default function ProductId({ product }: { product: productsItem }) {
             canComment={canComment}
             setCanComment={setCanComment}
             user={user}
+            router={router}
           />
         </div>
       </div>

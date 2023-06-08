@@ -42,7 +42,7 @@ export type productComment = {
   name: string;
   firstname: string;
   email: string;
-  date: Date;
+  createdDate: Date;
   description: string;
   title: string;
   star: number;

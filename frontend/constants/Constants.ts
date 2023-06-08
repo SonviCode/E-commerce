@@ -35,7 +35,6 @@ export const ASCENDING_PRICE = "Prix croissants";
 export const DECREASING_PRICE = "Prix décroissants";
 export const THE_NEWS = "Les nouveautés";
 export const THE_MOST_POPULAR = "Les plus populaires";
-export const SHOPPING_CART = "panier";
 export const SHOES_CATEGORY =
   "Nous sommes fiers de vous offrir une large sélection de chaussures de haute qualité conçues pour répondre aux besoins des randonneurs les plus exigeants. Nous avons des chaussures pour tous les types de randonnées, des sentiers de montagne les plus escarpés aux chemins de terre plus doux. Nos chaussures sont conçues pour offrir un confort maximal et une protection contre les éléments...";
 export const CLOTHES_CATEGORY =
@@ -46,6 +45,11 @@ export const ACCESSORY_CATEGORY =
 // ACCOUNT
 export const DOUBLE_EMAIL_ERROR =
   "User validation failed: email: Error, expected `email` to be unique. Value:";
+
+//NOTIFICATION MESSAGE
+export const NOTIF_COMMENT_ADDED = "Commentaire ajouté au produit";
+export const NOTIF_PRODUCT_ADDED = "Produit ajouté au panier";
+export const NOTIF_FAVORIS_ADDED = "Produit ajouté au favoris";
 
 // ERROR MSG
 export const UNEXPECTED_ERROR = "An unexpected error occured.";

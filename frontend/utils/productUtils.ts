@@ -5,6 +5,7 @@ import {
   setFavData,
 } from "../store/features/slice/favorisSlice";
 import { setNotif } from "../store/features/slice/notifSlice";
+import { NOTIF_FAVORIS_ADDED } from "../constants/Constants";
 
 export const ArrayAvg = (myArray: number[]): number => {
   const result = 0;
@@ -48,7 +49,7 @@ export const toggleHeart = (
   if (favData.some((fav: any) => fav.name == el.name)) {
     dispatch(removeItemFav(el));
   } else {
-    dispatch(setNotif("favoris"));
+    dispatch(setNotif(NOTIF_FAVORIS_ADDED));
     dispatch(setFavData(el));
   }
 

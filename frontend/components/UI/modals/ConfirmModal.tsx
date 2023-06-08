@@ -2,7 +2,6 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as fs from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
-import { setNotif } from "../../../store/features/slice/notifSlice";
 import { removeItemShop } from "../../../store/features/slice/shopSlice";
 import { productsItem } from "../../../types/product";
 
