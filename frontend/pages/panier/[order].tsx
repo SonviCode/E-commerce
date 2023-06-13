@@ -25,6 +25,9 @@ const Completion = ({ order }: { order: Order }) => {
 
   console.log(addDays(order.createdDate, 5));
 
+  console.log(order);
+  
+
   return (
     <div className="p-2 md:p-10">
       <div className="shadow-md p-4 md:p-10 rounded-md border max-w-5xl mx-auto">
@@ -75,30 +78,30 @@ const Completion = ({ order }: { order: Order }) => {
                   <span>Adresse de livraison</span>
                   <div className="flex flex-col">
                     <span className="italic font-bold">
-                      {order.delivery.value.location.adress}
+                      {order?.delivery!.location.adress}
                     </span>
                     <span className="italic font-bold">
-                      {order.delivery.value.location.city}
+                      {order?.delivery!.location.city}
                     </span>
                     <span className="italic font-bold">
-                      {order.delivery.value.location.zipCode}
+                      {order?.delivery!.location.zipCode}
                     </span>
                   </div>
                 </div>
                 <div className="flex flex-col">
                   <span>Type de livraison</span>
                   <span className="italic font-bold">
-                    {order.delivery.value.deliveryName}
+                    {order?.delivery!.deliveryName}
                   </span>
                 </div>
                 <div className="flex flex-col">
                   <span>Prix de livraison</span>
                   <span className="italic font-bold">
-                    {order.delivery.value.deliveryPrice} €
+                    {order?.delivery!.deliveryPrice} €
                   </span>
                 </div>
               </div>
-              {order.delivery.value.deliveryName === "standard" ? (
+              {order?.delivery!.deliveryName === "standard" ? (
                 <p>
                   Date de livraison éstimée entre le{" "}
                   <span className="italic font-bold">

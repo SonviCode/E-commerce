@@ -42,7 +42,6 @@ export const checkJwtFromLocalStorage = (dispatch: Dispatch<AnyAction>) => {
       }
     )
     .then((res) => {
-      delete res?.data?.password;
       dispatch(setUser(res.data));
     })
     .catch(() => {

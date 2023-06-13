@@ -15,10 +15,7 @@ exports.createOrder = (req, res, next) => {
 };
 
 exports.getOrdersByEmail = (req, res, next) => {
-  console.log(req.body);
-  OrderModel.find({
-    ...req.body,
-  })
+  OrderModel.find({ email: req.params.email })
     .then((order) => res.status(200).json(order))
     .catch((error) => res.status(400).json({ error }));
 };

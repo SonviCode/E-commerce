@@ -65,7 +65,21 @@ exports.getUsers = (req, res, next) => {
 exports.getUserById = (req, res, next) => {
   UserModel.findOne({ _id: req.params.id })
     .then((user) => {
-      delete user.password;
+      user.password = undefined
+
+      res.status(200).json(user);
+    })
+    .catch((error) => res.status(400).json({ error }));
+};
+
+exports.updateUserAdress = (req, res, next) => {
+  UserModel.findOneAndUpdate(
+    { _id: req.params.id },
+    { location: { ...req.body } },
+    {new: true}
+  )
+    .then((user) => {
+      user.password = undefined
 
       res.status(200).json(user);
     })

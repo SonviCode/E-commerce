@@ -22,10 +22,14 @@ export type Order = {
   _id: string;
 };
 
-export type Delivery = {
-  value: {
-    deliveryName: string;
-    deliveryPrice: number;
-    location: userAdress;
-  } ;
-};
+export type Delivery =
+  | {
+      deliveryName: string;
+      deliveryPrice: number;
+      location: userAdress;
+    }
+  | undefined;
+
+export interface DeliveryState {
+  value: Delivery;
+}

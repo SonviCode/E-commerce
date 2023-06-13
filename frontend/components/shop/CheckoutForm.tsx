@@ -22,7 +22,7 @@ const CheckoutForm = () => {
   const shopData: productsData = useSelector(
     (state: RootState) => state.shop.value
   );
-  const delivery: Delivery = useSelector((state: RootState) => state.delivery);
+  const delivery: Delivery = useSelector((state: RootState) => state.delivery.value);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -57,7 +57,7 @@ const CheckoutForm = () => {
             user,
             payment: paymentIntent,
             products: shopData,
-            delivery: delivery.value,
+            delivery: delivery,
           },
           {
             headers: {
@@ -67,7 +67,7 @@ const CheckoutForm = () => {
             },
           }
         )
-        .then((res) =>
+        .then(() =>
           router.push({
             pathname: "panier/" + paymentIntent.id,
           })

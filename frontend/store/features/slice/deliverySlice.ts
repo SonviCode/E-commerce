@@ -1,17 +1,9 @@
 // 'use client';
 import { createSlice } from "@reduxjs/toolkit";
-import { Delivery } from "../../../types/shop";
+import { DeliveryState } from "../../../types/shop";
 
-const initialState: Delivery = {
-  value: {
-    deliveryName: "",
-    deliveryPrice: 0,
-    location: {
-      adress: "",
-      city: "",
-      zipcode: 0
-    }
-  }
+const initialState: DeliveryState = {
+  value: undefined,
 };
 
 const deliverySlice = createSlice({

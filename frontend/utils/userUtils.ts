@@ -1,6 +1,7 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import { SetStateAction } from "react";
 import { removeUser } from "../store/features/slice/userSlice";
+import { User } from "../types/user";
 
 export const formatNumberPhone = (number: number) => {
   const numberInString = number + "";
@@ -17,3 +18,19 @@ export const logout = (dispatch: any) => {
   localStorage.removeItem(process.env.NEXT_PUBLIC_USER_TOKEN!);
   dispatch(removeUser());
 };
+
+export const inputAdresseValue = (el: any, user:User) => {
+  let result: any;
+
+  user &&
+    Object.entries(user.location).forEach((item: any) => {
+      const [key, value] = item;
+
+      if (key == el.id) {
+        result = value;
+      }
+      return;
+    });
+  return result;
+};
+

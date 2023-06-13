@@ -4,6 +4,7 @@ const API_NODE_URL = process.env.NEXT_PUBLIC_API_NODE_URL;
 export const URL_LOGIN: string = `${API_NODE_URL}auth/login`;
 export const URL_SIGNUP: string = `${API_NODE_URL}auth/signup`;
 export const URL_GETUSER: string = `${API_NODE_URL}auth/user/`;
+export const URL_UPDATE_USER_ADRESS: string = `${API_NODE_URL}auth/user/`;
 export const URL_GET_PRODUCT: string = `${API_NODE_URL}product`;
 export const URL_UPDATE_PRODUCT: string = `${API_NODE_URL}product`;
 export const URL_GET_PRODUCT_BY_CATEGORY: string = `${API_NODE_URL}product/category/`;

@@ -33,12 +33,14 @@ const UserOrders = () => {
     setIsShownId(id);
   };
 
+  console.log(orders);
+
   return (
     <div>
       <h2 className="title text-3xl mb-5">Commandes</h2>
       <h3>Historique des commandes :</h3>
       <div className="flex flex-col gap-10 mt-10">
-        {orders &&
+        {orders && orders.length > 0 ? (
           orders.map((order: Order, key: React.Key) => (
             <div
               onClick={() => handleOrder(order._id)}
@@ -85,7 +87,12 @@ const UserOrders = () => {
                 </div>
               )}
             </div>
-          ))}
+          ))
+        ) : (
+          <div>
+            <h2 className="title">Aucune commande réalisé !</h2>
+          </div>
+        )}
       </div>
     </div>
   );

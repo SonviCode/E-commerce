@@ -22,10 +22,13 @@ const Payement = () => {
     (state: RootState) => state.shop.value
   );
   const user: User = useSelector((state: RootState) => state.user.value);
-  const delivery: Delivery = useSelector((state: RootState) => state.delivery);
+  const delivery: Delivery = useSelector((state: RootState) => state.delivery.value);
+
+  console.log(delivery);
+  
 
   const totalPayement = (
-    subtotal(shopData) + delivery.value.deliveryPrice
+    subtotal(shopData) + (delivery ? delivery.deliveryPrice : 0)
   ).toFixed(2);
 
   useEffect(() => {

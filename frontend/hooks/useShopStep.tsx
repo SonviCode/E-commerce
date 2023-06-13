@@ -13,7 +13,9 @@ const useShopStep = ({
   numberIndicator: indicator[];
   setIsAbleNextStep: Dispatch<SetStateAction<boolean>>;
 }) => {
-  const delivery: Delivery = useSelector((state: RootState) => state.delivery);
+  const delivery: Delivery = useSelector(
+    (state: RootState) => state.delivery.value
+  );
   const user: User = useSelector((state: RootState) => state.user.value);
   const shopData: productsData = useSelector(
     (state: RootState) => state.shop.value
@@ -26,7 +28,8 @@ const useShopStep = ({
         break;
       case numberIndicator[2].actif &&
         checkProperties(user?.location!) &&
-        delivery.value.deliveryName !== "":
+        delivery &&
+        delivery.deliveryName !== "":
         setIsAbleNextStep(true);
         break;
       case user &&

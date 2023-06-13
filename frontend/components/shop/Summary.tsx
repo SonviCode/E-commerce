@@ -20,11 +20,9 @@ const Summary = ({
   const shopData: productsData = useSelector(
     (state: RootState) => state.shop.value
   );
-  const delivery: Delivery = useSelector((state: RootState) => state.delivery);
+  const delivery: Delivery = useSelector((state: RootState) => state.delivery.value);
 
-  const deliveryPrice = delivery.value.deliveryPrice;
-
-  console.log(delivery);
+  const deliveryPrice = delivery ? delivery.deliveryPrice : 0
 
   return (
     <div className="flex flex-col gap-10 border shadow-md rounded-md p-5 sticky top-24">

@@ -13,12 +13,16 @@ export type User =
   | undefined;
 
 export type userAdress = {
+  zipCode: number;
   adress: string;
   city: string;
-  zipcode: number;
 };
 
 export type userParams = {
   userId: string;
   token: string;
 };
+
+export interface userState {
+  value: User ;
+}

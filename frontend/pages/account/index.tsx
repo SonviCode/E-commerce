@@ -19,7 +19,7 @@ export default function Account() {
       </Head>
 
       {user && Object.keys(user!).length > 0 ? (
-        <UserAccount />
+        <UserAccount user={user}/>
       ) : (
         <div className="pb-10 px-5">
           <ConnectModal />

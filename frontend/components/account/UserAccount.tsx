@@ -9,11 +9,11 @@ import UserInfo from "./UserInfo";
 import AdminAccount from "./AdminAccount";
 import UserOrders from "./UserOrders";
 import { RootState } from "../../store/store";
+import UserAdress from "./UserAdress";
 
-const UserAccount = () => {
+const UserAccount = ({ user }: { user: User }) => {
   const [tab, setTab] = useState<number>(1);
 
-  const user: User = useSelector((state: RootState) => state.user.value);
   const historicData: productsItem[] = useSelector(
     (state: RootState) => state.historic.value
   );
@@ -58,7 +58,10 @@ const UserAccount = () => {
       <div className="grow flex flex-col gap-10 overflow-hidden">
         <div className=" min-h-[500px] h-full relative">
           {tab === 1 ? (
-            <UserInfo user={user} />
+            <>
+              <UserInfo user={user} />
+              <UserAdress />
+            </>
           ) : tab === 2 ? (
             <UserOrders />
           ) : (
