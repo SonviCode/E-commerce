@@ -44,16 +44,6 @@ const Aside = ({ toggleAside, setToggleAside }: Navbar) => {
           className="cursor-pointer text-2xl"
         />
       </div>
-      <form className="flex bg-gray-100 py-2 px-4 rounded-md w-full mb-10">
-        <input
-          className="w-full bg-gray-100  outline-none"
-          type="text"
-          placeholder="Rechercher"
-        />
-        <button>
-          <i className="fa-solid fa-magnifying-glass"></i>
-        </button>
-      </form>
       <div className="flex flex-col ">
         <Link
           onClick={() => closeAside()}

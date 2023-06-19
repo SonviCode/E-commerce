@@ -27,7 +27,7 @@ const CategoryHome = ({
               width={el.width}
               height={el.height}
               alt={el.name}
-              className="group-hover:scale-125 duration-300 ease  object-center rounded-md"
+              className="group-hover:scale-125 duration-300 ease object-center rounded-md"
             />
           </Link>
         ))}

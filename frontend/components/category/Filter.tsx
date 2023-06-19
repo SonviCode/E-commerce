@@ -18,8 +18,6 @@ const Filter = ({
   const [dataFilter, setDataFilter] = useState<productFilter>();
   const [arrayFilter, setArrayFilter] = useState<string[]>([]);
 
-  console.log(arrayFilter);
-
   const router = useRouter();
 
   useEffect(() => {
@@ -31,7 +29,7 @@ const Filter = ({
 
   useEffect(() => {
     router.push({
-      pathname: "habits",
+      pathname: router.query.category!.toString(),
       query: arrayFilter.join("&"),
     });
   }, [arrayFilter]);

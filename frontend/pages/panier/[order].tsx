@@ -22,12 +22,7 @@ const Completion = ({ order }: { order: Order }) => {
   }, []);
 
   const nbArticle = order.products.length > 1 && "s";
-
-  console.log(addDays(order.createdDate, 5));
-
-  console.log(order);
   
-
   return (
     <div className="p-2 md:p-10">
       <div className="shadow-md p-4 md:p-10 rounded-md border max-w-5xl mx-auto">

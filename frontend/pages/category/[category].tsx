@@ -54,11 +54,11 @@ export default function CategoryId({
           <p className="italic ">
             <Link href="/">{COMPANY_NAME}</Link> -{" "}
             <Link href="/category">Catégorie</Link> -
-            <span className="font-bold"> {capitalize(router.query.id)}</span>
+            <span className="font-bold"> {capitalize(router.query.category)}</span>
           </p>
         </div>
         <h1 className="text-2xl my-10 text-center title">
-          Tous nos produits de la catégorie : {capitalize(router.query.id)}
+          Tous nos produits de la catégorie : {capitalize(router.query.category)}
         </h1>
       </div>
 

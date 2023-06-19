@@ -60,6 +60,7 @@ const UserAccount = ({ user }: { user: User }) => {
           {tab === 1 ? (
             <>
               <UserInfo user={user} />
+              <h2 className="title text-xl mb-5">Localisation</h2>
               <UserAdress />
             </>
           ) : tab === 2 ? (

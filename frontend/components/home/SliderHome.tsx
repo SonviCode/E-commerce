@@ -12,7 +12,7 @@ const SliderHome = ({ products }: { products: productsData }) => {
   return (
     <div className="max-w-screen-2xl mx-auto p-5">
       <h2 className="titleHome">Les dernières nouveautés</h2>
-      <div className="flex py-5  items-center">
+      <div className="flex py-5  items-center justify-center">
         <Swiper
           modules={[Navigation, A11y]}
           className="mySwiper"
@@ -25,7 +25,7 @@ const SliderHome = ({ products }: { products: productsData }) => {
               slidesPerView: 2,
               spaceBetween: 20,
             },
-            721: {
+            670: {
               slidesPerView: 3,
               spaceBetween: 30,
             },
@@ -33,17 +33,15 @@ const SliderHome = ({ products }: { products: productsData }) => {
               slidesPerView: 3,
               spaceBetween: 50,
             },
-            1200: {
+            1060: {
               slidesPerView: 4,
               spaceBetween: 40,
             },
-            1550: {
-              slidesPerView: 4,
-              spaceBetween: 78,
+            1360: {
+              slidesPerView: 5,
+              spaceBetween: 40,
             },
           }}
-          onSlideChange={() => console.log("slide change")}
-          onSwiper={(swiper) => console.log(swiper)}
         >
           {products.map((el: productsItem, index: React.Key) => (
             <SwiperSlide key={index} className="max-w-[300px]">

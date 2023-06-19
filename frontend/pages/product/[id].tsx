@@ -226,6 +226,9 @@ export const getStaticProps: GetStaticProps<{ product: productsItem }> = async (
   const res = await fetch(URL_GET_PRODUCT + "/" + id);
   const product: productsItem = await res.json();
 
+  console.log(product);
+  
+
   return {
     props: {
       product,
@@ -239,6 +242,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   const ids = products.map((product: productsItem) => product.name);
   const paths = ids.map((id: string) => ({ params: { id: id.toString() } }));
+
+  console.log(paths);
+  
 
   return {
     paths,

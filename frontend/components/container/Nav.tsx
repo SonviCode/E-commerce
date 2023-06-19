@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as fs from "@fortawesome/free-solid-svg-icons";
 import * as fr from "@fortawesome/free-regular-svg-icons";
 import { useSelector } from "react-redux";
-import { productsItem, productsData } from "../../types/product";
+import { productsData } from "../../types/product";
 import { RootState } from "../../store/store";
 
 const Nav = () => {
@@ -64,18 +64,6 @@ const Nav = () => {
                 <h1 className="hidden md:block title">{COMPANY_NAME}</h1>
               </div>
             </Link>
-          </div>
-          <div className="flex flex-1">
-            <form className="hidden sm:flex bg-gray-100 py-2 px-4 rounded-md w-full">
-              <input
-                className="w-full bg-gray-100  outline-none"
-                type="text"
-                placeholder="Rechercher"
-              />
-              <button>
-                <i className="fa-solid fa-magnifying-glass"></i>
-              </button>
-            </form>
           </div>
           <div className="flex gap-5 items-center">
             <Link href="/favoris" className="relative">

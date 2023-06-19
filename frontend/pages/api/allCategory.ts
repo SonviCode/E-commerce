@@ -13,7 +13,7 @@ export default function handler(
 ) {
   res.status(200).json([
     {
-      name: "chausssures",
+      name: "chaussures",
       url: "/shoes.jpg",
       text: SHOES_CATEGORY,
       width: 800,
